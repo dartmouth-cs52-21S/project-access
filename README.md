@@ -17,6 +17,7 @@ Access is a web application that enables users to generate a portfolio website a
 ## Architecture
 
 TODO:  descriptions of code organization and tools and libraries used
+
 - Material-UI: https://material-ui.com/
 - Fab API: https://material-ui.com/api/fab/
 - Textareaautosize:https://material-ui.com/components/textarea-autosize/
@@ -26,11 +27,13 @@ TODO:  descriptions of code organization and tools and libraries used
 ## Setup
 
 TODO: how to get the project dev environment up and running, npm install etc
+
 - npm install
 - ejs
 - express
 - mongoose
 - bcrypt
+
 
 ## Deployment
 
@@ -46,14 +49,17 @@ TODO: how to deploy the project
 - The resume JSON will contain information that the user inputs into our frontend, including education, projects, work experience, technical skills, etc.
 
 
+
 ## Authors
 
 TODO:
+
 - Aadhya
 - Luca
 - Vico
 - Jaime
 - John
+
 
 ## Acknowledgments
 Professor Tregubov and Samiha Datta for their supervision of our project!
