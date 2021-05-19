@@ -11,7 +11,7 @@ const About = (props) => {
   return <div> All there is to know about me </div>;
 };
 const Welcome = (props) => {
-  return <div>Welcome</div>;
+  return <div>Hello World!</div>;
 };
 const Test = (props) => {
   return <div> ID: {props.match.params.id} </div>;
