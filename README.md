@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Project Name
 
 ![Team Photo](https://user-images.githubusercontent.com/51734801/117523005-6b8eda00-af84-11eb-88cc-781ae657319a.jpg)
@@ -22,3 +23,4 @@ TODO: how to deploy the project
 TODO: list of authors
 
 ## Acknowledgments
+
