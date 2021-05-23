@@ -4,6 +4,8 @@
 
 [*how?*](https://help.github.com/articles/about-readmes/#relative-links-and-image-paths-in-readme-files)
 
+[Api Link](https://github.com/dartmouth-cs52-21S/project-api-access/blob/master/README.md)
+
 TODO: short project description, some sample screenshots or mockups
 
 Access is a web application that enables users to generate a portfolio website automatically by filling in fields from their resume. Users will input information regarding their education, work experiences, projects, etc., and be returned a selection of website templates featuring different stylistic choices. This website will be automatically deployed by our application. 
@@ -12,6 +14,7 @@ Access is a web application that enables users to generate a portfolio website a
 
 <img width="540" alt="Screen Shot 2021-05-19 at 12 51 22 AM" src="https://user-images.githubusercontent.com/47261209/118758368-ee454e00-b83c-11eb-9e70-69e90ea483d2.png">
 
+[Figma](https://www.figma.com/file/rzPevXjui8fvEtwhwvw1wt/Mockups?node-id=0%3A1) 
 
 
 ## Architecture
@@ -48,6 +51,9 @@ TODO: how to deploy the project
 - resume: { type: JSON },
 - The resume JSON will contain information that the user inputs into our frontend, including education, projects, work experience, technical skills, etc.
 
+## Issues
+
+Created specific to dos that breaks website pages into smaller chunks. See milestones for things we wish to accomplish.
 
 
 ## Authors
