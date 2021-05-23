@@ -53,7 +53,12 @@ TODO: how to deploy the project
 
 ## Issues
 
-Created specific to dos that breaks website pages into smaller chunks. See milestones for things we wish to accomplish.
+Created specific to dos that breaks website pages into smaller chunks. See milestones for things we wish to accomplish. Notes taken while deciding this:
+
+<img width="540" alt="Screenshot 2021-05-22 at 11 35 48 PM" src="https://user-images.githubusercontent.com/51734801/119247330-80f42e80-bb56-11eb-833a-946373c624b9.png">
+
+<img width="542" alt="Screenshot 2021-05-22 at 11 35 57 PM" src="https://user-images.githubusercontent.com/51734801/119247331-818cc500-bb56-11eb-95c8-446a8911aca8.png">
+
 
 
 ## Authors
