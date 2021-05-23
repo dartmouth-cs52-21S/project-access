@@ -4,7 +4,6 @@ const ROOT_URL = 'http://localhost:9090/api';
 
 // keys for actiontypes
 export const ActionTypes = {
-  FETCH_POSTS: 'FETCH_POSTS',
   FETCH_POST: 'FETCH_POST',
   UPDATE_POST: 'UPDATE_POST',
   CREATE_POST: 'CREATE_POST',
@@ -18,17 +17,18 @@ export const ActionTypes = {
   FETCH_USER: 'FETCH_USER',
 };
 
-export function increment() {
-  return {
-    type: ActionTypes.INCREMENT,
-    payload: null,
-  };
-}
-
-export function decrement() {
-  return {
-    type: ActionTypes.DECREMENT,
-    payload: null,
+export function fetchPost(templateId, userId) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/portfolio/${templateId}${userId}`)
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+        dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
+      })
+      .catch((error) => {
+        console.log('fetch one post error found');
+        console.log(error);
+        dispatch({ type: ActionTypes.ERROR_FETCH_POST, payload: error });
+      });
   };
 }
 
@@ -76,4 +76,14 @@ export function signupUser({ email, password, name }, history) {
   //  dispatch({ type: ActionTypes.AUTH_USER });
   //  localStorage.setItem('token', response.data.token);
   // on error should dispatch(authError(`Sign Up Failed: ${error.response.data}`));
+}
+
+// deletes token from localstorage
+// and deauths
+export function signoutUser(history) {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch({ type: ActionTypes.DEAUTH_USER });
+    history.push('/');
+  };
 }

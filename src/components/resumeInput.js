@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../style.scss';
 
-class profile extends Component {
+class resumeInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,4 +15,4 @@ class profile extends Component {
   }
 }
 
-export default profile;
+export default resumeInput;

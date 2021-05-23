@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../style.scss';
 
-class profile extends Component {
+class customize extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,9 +10,11 @@ class profile extends Component {
 
   render() {
     return (
-      <div>Profile Page</div>
+      <div>Edit your portfolio
+        <button type="button">Save</button>
+      </div>
     );
   }
 }
 
-export default profile;
+export default customize;

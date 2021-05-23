@@ -11,8 +11,6 @@ import {
   NavLink,
 } from 'react-router-dom';
 
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { signoutUser } from '../actions';
 
 class NavBar extends Component {
@@ -24,7 +22,7 @@ class NavBar extends Component {
 
   displayNav = (props) => {
     console.log(this.props.auth);
-    let auth = this.props.auth; // temporary placeholder. to be removed once the authentication action has been created
+    let { auth } = this.props; // temporary placeholder. to be removed once the authentication action has been created
     auth = true;
     if (auth) {
       return (
@@ -43,7 +41,9 @@ class NavBar extends Component {
           <ul>
             <NavLink exact to="/"><h1>resumov</h1></NavLink>
             <NavLink exact to="/signin"><h1>Sign In</h1></NavLink>
-            <NavLink exact to="/signup"><h1>Signup</h1></NavLink>
+            <NavLink exact to="/signup"><h1>Sign Up</h1></NavLink>
+            <NavLink exact to="/profile"><h1>Profile</h1></NavLink>
+            <NavLink exact to="/resume"><h1>Resume</h1></NavLink>
           </ul>
         </nav>
       );
