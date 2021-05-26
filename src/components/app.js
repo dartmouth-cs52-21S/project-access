@@ -6,13 +6,13 @@ import {
 } from 'react-router-dom';
 import NavBar from './navbar';
 import Profile from './profile';
-import LandingPage from './landingpage';
-import SignIn from './sign-in';
-import SignUp from './sign-up';
+import LandingPage from './landing_page';
+import SignIn from './sign_in';
+import SignUp from './sign_up';
 import Customize from './customize';
-import ChooseTemplate from './chooseTemplate';
-import existingPortfolios from './existingPortfolios';
-import resumeInput from './resumeInput';
+import ChooseTemplate from './choose_template';
+import existingPortfolios from './existing_portfolios';
+import resumeInput from './resume_input';
 
 const App = (props) => {
   return (

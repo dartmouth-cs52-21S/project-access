@@ -31,6 +31,10 @@ class NavBar extends Component {
             <NavLink exact to="/"><h1>resumov</h1></NavLink>
             {/* userID to get from signing in and storing the userID in redux? */}
             <NavLink to="/profile/:userID">Profile</NavLink>
+            <NavLink exact to="/"><h1>resumov</h1></NavLink>
+            <NavLink exact to="/signout"><h1>Sign Out</h1></NavLink>
+            <NavLink exact to="/signup"><h1>Sign Up</h1></NavLink>
+            <NavLink exact to="/resume"><h1>Resume</h1></NavLink>
             <div onClick={() => { this.props.signoutUser(this.props.history); }}><h1>Signout</h1></div>
           </ul>
         </nav>

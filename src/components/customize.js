@@ -11,6 +11,16 @@ class customize extends Component {
   render() {
     return (
       <div>Edit your portfolio
+        <div className="customize_content">
+          <div className="education">
+            <h3>Education</h3>
+          </div>
+        </div>
+        <div className="customize_appear">
+          <div className="body_color">
+            <h3>Body color</h3>
+          </div>
+        </div>
         <button type="button">Save</button>
       </div>
     );
