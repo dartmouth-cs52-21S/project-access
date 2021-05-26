@@ -9,6 +9,7 @@ export const ActionTypes = {
   UPDATE_POST: 'UPDATE_POST',
   DELETE_POST: 'DELETE_POST',
   ERROR_FETCH_POST: 'ERROR_FETCH_POST',
+  ERROR_SET: 'ERROR_SET',
   ERROR_CLEAR: 'ERROR_CLEAR',
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
@@ -44,6 +45,21 @@ export function createPortfolio(templateId, {
       .catch((error) => {
         console.log('create portfolio error found');
         console.log(error);
+      });
+  };
+}
+
+export function fetchPortfolio(templateId) {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/portfolio/${templateId}`)
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_POST, payload: response.data });
+        dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
+      })
+      .catch((error) => {
+        console.log('fetch one post error found');
+        console.log(error);
+        dispatch({ type: ActionTypes.ERROR_SET, payload: error });
       });
   };
 }
