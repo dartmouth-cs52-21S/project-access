@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+/*
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { createPortfolio } from '../actions';
+import { selectedtemplate } from '../actions';
 
 class ChooseTemplate extends Component {
   constructor(props) {
@@ -40,4 +41,5 @@ const mapStateToProps = (reduxState) => ({
   templateOptions: reduxState.templates.options,
 });
 
-export default withRouter(connect(mapStateToProps, { createPortfolio })(ChooseTemplate));
+export default withRouter(connect(mapStateToProps, { selectedtemplate })(ChooseTemplate));
+*/

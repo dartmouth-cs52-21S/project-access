@@ -1,43 +1,70 @@
-/* eslint-disable react/button-has-type */
+/* eslint-disable no-alert */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/jsx-filename-extension */
-import React, { Component } from 'react';
-import '../style.scss';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
 import { signinUser } from '../actions';
+import '../style.scss';
 
-class SignIn extends Component {
+class signIn extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: '',
-      password: '',
+
+    this.user = {
+      email: null,
+      password: null,
     };
   }
 
-  handlePassword = (event) => {
-    this.setState({ password: event.target.value });
+  componentDidMount() {
+    this.user = {
+      email: null,
+      password: null,
+    };
   }
 
-  handleUsername = (event) => {
-    this.setState({ email: event.target.value });
+  OnInputChangeEmail = (event) => {
+    this.user = { ...this.user, email: event.target.value };
+  }
+
+  OnInputChangePassword = (event) => {
+    this.user = { ...this.user, password: event.target.value };
+  }
+
+  submitinfo = () => {
+    // this.props.signinUser(this.user, this.props.history);
+    console.log(this.user);
   }
 
   render() {
+    let ERROR = null;
+
+    if (this.props.autherr === 'Unauthorized') {
+      ERROR = 'Your email or password is incorrect';
+    } else if (this.props.autherr === 'Bad Request') {
+      ERROR = 'Please input your email and password';
+    }
+
     return (
-      <form>
-        Username:
-        <input type="text" name="username" onChange={this.handleUsername} />
-        Password:
-        <input type="text" name="password" onChange={this.handlePassword} />
-        <div className="sign-button" onClick={() => { this.props.signinUser(this.state, this.props.history); }}>Sign In</div>
-      </form>
+      <div id="signin_up">
+        <div>
+          <h1 id="signin_up_title">Sign In</h1>
+          <h2>Email</h2>
+          <TextareaAutosize id="utextinput" onChange={this.OnInputChangeEmail} placeholder="Email" />
+          <h2>Password</h2>
+          <TextareaAutosize id="utextinput" onChange={this.OnInputChangePassword} placeholder="Password" />
+        </div>
+        <div>
+          <div className="sign-button" onClick={this.submitinfo}>Sign In</div>
+        </div>
+        {ERROR}
+      </div>
     );
   }
 }
+const mapStateToProps = (reduxState) => ({
+  autherr: reduxState.auth.autherr,
+});
 
-export default withRouter(connect(null, { signinUser })(SignIn));
+export default withRouter(connect(mapStateToProps, { signinUser })(signIn));

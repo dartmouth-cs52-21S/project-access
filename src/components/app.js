@@ -6,13 +6,13 @@ import {
 } from 'react-router-dom';
 import NavBar from './navbar';
 import Profile from './profile';
-import LandingPage from './landingpage';
-import SignIn from './sign-in';
-import SignUp from './sign-up';
+import LandingPage from './landing_page';
+import SignIn from './sign_in';
+import SignUp from './sign_up';
 import Customize from './customize';
-import ChooseTemplate from './chooseTemplate';
-import existingPortfolios from './existingPortfolios';
-import resumeInput from './resumeInput';
+import ChooseTemplate from './choose_template';
+import existingPortfolios from './existing_portfolios';
+import resumeInput from './input_resume';
 
 const App = (props) => {
   return (
@@ -22,12 +22,12 @@ const App = (props) => {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/profile/:userID" component={Profile} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/temp1" component={SignIn} />
+          <Route path="/temp2" component={SignUp} />
           <Route path="/signup" component={Customize} />
           <Route path="/signup" component={ChooseTemplate} />
           <Route path="/signup" component={existingPortfolios} />
-          <Route path="/signup" component={resumeInput} />
+          <Route path="/temp" component={resumeInput} />
           <Route render={() => (<div>post not found</div>)} />
         </Switch>
       </div>

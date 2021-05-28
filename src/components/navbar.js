@@ -4,7 +4,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
-import '../style.scss';
+import './navbar_style.scss';
 import { connect } from 'react-redux';
 import {
   withRouter,
@@ -38,7 +38,7 @@ class NavBar extends Component {
     } else {
       return (
         <nav>
-          <ul>
+          <ul className="navbar">
             <NavLink exact to="/"><h1>resumov</h1></NavLink>
             <NavLink exact to="/signin"><h1>Sign In</h1></NavLink>
             <NavLink exact to="/signup"><h1>Sign Up</h1></NavLink>
