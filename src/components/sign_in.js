@@ -33,8 +33,9 @@ class signIn extends Component {
   }
 
   submitinfo = () => {
-    // this.props.signinUser(this.user, this.props.history);
-    console.log(this.user);
+    this.props.signinUser(this.user, this.props.history);
+    console.log(this.props.history);
+    // console.log(this.user);
   }
 
   render() {

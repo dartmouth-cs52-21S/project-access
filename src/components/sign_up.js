@@ -47,7 +47,7 @@ class signUp extends Component {
   }
 
   submitinfo = () => {
-    // this.props.signupUser(this.user, this.props.history);
+    this.props.signupUser(this.user, this.props.history);
     if (this.user.confirmpassword === this.user.password) {
       console.log(this.user);
     } else {

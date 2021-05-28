@@ -83,12 +83,16 @@ export function signinUser({ email, password }, history) {
   };
 }
 
-export function signupUser({ email, password, name }, history) {
+export function signupUser({
+  firstName, lastName, email, password,
+}, history) {
   // takes in an object with email and password (minimal user object)
   // returns a thunk method that takes dispatch as an argument (just like our create post method really)
   console.log(email);
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password, name }).then((response) => {
+    axios.post(`${ROOT_URL}/signup`, {
+      firstName, lastName, email, password,
+    }).then((response) => {
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
       history.push('/');

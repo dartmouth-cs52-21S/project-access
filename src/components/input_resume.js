@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import './input_resume_style.scss';
-import { useFieldArray, useForm } from 'react-hook-form';
+// import { useFieldArray, useForm } from 'react-hook-form';
 
 function InputResume() {
   const [name, setName] = useState('');
