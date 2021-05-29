@@ -52,7 +52,7 @@ export function createPortfolio(templateId, {
 
 export function fetchPortfolio(portfolioId) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/portfolios/${portfolioId}`)
+    axios.get(`${ROOT_URL}/portfolios/${portfolioId}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PORTFOLIO, payload: response.data });
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
@@ -67,7 +67,7 @@ export function fetchPortfolio(portfolioId) {
 
 export function fetchPortfolios() {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/portfolios`)
+    axios.get(`${ROOT_URL}/portfolios`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PORTFOLIOS, payload: response.data });
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });

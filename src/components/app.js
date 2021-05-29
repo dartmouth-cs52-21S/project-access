@@ -26,8 +26,7 @@ const App = (props) => {
           <PrivateRoute exact path="/resume/:userID" component={InputResume} />
           <PrivateRoute exact path="/templates" component={ChooseTemplate} />
           <PrivateRoute exact path="/portfolios" component={ExistingPortfolios} />
-          <PrivateRoute exact path="/portfolios/:id" component={Portfolio} />
-
+          {/* <PrivateRoute exact path="/portfolios/:id" component={Portfolio} /> */}
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
           {/* <Route path="/signup" component={Customize} />
