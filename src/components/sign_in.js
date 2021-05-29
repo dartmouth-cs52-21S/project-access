@@ -1,71 +1,73 @@
-/* eslint-disable no-alert */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import React, { Component } from 'react';
+import { withRouter, Link } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
-import { signinUser } from '../actions';
-import '../style.scss';
+import { signinUser, signoutUser } from '../actions';
 
-class signIn extends Component {
-  constructor(props) {
-    super(props);
+const SignIn = (props) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('Make sure to fill all fields');
 
-    this.user = {
-      email: null,
-      password: null,
-    };
-  }
+  // Learned from Thomas in CS52 TA hours
+  const onChangeHandler = (setter) => (e) => setter(e.target.value);
 
-  componentDidMount() {
-    this.user = {
-      email: null,
-      password: null,
-    };
-  }
-
-  OnInputChangeEmail = (event) => {
-    this.user = { ...this.user, email: event.target.value };
-  }
-
-  OnInputChangePassword = (event) => {
-    this.user = { ...this.user, password: event.target.value };
-  }
-
-  submitinfo = () => {
-    this.props.signinUser(this.user, this.props.history);
-    console.log(this.props.history);
-    // console.log(this.user);
-  }
-
-  render() {
-    let ERROR = null;
-
-    if (this.props.autherr === 'Unauthorized') {
-      ERROR = 'Your email or password is incorrect';
-    } else if (this.props.autherr === 'Bad Request') {
-      ERROR = 'Please input your email and password';
+  function onSubmitClick() {
+    if (email !== '' && password !== '') {
+      props.signinUser({ email, password }, props.history);
+    } else if (email === '') {
+      setError('Missing Email!');
+    } else if (password === '') {
+      setError('Missing Password!');
+    } else {
+      setError('Missing Information, check again');
     }
+  }
 
+  function onSignOutClick() {
+    props.signoutUser(props.history);
+  }
+
+  if (props.authenticated) {
     return (
-      <div id="signin_up">
-        <div>
-          <h1 id="signin_up_title">Sign In</h1>
-          <h2>Email</h2>
-          <TextareaAutosize id="utextinput" onChange={this.OnInputChangeEmail} placeholder="Email" />
-          <h2>Password</h2>
-          <TextareaAutosize id="utextinput" onChange={this.OnInputChangePassword} placeholder="Password" />
+      <div className="input_div">
+        <h2>Sign Out</h2>
+        <p>It looks like you are already signed in.</p>
+        <p>Would you like to sign out now?</p>
+        <div className="input_btn_div">
+          <button type="button" onClick={onSignOutClick} id="submit_btn">Sign Out</button>
+          <Link to="/">
+            <button type="button">Cancel</button>
+          </Link>
         </div>
-        <div>
-          <div className="sign-button" onClick={this.submitinfo}>Sign In</div>
+      </div>
+    );
+  } else {
+    return (
+      <div className="input_div">
+        <h2>Sign In </h2>
+        <p id="error_msg">{error}</p>
+        <p>Email</p>
+        {/* Adated from https://github.com/Andarist/react-textarea-autosize */}
+        <TextareaAutosize id="input_email" placeholder="User Email" onChange={onChangeHandler(setEmail)} value={email} />
+        <p>Username</p>
+        <TextareaAutosize id="input_password" placeholder="user Password" onChange={onChangeHandler(setPassword)} value={password} />
+        <div className="input_btn_div">
+          <button type="button" onClick={onSubmitClick} id="submit_btn">Sign In</button>
+          <Link to="/">
+            <button type="button">Cancel</button>
+          </Link>
         </div>
-        {ERROR}
       </div>
     );
   }
-}
-const mapStateToProps = (reduxState) => ({
-  autherr: reduxState.auth.autherr,
-});
+};
 
-export default withRouter(connect(mapStateToProps, { signinUser })(signIn));
+const mapStateToProps = (reduxState) => {
+  return {
+    error: reduxState.errors.error,
+    authenticated: reduxState.auth.authenticated,
+  };
+};
+
+export default withRouter(connect(mapStateToProps, { signinUser, signoutUser })(SignIn));

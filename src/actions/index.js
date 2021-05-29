@@ -40,7 +40,6 @@ export function createPortfolio(templateId, {
     }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.CREATE_PORTFOLIO, payload: response.data });
-        localStorage.setItem('token', response.data.token);
         history.push('/');
       })
       .catch((error) => {
@@ -146,6 +145,7 @@ export function signupUser({
 // deletes token from localstorage
 // and deauths
 export function signoutUser(history) {
+  console.log('sign out ugh');
   return (dispatch) => {
     localStorage.removeItem('token');
     dispatch({ type: ActionTypes.DEAUTH_USER });

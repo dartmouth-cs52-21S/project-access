@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
@@ -12,31 +13,33 @@ function ExistingPortfolios(props) {
     props.fetchPortfolios();
   }, []);
 
-  const [searchWord, setSearch] = useState(''); // this is for searching if we want a search bar
+  // const [searchWord, setSearch] = useState(''); // this is for searching if we want a search bar
   // Learned from Thomas in CS52 TA hours
-  const onChangeHandler = (setter) => (e) => setter(e.target.value);
+  // const onChangeHandler = (setter) => (e) => setter(e.target.value);
 
   if (props.all == null) {
     return (<div />);
   } else {
     return (
       <div>
-        <input type="text" tabIndex={0} value={searchWord} onChange={onChangeHandler(setSearch)} placeholder="Search portfolio" />
+        {/* <input type="text" tabIndex={0} value={searchWord} onChange={onChangeHandler(setSearch)} placeholder="Search portfolio name" /> */}
         <div id="post_div"> {
-        props.all.filter((template) => {
-          if (template.title.includes(searchWord)) {
-            return template;
-          }
-          return null;
-        }).map((template) => {
-          return (
-            <Link to={`posts/${template._id}`} className="post_link" key={template._id}>
-              <div className="template" key={template._id} id="template">
-                <ReactMarkdown>{template.title}</ReactMarkdown>
-              </div>
-            </Link>
-          );
-        })
+        props.all
+        // .filter((portfolio) => {
+          // if (portfolio.title.includes(searchWord)) {
+          //   return portfolio;
+          // }
+          // return null;
+        // })
+          .map((portfolio) => {
+            return (
+              <Link to={`posts/${portfolio._id}`} className="post_link" key={portfolio._id}>
+                <div className="template" key={portfolio._id} id="template">
+                  <ReactMarkdown>{portfolio.title}</ReactMarkdown>
+                </div>
+              </Link>
+            );
+          })
       }
         </div>
       </div>
@@ -46,7 +49,7 @@ function ExistingPortfolios(props) {
 
 function mapStateToProps(reduxState) {
   return {
-    all: reduxState.template.all,
+    all: reduxState.portfolio.all,
   };
 }
 
