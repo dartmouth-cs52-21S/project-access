@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import '../style.scss';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { updatePortfolio } from '../actions';
 
 class customize extends Component {
   constructor(props) {
@@ -7,6 +10,10 @@ class customize extends Component {
     this.state = {
     };
   }
+
+  // onEditClick = () => {
+  //   this.props.updatePost(fields, portfolioId);
+  // }
 
   render() {
     return (
@@ -21,10 +28,14 @@ class customize extends Component {
             <h3>Body color</h3>
           </div>
         </div>
-        <button type="button">Save</button>
+        <button type="button" onClick={this.onEditClick}>Save</button>
       </div>
     );
   }
 }
 
-export default customize;
+const mapStateToProps = (reduxState) => ({
+  templateOptions: reduxState.templates.options,
+});
+
+export default withRouter(connect(mapStateToProps, { updatePortfolio })(customize));

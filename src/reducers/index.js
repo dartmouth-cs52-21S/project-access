@@ -5,13 +5,13 @@ import { combineReducers } from 'redux';
 import CountReducer from './count-reducer';
 import ErrorReducer from './error-reducer';
 import AuthReducer from './auth-reducer';
-import TemplateReducer from './template-reducer';
+import PortfolioReducer from './portfolio-reducer';
 
 const rootReducer = combineReducers({
   count: CountReducer,
   errors: ErrorReducer,
   auth: AuthReducer,
-  template: TemplateReducer,
+  portfolio: PortfolioReducer,
 });
 
 export default rootReducer;

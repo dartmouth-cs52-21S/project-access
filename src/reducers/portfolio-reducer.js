@@ -5,7 +5,7 @@ const initialState = {
   current: {},
 };
 
-const TemplateReducer = (state = initialState, action) => {
+const PortfolioReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.FETCH_PORTFOLIOS:
       return { ...state, all: action.payload };
@@ -16,4 +16,4 @@ const TemplateReducer = (state = initialState, action) => {
   }
 };
 
-export default TemplateReducer;
+export default PortfolioReducer;
