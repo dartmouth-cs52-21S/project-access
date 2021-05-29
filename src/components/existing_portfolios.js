@@ -7,7 +7,7 @@ import '../style.scss';
 
 // copy pasted from Aadhya's code but does not function yet
 
-function existingPortfolios(props) {
+function ExistingPortfolios(props) {
   useEffect(() => {
     props.fetchPortfolios();
   }, []);
@@ -50,4 +50,4 @@ function mapStateToProps(reduxState) {
   };
 }
 
-export default connect(mapStateToProps, { fetchPortfolios })(existingPortfolios);
+export default connect(mapStateToProps, { fetchPortfolios })(ExistingPortfolios);
