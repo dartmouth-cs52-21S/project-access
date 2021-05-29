@@ -5,16 +5,18 @@ const ROOT_URL = 'http://localhost:9090/api';
 // keys for actiontypes
 export const ActionTypes = {
   CREATE_PORTFOLIO: 'CREATE_PORTFOLIO',
+  FETCH_PORTFOLIOS: 'FETCH_PORTFOLIOS',
   FETCH_PORTFOLIO: 'FETCH_PORTFOLIO',
   UPDATE_PORTFOLIO: 'UPDATE_PORTFOLIO',
-  ERROR_FETCH_POST: 'ERROR_FETCH_POST',
+  DELETE_PORTFOLIO: 'DELETE_PORTFOLIO',
+  // ERROR_FETCH_POST: 'ERROR_FETCH_POST',
   ERROR_SET: 'ERROR_SET',
   ERROR_CLEAR: 'ERROR_CLEAR',
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
-  FETCH_USERS: 'FETCH_USERS',
-  FETCH_USER: 'FETCH_USER',
+  // FETCH_USERS: 'FETCH_USERS',
+  // FETCH_USER: 'FETCH_USER',
 };
 
 export function authError(error) {
@@ -48,9 +50,9 @@ export function createPortfolio(templateId, {
   };
 }
 
-export function fetchPortfolio(templateId) {
+export function fetchPortfolio(portfolioId) {
   return (dispatch) => {
-    axios.get(`${ROOT_URL}/portfolio/${templateId}`)
+    axios.get(`${ROOT_URL}/portfolios/${portfolioId}`)
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PORTFOLIO, payload: response.data });
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
@@ -63,13 +65,24 @@ export function fetchPortfolio(templateId) {
   };
 }
 
-export function updatePortfolio({
-  firstName, lastName, email, password, portfolioIds, resume,
-}) {
+export function fetchPortfolios() {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/posts/${portfolioIds}`, {
-      firstName, lastName, email, password, portfolioIds, resume,
-    }, { headers: { authorization: localStorage.getItem('token') } })
+    axios.get(`${ROOT_URL}/portfolios`)
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_PORTFOLIOS, payload: response.data });
+        dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
+      })
+      .catch((error) => {
+        console.log('fetch portfolios error found');
+        console.log(error);
+        dispatch({ type: ActionTypes.ERROR_SET, payload: error });
+      });
+  };
+}
+
+export function updatePortfolio(templates, portfolioId) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/posts/${portfolioId}}`, templates, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PORTFOLIO, payload: response.data });
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
@@ -78,6 +91,20 @@ export function updatePortfolio({
         console.log('update portfolio error found');
         console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, payload: error });
+      });
+  };
+}
+
+export function deletePortfolio(portfolioId, history) {
+  return (dispatch) => {
+    axios.delete(`${ROOT_URL}/posts/${portfolioId}`, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.DELETE_PORTFOLIO, payload: response.data });
+        history.push('/');
+      })
+      .catch((error) => {
+        console.log('delete portfolio error found');
+        console.log(error);
       });
   };
 }
@@ -97,12 +124,16 @@ export function signinUser({ email, password }, history) {
   };
 }
 
-export function signupUser({ email, password, name }, history) {
+export function signupUser({
+  firstName, lastName, email, password,
+}, history) {
   // takes in an object with email and password (minimal user object)
   // returns a thunk method that takes dispatch as an argument (just like our create post method really)
   console.log(email);
   return (dispatch) => {
-    axios.post(`${ROOT_URL}/signup`, { email, password, name }).then((response) => {
+    axios.post(`${ROOT_URL}/signup`, {
+      firstName, lastName, email, password,
+    }).then((response) => {
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
       history.push('/');
