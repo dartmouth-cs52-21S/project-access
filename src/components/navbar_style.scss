@@ -1,0 +1,10 @@
+body, html {
+    font-family: 'Raleway', sans-serif;
+    height: 100%;
+}
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
