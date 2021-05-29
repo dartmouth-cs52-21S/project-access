@@ -31,12 +31,12 @@ export function authError(error) {
 // };
 
 export function createPortfolio(templateId, {
-  firstName, lastName, email, password, portfolioIds, resume,
+  firstName, lastName, email, password, portfolioIds, resume, portfolioName,
 }, history) {
   return (dispatch) => {
     // axios.post(`${ROOT_URL}/portfolio/${templateId}${firstName}${lastName}`, {
     axios.post(`${ROOT_URL}/portfolio/${templateId}`, {
-      firstName, lastName, email, password, portfolioIds, resume,
+      firstName, lastName, email, password, portfolioIds, resume, portfolioName,
     }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.CREATE_PORTFOLIO, payload: response.data });
