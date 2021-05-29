@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import '../style.scss';
 
-class profile extends Component {
+import {
+  NavLink,
+} from 'react-router-dom';
+
+// Profile page commponent that displays username, email, and provides routed
+// options to create, print, edit resume, as well as settings and logout
+
+class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // user: '',
     };
   }
+
+  // this.usernameretreive = () => {
+  //   getUser
+  // }
 
   render() {
     return (
@@ -16,24 +28,35 @@ class profile extends Component {
             <img src="" alt="none" />
           </div>
           <div className="profile-info">
-            <div className="profile-info-name">Arista Williams</div>
+            <div className="profile-info-name">{this.usernameretreive()}</div>
             <div className="profile-info-email">arista.williams.22@dartmouth.edu</div>
           </div>
         </div>
         <div className="view-portfolios">
-          View All Portfolios
+          <NavLink exact to="/portfolios">
+            <button className="button" type="button">View All Portfolios</button>
+          </NavLink>
         </div>
         <div className="create-portfolio">
-          Create New Portfolio
+          <NavLink exact to="/resume">
+            <button className="button" type="button">Create New Portolio</button>
+          </NavLink>
         </div>
         <div className="print-resume">
-          Print Resume
+          {/* Link to print resume to be done */}
+          <NavLink exact to="/">
+            <button className="button" type="button">Print Resume</button>
+          </NavLink>
         </div>
         <div className="edit-resume">
-          Edit Resume
+          <NavLink exact to="/resume">
+            <button className="button" type="button">Edit Resume</button>
+          </NavLink>
         </div>
         <div className="settings">
-          Settings
+          <NavLink exact to="/templates">
+            <button className="button" type="button">Settings</button>
+          </NavLink>
         </div>
         <div className="logout">
           Logout
@@ -43,4 +66,4 @@ class profile extends Component {
   }
 }
 
-export default profile;
+export default Profile;
