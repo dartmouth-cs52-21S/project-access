@@ -40,7 +40,6 @@ export function createPortfolio(templateId, {
     }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.CREATE_PORTFOLIO, payload: response.data });
-        localStorage.setItem('token', response.data.token);
         history.push('/');
       })
       .catch((error) => {
