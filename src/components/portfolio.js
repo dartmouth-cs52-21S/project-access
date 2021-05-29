@@ -23,7 +23,7 @@ class Portfolio extends Component {
 }
 
 const mapStateToProps = (reduxState) => ({
-  curr: reduxState.portfolios.current,
+  curr: reduxState.portfolio.current,
 });
 
 export default withRouter(connect(mapStateToProps, { fetchPortfolio })(Portfolio));

@@ -14,6 +14,7 @@ import PrivateRoute from './private_route';
 import ChooseTemplate from './choose_template';
 import ExistingPortfolios from './existing_portfolios';
 import InputResume from './input_resume';
+import Portfolio from './portfolio';
 
 const App = (props) => {
   return (
