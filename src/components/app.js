@@ -22,7 +22,7 @@ const App = (props) => {
         <NavBar />
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <PrivateRoute exact path="/profile/:userID" component={Profile} />
+          <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/resume/:userID" component={InputResume} />
           <PrivateRoute exact path="/templates" component={ChooseTemplate} />
           <PrivateRoute exact path="/portfolios" component={ExistingPortfolios} />
