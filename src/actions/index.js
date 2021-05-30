@@ -132,9 +132,25 @@ export function getUserResume() {
     axios.get(`${ROOT_URL}/resume`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_RESUME, payload: response.data });
+        console.log(response.data);
       })
       .catch((error) => {
         console.log('get user resume error found');
+        console.log(error);
+      });
+  };
+}
+
+export function updateUserResume(resumeFields) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/resume`, { ...resumeFields }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        console.log('before resumeFields', { ...resumeFields });
+        dispatch({ type: ActionTypes.UPDATE_RESUME, payload: response.data });
+        console.log('resumeFields', { ...resumeFields });
+      })
+      .catch((error) => {
+        console.log('put user resume error found');
         console.log(error);
       });
   };
@@ -150,21 +166,6 @@ export function getUserProfile() {
       })
       .catch((error) => {
         console.log('get profile error found');
-        console.log(error);
-      });
-  };
-}
-
-export function updateUserResume({ resumeFields }) {
-  return (dispatch) => {
-    axios.put(`${ROOT_URL}/resume`, { resumeFields }, { headers: { authorization: localStorage.getItem('token') } })
-      .then((response) => {
-        console.log('before resumeFields', resumeFields);
-        dispatch({ type: ActionTypes.UPDATE_RESUME, payload: response.data });
-        console.log('resumeFields', resumeFields);
-      })
-      .catch((error) => {
-        console.log('put user resume error found');
         console.log(error);
       });
   };

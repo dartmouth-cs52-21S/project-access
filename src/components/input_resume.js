@@ -27,7 +27,7 @@ function InputResume(props) {
   }]);
 
   useEffect(() => {
-    // props.getUserResume();
+    props.getUserResume();
   });
 
   const updateName = (value) => {
@@ -100,11 +100,8 @@ function InputResume(props) {
   };
 
   const submitresume = (event) => {
-    console.log(event);
-    const resumeFields = {
-      name, phone, email, linkedIn, education, research,
-    };
-    props.updateUserResume(resumeFields);
+    console.log('resumeFields', event);
+    props.updateUserResume(event);
   };
 
   return (
