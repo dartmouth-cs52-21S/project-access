@@ -7,6 +7,7 @@ import ErrorReducer from './error-reducer';
 import AuthReducer from './auth-reducer';
 import PortfolioReducer from './portfolio-reducer';
 import TemplateReducer from './template-reducer';
+import ResumeReducer from './resume-reducer';
 
 const rootReducer = combineReducers({
   count: CountReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   auth: AuthReducer,
   portfolio: PortfolioReducer,
   template: TemplateReducer,
+  resume: ResumeReducer,
 });
 
 export default rootReducer;

@@ -16,6 +16,8 @@ export const ActionTypes = {
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
   FETCH_TEMPLATES: 'FETCH_TEMPLATES',
+  FETCH_RESUME: 'FETCH_RESUME',
+  UPDATE_RESUME: 'UPDATE_RESUME',
   // FETCH_USERS: 'FETCH_USERS',
   // FETCH_USER: 'FETCH_USER',
 };
@@ -118,6 +120,32 @@ export function deletePortfolio(portfolioId, history) {
       })
       .catch((error) => {
         console.log('delete portfolio error found');
+        console.log(error);
+      });
+  };
+}
+
+export function getUserResume() {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/resume`, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_RESUME, payload: response.data });
+      })
+      .catch((error) => {
+        console.log('get user resume error found');
+        console.log(error);
+      });
+  };
+}
+
+export function updateUserResume(resumeFields) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/resume`, { resumeFields }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.UPDATE_RESUME, payload: response.data });
+      })
+      .catch((error) => {
+        console.log('put user resume error found');
         console.log(error);
       });
   };
