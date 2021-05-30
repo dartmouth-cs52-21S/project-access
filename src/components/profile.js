@@ -1,7 +1,9 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import '../style.scss';
-
+import { connect } from 'react-redux';
 import {
+  withRouter,
   NavLink,
 } from 'react-router-dom';
 
@@ -12,10 +14,13 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // user: '',
+      user: '',
     };
   }
 
+  componentDidMount = (props) => {
+    // this.props.fetchTemplates();
+  }
   // this.usernameretreive = () => {
   //   getUser
   // }
@@ -28,7 +33,7 @@ class Profile extends Component {
             <img src="" alt="none" />
           </div>
           <div className="profile-info">
-            <div className="profile-info-name">{this.usernameretreive()}</div>
+            <div className="profile-info-name">{}</div>
             <div className="profile-info-email">arista.williams.22@dartmouth.edu</div>
           </div>
         </div>
@@ -58,12 +63,14 @@ class Profile extends Component {
             <button className="button" type="button">Settings</button>
           </NavLink>
         </div>
-        <div className="logout">
-          Logout
-        </div>
       </div>
     );
   }
 }
 
-export default Profile;
+const mapStateToProps = (reduxState) => ({
+  user: reduxState.
+});
+
+// export default Profile;
+export default withRouter(connect(mapStateToProps, { getUser })(Profile));
