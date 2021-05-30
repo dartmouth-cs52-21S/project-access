@@ -26,11 +26,11 @@ const App = (props) => {
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/resume" component={InputResume} />
           <PrivateRoute exact path="/templates" component={ChooseTemplate} />
+          <Route exact path="/portfolios/:id" component={Portfolio} />
           <PrivateRoute exact path="/portfolios" component={ExistingPortfolios} />
           <PrivateRoute exact path="/portfolios/edit/:id" component={Customize} />
           {/* <PrivateRoute exact path="/portfolios/:id" component={Portfolio} /> */}
           {/* Anyone can view Portfolio. Does not need PrivateRoute */}
-          <Route exact path="/portfolios/:id" component={Portfolio} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
           {/* <Route path="/signup" component={Customize} />

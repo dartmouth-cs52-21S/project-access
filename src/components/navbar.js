@@ -28,7 +28,7 @@ class NavBar extends Component {
       return (
         <nav>
           <ul>
-            <NavLink exact to="/"><h1>resumov</h1></NavLink>
+            <NavLink className="resumov" exact to="/"><h1>Resumov</h1></NavLink>
             {/* userID to get from signing in and storing the userID in redux? */}
             {/* <NavLink to="/profile/:userID">Profile</NavLink> */}
             <NavLink to="/profile"><h1>Profile</h1></NavLink>
@@ -42,9 +42,11 @@ class NavBar extends Component {
       return (
         <nav>
           <ul className="navbar">
-            <NavLink exact to="/"><h1>resumov</h1></NavLink>
-            <NavLink exact to="/signin"><h1>Sign In</h1></NavLink>
-            <NavLink exact to="/signup"><h1>Sign Up</h1></NavLink>
+            <NavLink className="resumov" exact to="/"><h1>Resumov</h1></NavLink>
+            <div className="lefttabs">
+              <NavLink className="signinup" exact to="/signin"><h1>Sign In</h1></NavLink>
+              <NavLink className="signinup" exact to="/signup"><h1>Sign Up</h1></NavLink>
+            </div>
           </ul>
         </nav>
       );

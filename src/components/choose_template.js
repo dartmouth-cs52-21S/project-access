@@ -9,10 +9,13 @@ import { createPortfolio, fetchTemplates } from '../actions';
 //   firstName, lastName, email, password, portfolioIds, resume, portfolioName,
 // }, history);
 
+// import React, { Component } from 'react';
+// import { connect } from 'react-redux';
+// import { withRouter } from 'react-router-dom';
+// import { selectedtemplate } from '../actions';
 class ChooseTemplate extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isCreating: false,
       portfolioName: '',
