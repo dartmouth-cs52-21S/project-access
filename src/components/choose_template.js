@@ -1,45 +1,96 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-/*
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { selectedtemplate } from '../actions';
+import { createPortfolio, fetchTemplates } from '../actions';
+
+// createPortfolio(templateId, {
+//   firstName, lastName, email, password, portfolioIds, resume, portfolioName,
+// }, history);
 
 class ChooseTemplate extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      isCreating: false,
+      portfolioName: '',
+      templateSelected: '',
+    };
   }
 
-    displaytemplates = () => {
-      const templates = this.props.templateOptions.map((template, id) => {
-        // style.scss to conform all templates to a same window size
-        <div className="choose-template-page-bottom">
-          <img src={template.url} alt="none" onClick={this.props.selectedtemplate(id)} />
-        </div>;
-        return (
-          <ul id="choose-template-templates">
-            {templates}
-          </ul>
-        );
-      });
-    }
+  componentDidMount = (props) => {
+    this.props.fetchTemplates();
+  }
 
-    render() {
-      // const DISPLAY = this.displaytemplates;
+  clickTemplate = (id) => {
+    console.log('current template id selected', id);
+    this.setState({ isCreating: true });
+    this.setState({ templateSelected: id });
+  }
+
+  onPortfolioNameChange = (event) => {
+    this.setState({ portfolioName: event.target.value });
+  }
+
+  onCreateTemplate = () => {
+    console.log('template id', this.state.templateSelected);
+    this.props.createPortfolio(this.state.templateSelected, this.state.portfolioName, this.props.history);
+  }
+
+  displayCreatingTemplates = () => {
+    return (
+      this.props.templates.map((template, id) => {
+        return (
+          <div>
+            <img src={template} alt="none" onClick={() => { this.clickTemplate(id); }} />
+          </div>
+        );
+      })
+    );
+  }
+
+  displayAll = (props) => {
+    // console.log('templates', this.props.templates);
+    if (this.props.templates.length === 0) {
+      // console.log('empty!');
+      return (<div>No Templates</div>);
+    } else if (this.state.isCreating) {
       return (
-        // desigining the template page
-        <div className="choose-template-page">
-          {this.displaytemplates()}
+        <div>
+          {this.displayCreatingTemplates()}
+          <div>
+            <input onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="insert portfolio name" />
+            <button type="button" onClick={this.onCreateTemplate}>Create Portfolio</button>
+          </div>
         </div>
       );
+    } else {
+      return (
+        this.props.templates.map((template, id) => {
+          return (
+            <div>
+              <img src={template} alt="none" onClick={() => { this.clickTemplate(); }} />
+            </div>
+          );
+        })
+      );
     }
+  }
+
+  render() {
+    return (
+    // desigining the template page
+      <div className="choose-template-page">
+        {this.displayAll()}
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = (reduxState) => ({
-  templateOptions: reduxState.templates.options,
+const mapStateToProps = (state) => ({
+  templates: state.template.all,
 });
 
-export default withRouter(connect(mapStateToProps, { selectedtemplate })(ChooseTemplate));
-*/
+export default withRouter(connect(mapStateToProps, { createPortfolio, fetchTemplates })(ChooseTemplate));
