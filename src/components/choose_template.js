@@ -1,49 +1,99 @@
-// /* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { createPortfolio, fetchTemplates } from '../actions';
+
+// createPortfolio(templateId, {
+//   firstName, lastName, email, password, portfolioIds, resume, portfolioName,
+// }, history);
 
 // import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 // import { withRouter } from 'react-router-dom';
 // import { selectedtemplate } from '../actions';
+class ChooseTemplate extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isCreating: false,
+      portfolioName: '',
+      templateSelected: '',
+    };
+  }
 
-// class ChooseTemplate extends Component {
-//   constructor(props) {
-//     super(props);
+  componentDidMount = (props) => {
+    this.props.fetchTemplates();
+  }
 
-//     this.state = {};
-//   }
+  clickTemplate = (id) => {
+    console.log('current template id selected', id);
+    this.setState({ isCreating: true });
+    this.setState({ templateSelected: id });
+  }
 
-//   displaytemplates = () => {
-//     const chooseTemplateImages = {
-//       0: 'https://files.slack.com/files-pri/TQ19QMD6Z-F022T0APB8W/screen_shot_2021-05-25_at_12.05.32_pm.png',
-//     };
-//     const templates = chooseTemplateImages.map((id, url) => {
-//       // style.scss to conform all templates to a same window size
-//       <li>
-//         <div className="choose-template-page-bottom">
-//           <img src={url} alt="none" onClick={this.props.selectedtemplate(id)} />
-//         </div>;
-//       </li>;
-//       return (
-//         <ul id="choose-template-templates">
-//           {templates}
-//         </ul>
-//       );
-//     });
-//   }
+  onPortfolioNameChange = (event) => {
+    this.setState({ portfolioName: event.target.value });
+  }
 
-//   render() {
-//     // const DISPLAY = this.displaytemplates;
-//     return (
-//       // desigining the template page
-//       <div className="choose-template-page">
-//         {this.displaytemplates()}
-//       </div>
-//     );
-//   }
-// }
+  onCreateTemplate = () => {
+    console.log('template id', this.state.templateSelected);
+    this.props.createPortfolio(this.state.templateSelected, this.state.portfolioName, this.props.history);
+  }
 
-// const mapStateToProps = (reduxState) => ({
-//   templateOptions: reduxState.portfolio.options,
-// });
+  displayCreatingTemplates = () => {
+    return (
+      this.props.templates.map((template, id) => {
+        return (
+          <div>
+            <img src={template} alt="none" onClick={() => { this.clickTemplate(id); }} />
+          </div>
+        );
+      })
+    );
+  }
 
-// export default withRouter(connect(mapStateToProps, { selectedtemplate })(ChooseTemplate));
+  displayAll = (props) => {
+    // console.log('templates', this.props.templates);
+    if (this.props.templates.length === 0) {
+      // console.log('empty!');
+      return (<div>No Templates</div>);
+    } else if (this.state.isCreating) {
+      return (
+        <div>
+          {this.displayCreatingTemplates()}
+          <div>
+            <input onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="insert portfolio name" />
+            <button type="button" onClick={this.onCreateTemplate}>Create Portfolio</button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        this.props.templates.map((template, id) => {
+          return (
+            <div>
+              <img src={template} alt="none" onClick={() => { this.clickTemplate(); }} />
+            </div>
+          );
+        })
+      );
+    }
+  }
+
+  render() {
+    return (
+    // desigining the template page
+      <div className="choose-template-page">
+        {this.displayAll()}
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  templates: state.template.all,
+});
+
+export default withRouter(connect(mapStateToProps, { createPortfolio, fetchTemplates })(ChooseTemplate));

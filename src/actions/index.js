@@ -15,6 +15,7 @@ export const ActionTypes = {
   AUTH_USER: 'AUTH_USER',
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
+  FETCH_TEMPLATES: 'FETCH_TEMPLATES',
   // FETCH_USERS: 'FETCH_USERS',
   // FETCH_USER: 'FETCH_USER',
 };
@@ -30,18 +31,16 @@ export function authError(error) {
 //   firstName, lastName, email, password, portfolioIds, resume,
 // };
 
-export function createPortfolio(templateId, {
-  firstName, lastName, email, password, portfolioIds, resume,
-}, history) {
+// export function createPortfolio(templateId, {
+//   firstName, lastName, email, password, portfolioIds, resume, portfolioName,
+// }, history) {
+export function createPortfolio(templateId, portfolioName, history) {
   return (dispatch) => {
     // axios.post(`${ROOT_URL}/portfolio/${templateId}${firstName}${lastName}`, {
-    axios.post(`${ROOT_URL}/portfolio/${templateId}`, {
-      firstName, lastName, email, password, portfolioIds, resume,
-    }, { headers: { authorization: localStorage.getItem('token') } })
+    axios.post(`${ROOT_URL}/portfolios/create/${templateId}`, { portfolioName }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.CREATE_PORTFOLIO, payload: response.data });
-        localStorage.setItem('token', response.data.token);
-        history.push('/');
+        history.push('/portfolios');
       })
       .catch((error) => {
         console.log('create portfolio error found');
@@ -74,6 +73,21 @@ export function fetchPortfolios() {
       })
       .catch((error) => {
         console.log('fetch portfolios error found');
+        console.log(error);
+        dispatch({ type: ActionTypes.ERROR_SET, payload: error });
+      });
+  };
+}
+
+export function fetchTemplates() {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/templates`, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_TEMPLATES, payload: response.data });
+        console.log('fetchtemplates', response.data);
+      })
+      .catch((error) => {
+        console.log('fetch templates error found');
         console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, payload: error });
       });
@@ -146,6 +160,7 @@ export function signupUser({
 // deletes token from localstorage
 // and deauths
 export function signoutUser(history) {
+  console.log('sign out ugh');
   return (dispatch) => {
     localStorage.removeItem('token');
     dispatch({ type: ActionTypes.DEAUTH_USER });
