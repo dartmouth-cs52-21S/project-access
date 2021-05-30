@@ -6,6 +6,7 @@ import {
   withRouter,
   NavLink,
 } from 'react-router-dom';
+import { getUserProfile } from '../actions/index';
 
 // Profile page commponent that displays username, email, and provides routed
 // options to create, print, edit resume, as well as settings and logout
@@ -14,12 +15,12 @@ class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: '',
+      // user: '',
     };
   }
 
   componentDidMount = (props) => {
-    // this.props.fetchTemplates();
+    this.props.getUserProfile();
   }
   // this.usernameretreive = () => {
   //   getUser
@@ -68,9 +69,9 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = (reduxState) => ({
-  user: reduxState.
+const mapStateToProps = (state) => ({
+  profile: state.user.profile,
 });
 
 // export default Profile;
-export default withRouter(connect(mapStateToProps, { getUser })(Profile));
+export default withRouter(connect(mapStateToProps, { getUserProfile })(Profile));
