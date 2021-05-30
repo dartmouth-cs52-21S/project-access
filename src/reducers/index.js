@@ -7,11 +7,8 @@ import ErrorReducer from './error-reducer';
 import AuthReducer from './auth-reducer';
 import PortfolioReducer from './portfolio-reducer';
 import TemplateReducer from './template-reducer';
-<<<<<<< HEAD
 import ResumeReducer from './resume-reducer';
-=======
 import UserReducer from './user-reducer';
->>>>>>> develop
 
 const rootReducer = combineReducers({
   count: CountReducer,
@@ -19,11 +16,8 @@ const rootReducer = combineReducers({
   auth: AuthReducer,
   portfolio: PortfolioReducer,
   template: TemplateReducer,
-<<<<<<< HEAD
   resume: ResumeReducer,
-=======
   user: UserReducer,
->>>>>>> develop
 });
 
 export default rootReducer;
