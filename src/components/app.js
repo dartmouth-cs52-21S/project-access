@@ -10,7 +10,7 @@ import LandingPage from './landing_page';
 import SignIn from './sign_in';
 import SignUp from './sign_up';
 import PrivateRoute from './private_route';
-// import Customize from './customize';
+import Customize from './customize';
 import ChooseTemplate from './choose_template';
 import ExistingPortfolios from './existing_portfolios';
 import InputResume from './input_resume';
@@ -27,6 +27,7 @@ const App = (props) => {
           <PrivateRoute exact path="/resume" component={InputResume} />
           <PrivateRoute exact path="/templates" component={ChooseTemplate} />
           <PrivateRoute exact path="/portfolios" component={ExistingPortfolios} />
+          <PrivateRoute exact path="/customize/:id" component={Customize} />
           {/* <PrivateRoute exact path="/portfolios/:id" component={Portfolio} /> */}
           {/* Anyone can view Portfolio. Does not need PrivateRoute */}
           <Route exact path="/portfolios/:id" component={Portfolio} />
