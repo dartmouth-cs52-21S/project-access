@@ -38,23 +38,19 @@ body, html {
     position: relative;
 }
 
-.lefttabs a:before {
+.lefttabs h1:before {
   content: "";
   position: absolute;
   width: 0;
-  height: 1px;
+  height: 0.1px;
   bottom: 0;
   left: 0;
   background-color: #FFF;
   visibility: hidden;
   transition: all 0.3s ease-in-out;
-
-  h1 {
-      margin-bottom: 1px;
-  }
 }
 
-.lefttabs a:hover:before {
+.lefttabs h1:hover:before {
   visibility: visible;
   width: 100%;
 }
