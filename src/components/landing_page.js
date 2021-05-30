@@ -30,6 +30,22 @@ class LandingPage extends Component {
     }
   }
 
+  startNow = (props) => {
+    if (this.props.auth) {
+      return (
+        <NavLink exact to="/profile">
+          <button className="button" type="button"><span>Start Now  </span></button>
+        </NavLink>
+      );
+    } else {
+      return (
+        <NavLink exact to="/signup">
+          <button className="button" type="button"><span>Start Now  </span></button>
+        </NavLink>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="landing-page">
@@ -49,9 +65,7 @@ class LandingPage extends Component {
           <p>Boost your applications <br /> and get your dream job now!</p>
           <div className="image"><img src="src/img/landing_page/chat.png" alt="" /></div>
         </div>
-        <NavLink exact to="/signup">
-          <button className="button" type="button"><span>Start Now  </span></button>
-        </NavLink>
+        {this.startNow()}
       </div>
     );
   }
