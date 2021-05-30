@@ -3,10 +3,13 @@ import { useHistory, withRouter, Link } from 'react-router-dom';
 import '../style.scss';
 import { connect } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
-import { fetchPortfolio, updatePortfolio, deletePortfolio } from '../actions';
+import {
+  fetchTemplates, fetchPortfolio, updatePortfolio, deletePortfolio,
+} from '../actions';
 
 function customize(props) {
   const portfolio = props.curr;
+  // const template = props.temp;
   const history = useHistory();
   const [isEditing, setIsEditing] = useState(false);
 
@@ -23,6 +26,8 @@ function customize(props) {
 
   useEffect(() => {
     props.fetchPortfolio(props.match.params.id);
+    // props.fetchTemplates(props.match.params.id);
+    // console.log(template);
     setName(portfolio.name);
     setAboutmeColor(portfolio.aboutmeColor);
     // setPhone(portfolio.phone);
@@ -56,12 +61,17 @@ function customize(props) {
 
   if (props.error === '') {
     if (!isEditing || !props.authenticated) {
+      console.log(portfolio);
+      // console.log(template);
       return (
         <div>
           <div className="input_div">
             <h2>Customize</h2>
             <div className="note-title">
+              <p>Name</p>
               <ReactMarkdown>{portfolio.name}</ReactMarkdown>
+              <p>About me</p>
+              {/* <p>{portfolio[]}</p> */}
             </div>
             <div className="buttons_div">
               <button id="icon" type="button" onClick={() => setIsEditing(!isEditing)}>edit</button>
@@ -103,12 +113,15 @@ function customize(props) {
 function mapStateToProps(reduxState) {
   return {
     curr: reduxState.portfolio.current,
+    // temp: reduxState.template.all,
     error: reduxState.errors.error,
     authenticated: reduxState.auth.authenticated,
   };
 }
 
-export default withRouter(connect(mapStateToProps, { fetchPortfolio, updatePortfolio, deletePortfolio })(customize));
+export default withRouter(connect(mapStateToProps, {
+  fetchTemplates, fetchPortfolio, updatePortfolio, deletePortfolio,
+})(customize));
 
 //   constructor(props) {
 //     super(props);
