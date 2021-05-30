@@ -12,21 +12,23 @@ class signUp extends Component {
     super(props);
 
     this.user = {
-      firstname: null,
-      lastname: null,
+      firstName: null,
+      lastName: null,
       email: null,
       password: null,
       confirmpassword: null,
+      resume: null,
     };
   }
 
   componentDidMount() {
     this.user = {
-      firstname: null,
-      lastname: null,
+      firstName: null,
+      lastName: null,
       email: null,
       password: null,
       confirmpassword: null,
+      resume: {},
     };
   }
 
@@ -39,11 +41,11 @@ class signUp extends Component {
   }
 
   OnInputChangeFirstname = (event) => {
-    this.user = { ...this.user, firstname: event.target.value };
+    this.user = { ...this.user, firstName: event.target.value };
   }
 
   OnInputChangeLastname = (event) => {
-    this.user = { ...this.user, lastname: event.target.value };
+    this.user = { ...this.user, lastName: event.target.value };
   }
 
   submitinfo = () => {
