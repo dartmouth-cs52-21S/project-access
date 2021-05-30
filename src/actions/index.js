@@ -43,8 +43,9 @@ export function createPortfolio(templateId, portfolioName, history) {
     // axios.post(`${ROOT_URL}/portfolio/${templateId}${firstName}${lastName}`, {
     axios.post(`${ROOT_URL}/portfolios/create/${templateId}`, { portfolioName }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        console.log('createPortfolio', response.data);
         dispatch({ type: ActionTypes.CREATE_PORTFOLIO, payload: response.data });
-        history.push('/portfolios');
+        history.push(`/portfolios/edit/${response.data.id}`);
       })
       .catch((error) => {
         console.log('create portfolio error found');
