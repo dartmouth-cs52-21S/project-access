@@ -138,11 +138,13 @@ export function getUserResume() {
   };
 }
 
-export function updateUserResume(resumeFields) {
+export function updateUserResume({ resumeFields }) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/resume`, { resumeFields }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        console.log('before resumeFields', resumeFields);
         dispatch({ type: ActionTypes.UPDATE_RESUME, payload: response.data });
+        console.log('resumeFields', resumeFields);
       })
       .catch((error) => {
         console.log('put user resume error found');
