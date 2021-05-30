@@ -15,6 +15,7 @@ import ChooseTemplate from './choose_template';
 import ExistingPortfolios from './existing_portfolios';
 import InputResume from './input_resume';
 import Portfolio from './portfolio';
+import Customize from './customize';
 
 const App = (props) => {
   return (
@@ -28,6 +29,7 @@ const App = (props) => {
           <PrivateRoute exact path="/templates" component={ChooseTemplate} />
           <PrivateRoute exact path="/portfolios" component={ExistingPortfolios} />
           {/* Anyone can view Portfolio. Does not need PrivateRoute */}
+          <PrivateRoute exact path="/portfolios/edit/:id" component={Customize} />
           <Route exact path="/portfolios/:id" component={Portfolio} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
