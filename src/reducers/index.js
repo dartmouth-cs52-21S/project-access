@@ -7,6 +7,7 @@ import ErrorReducer from './error-reducer';
 import AuthReducer from './auth-reducer';
 import PortfolioReducer from './portfolio-reducer';
 import TemplateReducer from './template-reducer';
+import ResumeReducer from './resume-reducer';
 import UserReducer from './user-reducer';
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   auth: AuthReducer,
   portfolio: PortfolioReducer,
   template: TemplateReducer,
+  resume: ResumeReducer,
   user: UserReducer,
 });
 

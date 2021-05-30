@@ -17,6 +17,7 @@ class signUp extends Component {
       email: null,
       password: null,
       confirmpassword: null,
+      resume: null,
     };
   }
 
@@ -27,6 +28,7 @@ class signUp extends Component {
       email: null,
       password: null,
       confirmpassword: null,
+      resume: {},
     };
   }
 

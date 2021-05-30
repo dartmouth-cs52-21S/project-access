@@ -18,6 +18,8 @@ export const ActionTypes = {
   DEAUTH_USER: 'DEAUTH_USER',
   AUTH_ERROR: 'AUTH_ERROR',
   FETCH_TEMPLATES: 'FETCH_TEMPLATES',
+  FETCH_RESUME: 'FETCH_RESUME',
+  UPDATE_RESUME: 'UPDATE_RESUME',
   // FETCH_USERS: 'FETCH_USERS',
   // FETCH_USER: 'FETCH_USER',
 };
@@ -125,6 +127,35 @@ export function deletePortfolio(portfolioId, history) {
   };
 }
 
+export function getUserResume() {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/resume`, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_RESUME, payload: response.data });
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log('get user resume error found');
+        console.log(error);
+      });
+  };
+}
+
+export function updateUserResume(resumeFields) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/resume`, { ...resumeFields }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        console.log('before resumeFields', { ...resumeFields });
+        dispatch({ type: ActionTypes.UPDATE_RESUME, payload: response.data });
+        console.log('resumeFields', { ...resumeFields });
+      })
+      .catch((error) => {
+        console.log('put user resume error found');
+        console.log(error);
+      });
+  };
+}
+
 export function getUserProfile() {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/profile`, { headers: { authorization: localStorage.getItem('token') } })
@@ -170,14 +201,14 @@ export function signinUser({ email, password }, history) {
 }
 
 export function signupUser({
-  firstName, lastName, email, password,
+  firstName, lastName, email, password, resume,
 }, history) {
   // takes in an object with email and password (minimal user object)
   // returns a thunk method that takes dispatch as an argument (just like our create post method really)
   console.log(email);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signup`, {
-      firstName, lastName, email, password,
+      firstName, lastName, email, password, resume,
     }).then((response) => {
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
