@@ -31,7 +31,7 @@ class SignIn extends Component {
         <form className="form">
           <input type="text" name="username" placeholder="Username" onChange={this.handleUsername} />
           <input type="password" name="password" placeholder="Password" onChange={this.handlePassword} />
-          <div className="sign-button" onClick={() => { this.props.signinUser(this.state, this.props.history); }}>Sign In</div>
+          <div className="sign-button" onClick={() => { this.props.signinUser(this.state, this.props.history); }}><h2>Sign In</h2></div>
         </form>
       </div>
     );
