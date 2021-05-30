@@ -5,26 +5,30 @@
 /* eslint-disable no-fallthrough */
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
-import React, { useState } from 'react';
-// import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 // import { withRouter } from 'react-router-dom';
 import './input_resume_style.scss';
 import { useForm } from 'react-hook-form';
+import { getUserResume, updateUserResume } from '../actions';
 
-function InputResume() {
+function InputResume(props) {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const [name, setName] = useState({ name: '' });
   const [phone, setPhone] = useState({ phone: '' });
   const [email, setEmail] = useState({ email: '' });
-  const [linkedln, setLinkedln] = useState({ linkedln: '' });
-
+  const [linkedIn, setLinkedIn] = useState({ linkedIn: '' });
   const [education, setEd] = useState({
     college: '', gpa: '', degree: '', relevantCoursework: '',
   });
   const [research, setResearch] = useState([{
     researchLab: '', startdate: '', enddate: '', position: '', description: '',
   }]);
+
+  useEffect(() => {
+    props.getUserResume();
+  });
 
   const updateName = (value) => {
     setName({ ...name, name: value });
@@ -38,8 +42,8 @@ function InputResume() {
     setEmail({ ...email, email: value });
   };
 
-  const updateLinkedln = (value) => {
-    setLinkedln({ ...linkedln, linkedln: value });
+  const updateLinkedIn = (value) => {
+    setLinkedIn({ ...linkedIn, linkedIn: value });
   };
 
   const updateEduc = (fieldIdx, value) => {
@@ -95,7 +99,10 @@ function InputResume() {
     }
   };
 
-  const submitresume = (event) => { console.log(event); };
+  const submitresume = (event) => {
+    console.log('resumeFields', event);
+    props.updateUserResume(event);
+  };
 
   return (
     <form onSubmit={handleSubmit(submitresume)}>
@@ -108,7 +115,7 @@ function InputResume() {
           <p>{errors.phone?.message}</p>
           <input placeholder="Email" className="text-input" {...register('email', { required: 'email is required', pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: 'invalid email address' } })} value={email.email} onChange={(event) => { updateEmail(event.target.value); }} />
           <p>{errors.email?.message}</p>
-          <input placeholder="Linkedln" className="text-input" {...register('linkedln')} value={linkedln.linkedln} onChange={(event) => { updateLinkedln(event.target.value); }} />
+          <input placeholder="LinkedIn" className="text-input" {...register('linkedIn')} value={linkedIn.linkedIn} onChange={(event) => { updateLinkedIn(event.target.value); }} />
         </div>
       </div>
 
@@ -168,4 +175,4 @@ function InputResume() {
     </form>
   );
 }
-export default InputResume;
+export default connect(null, { updateUserResume, getUserResume })(InputResume);
