@@ -12,7 +12,7 @@ class Portfolio extends Component {
   }
 
   componentDidMount = (props) => {
-    fetchPortfolio(this.props.match.params.id);
+    this.props.fetchPortfolio(this.props.match.params.id);
   }
 
   render() {

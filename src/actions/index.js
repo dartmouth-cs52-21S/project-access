@@ -10,6 +10,8 @@ export const ActionTypes = {
   UPDATE_PORTFOLIO: 'UPDATE_PORTFOLIO',
   DELETE_PORTFOLIO: 'DELETE_PORTFOLIO',
   // ERROR_FETCH_POST: 'ERROR_FETCH_POST',
+  FETCH_PROFILE: 'FETCH_PROFILE',
+  UPDATE_PROFILE: 'UPDATE_PROFILE',
   ERROR_SET: 'ERROR_SET',
   ERROR_CLEAR: 'ERROR_CLEAR',
   AUTH_USER: 'AUTH_USER',
@@ -138,6 +140,21 @@ export function getUserResume() {
   };
 }
 
+export function getUserProfile() {
+  return (dispatch) => {
+    axios.get(`${ROOT_URL}/profile`, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.FETCH_PROFILE, payload: response.data });
+        // history.push('/');
+        console.log('response data', response.data);
+      })
+      .catch((error) => {
+        console.log('get profile error found');
+        console.log(error);
+      });
+  };
+}
+
 export function updateUserResume({ resumeFields }) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/resume`, { resumeFields }, { headers: { authorization: localStorage.getItem('token') } })
@@ -148,6 +165,20 @@ export function updateUserResume({ resumeFields }) {
       })
       .catch((error) => {
         console.log('put user resume error found');
+        console.log(error);
+      });
+  };
+}
+
+export function updateUserProfile(userFields) {
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/profile`, { userFields }, { headers: { authorization: localStorage.getItem('token') } })
+      .then((response) => {
+        dispatch({ type: ActionTypes.UPDATE_PROFILE, payload: response.data });
+        // history.push('/');
+      })
+      .catch((error) => {
+        console.log('get profile error found');
         console.log(error);
       });
   };
@@ -190,6 +221,7 @@ export function signupUser({
 // deletes token from localstorage
 // and deauths
 export function signoutUser(history) {
+  console.log('sign out ugh');
   return (dispatch) => {
     localStorage.removeItem('token');
     dispatch({ type: ActionTypes.DEAUTH_USER });
