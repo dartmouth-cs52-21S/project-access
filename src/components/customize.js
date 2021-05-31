@@ -22,13 +22,9 @@ function customize(props) {
   }, [props.match.params.id]);
 
   useEffect(() => {
-    if (portfolio) {
-      if (portfolio[0]) {
-        console.log(portfolio[0].aboutMe.color);
-        console.log('yes');
-        setName(portfolio[0].name);
-        setAboutmeColor(portfolio[0].aboutMe.color);
-      }
+    if (Object.keys(portfolio).length > 0) {
+      setName(portfolio.name);
+      setAboutmeColor(portfolio.aboutMe.color);
     }
   }, [portfolio]);
   // const fields = {
@@ -43,15 +39,17 @@ function customize(props) {
   //   "resume": {"a" : "a", "b": "b"}
   // }
 
-  const fields = {
-    name, aboutmeColor,
-  };
-
   function onDoneEdit() {
-    console.log(portfolio[0].aboutMe.color);
+    // console.log(portfolio[0].aboutMe.color);
     setIsEditing(!isEditing);
-    props.updatePortfolio(props.match.params.id, fields);
-    console.log(portfolio[0].aboutMe.color);
+    props.updatePortfolio(props.match.params.id, {
+      name,
+      aboutMe: {
+        ...portfolio.aboutMe,
+        color: aboutmeColor,
+      },
+    });
+    // console.log(portfolio[0].aboutMe.color);
   }
 
   function onDeleteClick() {
@@ -61,10 +59,8 @@ function customize(props) {
     }
   }
 
-  if (portfolio[0] == null) {
-    return (
-      <div />
-    );
+  if (Object.keys(portfolio).length === 0) {
+    return null;
   } else if (props.error === '') {
     if (!isEditing || !props.authenticated) {
       return (
@@ -72,14 +68,14 @@ function customize(props) {
           <div className="input_div">
             <h2>Customize</h2>
             <div className="note-title">
-              <h3>Name: {portfolio[0].name}</h3>
+              <h3>Name: {portfolio.name}</h3>
               <h3>About me</h3>
-              <p>Background color: {portfolio[0].aboutMe.backgroundColor} </p>
-              <p>Color: {portfolio[0].aboutMe.color} </p>
-              <p>flexDirection: {portfolio[0].aboutMe.flexDirection} </p>
-              <p>fontSize: {portfolio[0].aboutMe.fontSize} </p>
-              <p>justifyContent: {portfolio[0].aboutMe.justifyContent} </p>
-              <p>padding: {portfolio[0].aboutMe.padding} </p>
+              <p>Background color: {portfolio.aboutMe?.backgroundColor} </p>
+              <p>Color: {portfolio.aboutMe?.color} </p>
+              <p>flexDirection: {portfolio.aboutMe?.flexDirection} </p>
+              <p>fontSize: {portfolio.aboutMe?.fontSize} </p>
+              <p>justifyContent: {portfolio.aboutMe?.justifyContent} </p>
+              <p>padding: {portfolio.aboutMe?.padding} </p>
             </div>
             <div className="buttons_div">
               <button id="icon" type="button" onClick={() => setIsEditing(!isEditing)}>edit</button>
