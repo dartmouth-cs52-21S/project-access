@@ -28,7 +28,6 @@ class signUp extends Component {
       email: null,
       password: null,
       confirmpassword: null,
-      resume: {},
     };
   }
 
