@@ -3,80 +3,83 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, withRouter, Link } from 'react-router-dom';
 import '../style.scss';
 import { connect } from 'react-redux';
-import ReactMarkdown from 'react-markdown';
-import {
-  fetchTemplates, fetchPortfolio, updatePortfolio, deletePortfolio,
-} from '../actions';
+import { fetchPortfolio, updatePortfolio, deletePortfolio } from '../actions';
 
 function customize(props) {
   const portfolio = props.curr;
-  // const template = props.temp;
+  console.log(portfolio);
   const history = useHistory();
   const [isEditing, setIsEditing] = useState(false);
 
   const [name, setName] = useState('');
-  // const [phone, setPhone] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [linkedin, setLinkedin] = useState('');
-  // const [college, setCollege] = useState('');
-  // const [degree, setDegree] = useState('');
-  // const [gpa, setGpa] = useState('');
-  // const [relevantCoursework, setRelevantCoursework] = useState('');
   const [aboutmeColor, setAboutmeColor] = useState('');
   const onChangeHandler = (setter) => (e) => setter(e.target.value);
 
   useEffect(() => {
-    props.fetchPortfolio(props.match.params.id);
-    // props.fetchTemplates(props.match.params.id);
-    // console.log(template);
-    setName(portfolio.name);
-    setAboutmeColor(portfolio.aboutmeColor);
-    // setPhone(portfolio.phone);
-    // setEmail(portfolio.email);
-    // setLinkedin(portfolio.linkedin);
-    // setCollege(portfolio.college);
-    // setDegree(portfolio.degree);
-    // setGpa(portfolio.gpa);
-    // setRelevantCoursework(portfolio.relevantCoursework);
-  }, [portfolio.name, portfolio.aboutmeColor]);
-  // [portfolio.name, portfolio.phone, portfolio.email, portfolio.linkedin, portfolio.college, portfolio.degree, portfolio.gpa, portfolio.relevantCoursework]);
+    if (props.match.params.id) {
+      props.fetchPortfolio(props.match.params.id);
+    }
+  }, [props.match.params.id]);
+
+  useEffect(() => {
+    if (portfolio) {
+      if (portfolio[0]) {
+        console.log(portfolio[0].aboutMe.color);
+        console.log('yes');
+        setName(portfolio[0].name);
+        setAboutmeColor(portfolio[0].aboutMe.color);
+      }
+    }
+  }, [portfolio]);
   // const fields = {
   //   name, phone, email, linkedin, college, degree, gpa, relevantCoursework,
   // };
+  // {
+  //   "name": "a",
+  //   "header": { "a" : "a" },
+  //   "aboutMe": { "a" : "a" },
+  //   "projects": { "a" : "a" },
+  //   "contactMe": { "a" : "a" },
+  //   "resume": {"a" : "a", "b": "b"}
+  // }
 
   const fields = {
     name, aboutmeColor,
   };
 
   function onDoneEdit() {
+    console.log(portfolio[0].aboutMe.color);
     setIsEditing(!isEditing);
-    props.updatePortfolio(fields, portfolio._id);
+    props.updatePortfolio(props.match.params.id, fields);
+    console.log(portfolio[0].aboutMe.color);
   }
 
   function onDeleteClick() {
     if (props.authenticated) {
       history.push('/posts');
-      props.deletePortfolio(portfolio._id, history);
+      props.deletePortfolio(props.match.params.id, history);
     }
   }
 
-  if (portfolio == null) {
+  if (portfolio[0] == null) {
     return (
       <div />
     );
   } else if (props.error === '') {
     if (!isEditing || !props.authenticated) {
-      console.log(portfolio[0].aboutMe);
-      // console.log(template);
       return (
         <div>
           <div className="input_div">
             <h2>Customize</h2>
             <div className="note-title">
-              <p>Name</p>
-              <ReactMarkdown>{portfolio.name}</ReactMarkdown>
-              <p>About me</p>
-              {/* <p>{portfolio[]}</p> */}
+              <h3>Name: {portfolio[0].name}</h3>
+              <h3>About me</h3>
+              <p>Background color: {portfolio[0].aboutMe.backgroundColor} </p>
+              <p>Color: {portfolio[0].aboutMe.color} </p>
+              <p>flexDirection: {portfolio[0].aboutMe.flexDirection} </p>
+              <p>fontSize: {portfolio[0].aboutMe.fontSize} </p>
+              <p>justifyContent: {portfolio[0].aboutMe.justifyContent} </p>
+              <p>padding: {portfolio[0].aboutMe.padding} </p>
             </div>
             <div className="buttons_div">
               <button id="icon" type="button" onClick={() => setIsEditing(!isEditing)}>edit</button>
@@ -91,10 +94,11 @@ function customize(props) {
           <div className="post">
             <h2>Edit Portfolio</h2>
             <div className="note-edit">
-              {/* <p>Name</p>
-              <input onChange={onChangeHandler(setName)} value={name} /> */}
-              <p>About me</p>
-              <input onChange={onChangeHandler(setAboutmeColor)} value={setAboutmeColor} />
+              <h3>About me</h3>
+              <p>Name: </p>
+              <input onChange={onChangeHandler(setName)} value={name} />
+              <p>About Me color</p>
+              <input onChange={onChangeHandler(setAboutmeColor)} value={aboutmeColor} />
             </div>
             <div className="buttons_div">
               <button id="icon" type="button" onClick={onDoneEdit}>Done</button>
@@ -118,81 +122,9 @@ function customize(props) {
 function mapStateToProps(reduxState) {
   return {
     curr: reduxState.portfolio.current,
-    // temp: reduxState.template.all,
     error: reduxState.errors.error,
     authenticated: reduxState.auth.authenticated,
   };
 }
 
-export default withRouter(connect(mapStateToProps, {
-  fetchTemplates, fetchPortfolio, updatePortfolio, deletePortfolio,
-})(customize));
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       isEditing: false,
-//     };
-//   }
-
-//   componentDidMount = (props) => {
-//     fetchPortfolio(this.props.match.params.id);
-//   }
-
-//   handleEdit = (e, data) => {
-//     this.setState({ isEditing: true });
-//     this.props.updatePost(this.props.curr.id, fields);
-//   }
-
-//   if (!isEditing) {
-//     return (
-//       <div>Edit your portfolio
-//         <div className="customize_content">
-//           <div className="education">
-//             <h3>Education</h3>
-//             {/* <p>{this.props.curr}</p> */}
-//           </div>
-//         </div>
-//         <div className="customize_appear">
-//           <div className="body_color">
-//             <h3>Body color</h3>
-//           </div>
-//         </div>
-//         <button type="button" onClick={() => setIsEditing(!isEditing)}>Edit</button>
-//         {/* <button type="button" onClick={this.onSaveClick}>Save</button>
-//         <button type="button" onClick={this.onCancelClick}>Cancel</button> */}
-//       </div>
-//     );
-//   } else { // In editing mode
-//     return (
-//       <div className="input_div">
-//         <div className="post">
-//           <h2>Edit Entry</h2>
-//           <div className="note-edit">
-//             <p>Title</p>
-//             <input onChange={onChangeHandler(setTitle)} value={title} />
-//             <p>Content</p>
-//             <input onChange={onChangeHandler(setContent)} value={content} />
-//             <p>Tags</p>
-//             <input onChange={onChangeHandler(setTags)} value={tags} />
-//             <p>Cover URL</p>
-//             <input onChange={onChangeHandler(setCoverUrl)} value={coverUrl} />
-//             <p>Rating</p>
-//             <input onChange={onChangeHandler(setRating)} value={rating} />
-//           </div>
-//           <div className="buttons_div">
-//             <Button id="icon" type="button" onClick={onDoneEdit}>Done</Button>
-//             <Link to="/">
-//               <Button id="icon" type="button">Cancel</Button>
-//             </Link>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-
-// function mapStateToProps = (reduxState) => ({
-//   curr: reduxState.portfolio.current,
-// });
-
-// export default withRouter(connect(mapStateToProps, { fetchPortfolio, updatePortfolio })(customize));
+export default withRouter(connect(mapStateToProps, { fetchPortfolio, updatePortfolio, deletePortfolio })(customize));
