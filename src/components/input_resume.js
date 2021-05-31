@@ -13,7 +13,9 @@ import { useForm } from 'react-hook-form';
 import { getUserResume, updateUserResume } from '../actions';
 
 function InputResume(props) {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register, handleSubmit, formState: { errors }, unregister,
+  } = useForm();
 
   const [name, setName] = useState({ name: '' });
   const [phone, setPhone] = useState({ phone: '' });
@@ -25,10 +27,19 @@ function InputResume(props) {
   const [research, setResearch] = useState([{
     researchLab: '', startdate: '', enddate: '', position: '', description: '',
   }]);
+  const [work, setWork] = useState([{
+    company: '', startdate: '', enddate: '', position: '', description: '',
+  }]);
+  const [projects, setProjects] = useState([{
+    project: '', startdate: '', enddate: '', description: '',
+  }]);
+  const [skills, setSkills] = useState([{
+    technical: '', languages: '',
+  }]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     props.getUserResume();
-  });
+  }); */
 
   const updateName = (value) => {
     setName({ ...name, name: value });
@@ -99,13 +110,92 @@ function InputResume(props) {
     }
   };
 
-  const submitresume = (event) => {
-    console.log('resumeFields', event);
-    props.updateUserResume(event);
+  const updateWork = (index, fieldIdx, value) => {
+    switch (fieldIdx) {
+      case 'company':
+        let temp = work[index];
+        temp.company = value;
+        setWork([...work.slice(0, index), temp, ...work.slice(index + 1)]);
+        break;
+      case 'startdate':
+        let temp1 = work[index];
+        temp1.startdate = value;
+        setWork([...work.slice(0, index), temp1, ...work.slice(index + 1)]);
+        break;
+      case 'enddate':
+        let temp2 = work[index];
+        temp2.enddate = value;
+        setWork([...work.slice(0, index), temp2, ...work.slice(index + 1)]);
+        break;
+      case 'position':
+        let temp3 = work[index];
+        temp3.position = value;
+        setWork([...work.slice(0, index), temp3, ...work.slice(index + 1)]);
+        break;
+      case 'description':
+        let temp4 = work[index];
+        temp4.description = value;
+        setWork([...work.slice(0, index), temp4, ...work.slice(index + 1)]);
+        break;
+      default:
+        // code block
+        break;
+    }
+  };
+
+  const updateProjects = (index, fieldIdx, value) => {
+    switch (fieldIdx) {
+      case 'project':
+        let temp = projects[index];
+        temp.project = value;
+        setProjects([...projects.slice(0, index), temp, ...projects.slice(index + 1)]);
+        break;
+      case 'startdate':
+        let temp1 = projects[index];
+        temp1.startdate = value;
+        setProjects([...projects.slice(0, index), temp1, ...projects.slice(index + 1)]);
+        break;
+      case 'enddate':
+        let temp2 = projects[index];
+        temp2.enddate = value;
+        setProjects([...projects.slice(0, index), temp2, ...projects.slice(index + 1)]);
+        break;
+      case 'description':
+        let temp4 = projects[index];
+        temp4.description = value;
+        setProjects([...projects.slice(0, index), temp4, ...projects.slice(index + 1)]);
+        break;
+      default:
+        // code block
+        break;
+    }
+  };
+
+  const updateSkills = (index, fieldIdx, value) => {
+    switch (fieldIdx) {
+      case 'technical':
+        let temp = skills[index];
+        temp.technical = value;
+        setSkills([...skills.slice(0, index), temp, ...skills.slice(index + 1)]);
+        break;
+      case 'languages':
+        let temp1 = skills[index];
+        temp1.languages = value;
+        setSkills([...skills.slice(0, index), temp1, ...skills.slice(index + 1)]);
+        break;
+      default:
+        // code block
+        break;
+    }
+  };
+
+  const submitform = (event) => {
+    console.log(event);
   };
 
   return (
-    <form onSubmit={handleSubmit(submitresume)}>
+    <form onSubmit={handleSubmit(submitform)}>
+
       <div>
         <h2>General Information</h2>
         <input placeholder="Name" className="name" {...register('name', { required: 'your name is required' })} value={name.name} onChange={(event) => { updateName(event.target.value); }} />
@@ -171,6 +261,114 @@ function InputResume(props) {
           );
         })}
       </div>
+
+      <div className="Work">
+        <div className="section-title">
+          <h2>Work Experience</h2>
+          <i className="material-icons"
+            onClick={() => {
+              setWork([...work, {
+                company: '', startdate: '', enddate: '', position: '', description: '',
+              }]);
+            }}
+          >add_circle
+          </i>
+        </div>
+        {work.map((object, index) => {
+          return (
+            <li key={index}>
+              <div className="name-and-time">
+                <input placeholder="Company Name" name="company" className="text-input" {...register(`work${index}.company`, { required: 'this field is required' })} value={work[index].company} onChange={(event) => { updateWork(index, 'company', event.target.value); }} />
+                <p>{errors?.[`work${index}`]?.company?.message}</p>
+                <div>
+                  <input placeholder="Start Date" type="date" className="text-input" {...register(`work${index}.startdate`, { required: 'start date is required' })} value={work[index].startdate} onChange={(event) => { updateWork(index, 'startdate', event.target.value); }} />
+                  <p>{errors?.[`work${index}`]?.startdate?.message}</p>
+                  <input placeholder="End Date" type="date" className="text-input" {...register(`work${index}.enddate`, { required: 'end date is required' })} value={work[index].enddate} onChange={(event) => { updateWork(index, 'enddate', event.target.value); }} />
+                  <p>{errors?.[`work${index}`]?.enddate?.message}</p>
+                </div>
+              </div>
+              <div className="flex-column-details">
+                <input placeholder="Position" className="text-input" {...register(`work${index}.position`, { required: 'please include your position' })} value={work[index].position} onChange={(event) => { updateWork(index, 'position', event.target.value); }} />
+                <p>{errors?.[`work${index}`]?.position?.message}</p>
+                <input placeholder="Description" className="text-input" {...register(`work${index}.description`, { required: 'description required' })} value={work[index].description} onChange={(event) => { updateWork(index, 'description', event.target.value); }} />
+                <p>{errors?.[`work${index}`]?.description?.message}</p>
+              </div>
+              <div>
+                <i className="material-icons" onClick={() => { setWork([...work.slice(0, index), ...work.slice(index + 1)]); }}>clear</i>
+              </div>
+            </li>
+          );
+        })}
+      </div>
+
+      <div className="Projects">
+        <div className="section-title">
+          <h2>Projects</h2>
+          <i className="material-icons"
+            onClick={() => {
+              setProjects([...projects, {
+                project: '', startdate: '', enddate: '', description: '',
+              }]);
+            }}
+          >add_circle
+          </i>
+        </div>
+        {projects.map((object, index) => {
+          return (
+            <li key={index}>
+              <div className="name-and-time">
+                <input placeholder="Project" name="project" className="text-input" {...register(`projects${index}.project`, { required: 'this field is required' })} value={projects[index].project} onChange={(event) => { updateProjects(index, 'project', event.target.value); }} />
+                <p>{errors?.[`projects${index}`]?.project?.message}</p>
+                <div>
+                  <input placeholder="Start Date" type="date" className="text-input" {...register(`projects${index}.startdate`, { required: 'start date is required' })} value={projects[index].startdate} onChange={(event) => { updateProjects(index, 'startdate', event.target.value); }} />
+                  <p>{errors?.[`projects${index}`]?.startdate?.message}</p>
+                  <input placeholder="End Date" type="date" className="text-input" {...register(`projects${index}.enddate`, { required: 'end date is required' })} value={projects[index].enddate} onChange={(event) => { updateProjects(index, 'enddate', event.target.value); }} />
+                  <p>{errors?.[`projects${index}`]?.enddate?.message}</p>
+                </div>
+              </div>
+              <div className="flex-column-details">
+                <input placeholder="Description" className="text-input" {...register(`projects${index}.description`, { required: 'description required' })} value={projects[index].description} onChange={(event) => { updateProjects(index, 'description', event.target.value); }} />
+                <p>{errors?.[`projects${index}`]?.description?.message}</p>
+              </div>
+              <div>
+                <i className="material-icons" onClick={() => { setProjects([...projects.slice(0, index), ...projects.slice(index + 1)]); unregister(`projects${index}`); }}>clear</i>
+              </div>
+            </li>
+          );
+        })}
+      </div>
+
+      <div className="skills">
+        <div className="section-title">
+          <h2>Skills</h2>
+          <i className="material-icons"
+            onClick={() => {
+              setSkills([...skills, {
+                technical: '', languages: '',
+              }]);
+            }}
+          >add_circle
+          </i>
+        </div>
+        {skills.map((object, index) => {
+          return (
+            <li key={index}>
+              <div className="name-and-time">
+                <input placeholder="Technical Skills" name="technical" className="text-input" {...register(`skills${index}.technical`, { required: 'this field is required' })} value={skills[index].technical} onChange={(event) => { updateSkills(index, 'technical', event.target.value); }} />
+                <p>{errors?.[`skills${index}`]?.technical?.message}</p>
+              </div>
+              <div className="flex-column-details">
+                <input placeholder="Languages" className="text-input" {...register(`skills${index}.languages`, { required: 'this field is required' })} value={skills[index].languages} onChange={(event) => { updateSkills(index, 'languages', event.target.value); }} />
+                <p>{errors?.[`skills${index}`]?.languages?.message}</p>
+              </div>
+              <div>
+                <i className="material-icons" onClick={() => { setSkills([...skills.slice(0, index), ...skills.slice(index + 1)]); unregister(`skills${index}`); }}>clear</i>
+              </div>
+            </li>
+          );
+        })}
+      </div>
+
       <input type="submit" />
     </form>
   );

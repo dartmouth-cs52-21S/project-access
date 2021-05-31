@@ -34,7 +34,7 @@ const App = (props) => {
           {/* <Route path="/signup" component={Customize} />
           <Route path="/signup" component={ChooseTemplate} />
           <Route path="/signup" component={existingPortfolios} /> */}
-          {/* <Route path="/temp" component={InputResume} /> */}
+          <Route path="/temp" component={InputResume} />
           <Route render={() => (<div>post not found</div>)} />
         </Switch>
       </div>
