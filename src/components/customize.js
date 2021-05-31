@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect, useState } from 'react';
 import { useHistory, withRouter, Link } from 'react-router-dom';
 import '../style.scss';
@@ -59,9 +60,13 @@ function customize(props) {
     }
   }
 
-  if (props.error === '') {
+  if (portfolio == null) {
+    return (
+      <div />
+    );
+  } else if (props.error === '') {
     if (!isEditing || !props.authenticated) {
-      console.log(portfolio);
+      console.log(portfolio[0].aboutMe);
       // console.log(template);
       return (
         <div>
