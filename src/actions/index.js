@@ -194,9 +194,9 @@ export function signinUser({ email, password }, history) {
     axios.post(`${ROOT_URL}/signin`, { email, password }).then((response) => {
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
-      history.push('/');
+      history.push('/profile');
     }).catch((error) => {
-      dispatch(authError(error.response.data));
+      dispatch(authError('Failed sign in'));
     });
   };
 }
@@ -210,7 +210,7 @@ export function signupUser({
     }).then((response) => {
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
-      history.push('/');
+      history.push('/profile');
     }).catch((error) => {
       console.log('errormessage', error.response.data);
       dispatch(authError(`${error.response.data.error.toString()}`));
