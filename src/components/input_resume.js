@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 // import { withRouter } from 'react-router-dom';
 import './input_resume_style.scss';
 import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router-dom';
 import { fetchPortfolio, updatePortfolio } from '../actions';
 
 function InputResume(props) {
@@ -199,7 +198,7 @@ function InputResume(props) {
         event,
       },
     });
-    props.history.push('');
+    props.history.push(`/portfolios/edit/style/${props.match.params.id}`);
   };
 
   return (
