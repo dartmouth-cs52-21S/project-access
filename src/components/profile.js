@@ -49,17 +49,6 @@ class Profile extends Component {
             <button className="button" type="button"><span>Create New Portolio</span></button>
           </NavLink>
         </div>
-        <div className="print-resume">
-          {/* Link to print resume to be done */}
-          <NavLink exact to="/">
-            <button className="button" type="button"><span>Print Resume</span></button>
-          </NavLink>
-        </div>
-        <div className="edit-resume">
-          <NavLink exact to="/resume">
-            <button className="button" type="button"><span>Edit Resume</span></button>
-          </NavLink>
-        </div>
         <div className="settings">
           <NavLink exact to="/templates">
             <button className="button" type="button"><span>Settings</span></button>
