@@ -45,7 +45,7 @@ export function createPortfolio(templateId, portfolioName, history) {
       .then((response) => {
         console.log('createPortfolio', response.data);
         dispatch({ type: ActionTypes.CREATE_PORTFOLIO, payload: response.data });
-        history.push(`/portfolios/edit/${response.data.id}`);
+        history.push(`/portfolios/edit/resume/${response.data.id}`);
       })
       .catch((error) => {
         console.log('create portfolio error found');
