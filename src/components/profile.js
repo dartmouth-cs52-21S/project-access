@@ -46,11 +46,11 @@ class Profile extends Component {
         </div>
         <div className="create-portfolio">
           <NavLink exact to="/templates">
-            <button className="button" type="button"><span>Create New Portolio</span></button>
+            <button className="button" type="button"><span>Create New Portfolio</span></button>
           </NavLink>
         </div>
         <div className="settings">
-          <NavLink exact to="/templates">
+          <NavLink exact to="/settings">
             <button className="button" type="button"><span>Settings</span></button>
           </NavLink>
         </div>
