@@ -27,7 +27,7 @@ export const ActionTypes = {
 export function authError(error) {
   return {
     type: ActionTypes.AUTH_ERROR,
-    message: error,
+    payload: error.toString(),
   };
 }
 
@@ -196,7 +196,7 @@ export function signinUser({ email, password }, history) {
       localStorage.setItem('token', response.data.token);
       history.push('/');
     }).catch((error) => {
-      dispatch(authError(`Sign In Failed: ${error.response.data}`));
+      dispatch(authError(error.response.data));
     });
   };
 }
@@ -204,9 +204,6 @@ export function signinUser({ email, password }, history) {
 export function signupUser({
   firstName, lastName, email, password, resume,
 }, history) {
-  // takes in an object with email and password (minimal user object)
-  // returns a thunk method that takes dispatch as an argument (just like our create post method really)
-  console.log(email);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signup`, {
       firstName, lastName, email, password, resume,
@@ -215,7 +212,8 @@ export function signupUser({
       localStorage.setItem('token', response.data.token);
       history.push('/');
     }).catch((error) => {
-      dispatch(authError(`Sign Up Failed: ${error.response.data}`));
+      console.log('errormessage', error.response.data);
+      dispatch(authError(`${error.response.data.error.toString()}`));
     });
   };
 }
@@ -223,7 +221,7 @@ export function signupUser({
 // deletes token from localstorage
 // and deauths
 export function signoutUser(history) {
-  console.log('sign out ugh');
+  console.log('sign out');
   return (dispatch) => {
     localStorage.removeItem('token');
     dispatch({ type: ActionTypes.DEAUTH_USER });
