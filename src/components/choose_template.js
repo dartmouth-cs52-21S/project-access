@@ -74,7 +74,7 @@ class ChooseTemplate extends Component {
         this.props.templates.map((template, id) => {
           return (
             <div>
-              <img src={template} alt="none" onClick={() => { this.clickTemplate(); }} />
+              <img src={template} alt="none" onClick={() => { this.clickTemplate(id); }} />
             </div>
           );
         })
