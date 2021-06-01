@@ -33,13 +33,6 @@ const App = (props) => {
           <PrivateRoute exact path="/portfolios" component={ExistingPortfolios} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
-<<<<<<< HEAD
-          {/* <Route path="/signup" component={Customize} />
-          <Route path="/signup" component={ChooseTemplate} />
-          <Route path="/signup" component={existingPortfolios} /> */}
-          <Route path="/temp" component={InputResume} />
-=======
->>>>>>> customize-feature
           <Route render={() => (<div>post not found</div>)} />
         </Switch>
       </div>

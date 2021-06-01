@@ -10,7 +10,8 @@ import { connect } from 'react-redux';
 // import { withRouter } from 'react-router-dom';
 import './input_resume_style.scss';
 import { useForm } from 'react-hook-form';
-import { getUserResume, updateUserResume } from '../actions';
+import { NavLink } from 'react-router-dom';
+import { fetchPortfolio, updatePortfolio } from '../actions';
 
 function InputResume(props) {
   const {
@@ -37,9 +38,12 @@ function InputResume(props) {
     technical: '', languages: '',
   }]);
 
-  /* useEffect(() => {
-    props.getUserResume();
-  }); */
+  useEffect(() => {
+    if (props.match.params.id) {
+      props.fetchPortfolio(props.match.params.id);
+      console.log(props.match.params.id);
+    }
+  }, [props.match.params.id]);
 
   const updateName = (value) => {
     setName({ ...name, name: value });
@@ -190,7 +194,12 @@ function InputResume(props) {
   };
 
   const submitform = (event) => {
-    console.log(event);
+    props.updatePortfolio(props.match.params.id, {
+      resume: {
+        event,
+      },
+    });
+    props.history.push('');
   };
 
   return (
@@ -373,4 +382,4 @@ function InputResume(props) {
     </form>
   );
 }
-export default connect(null, { updateUserResume, getUserResume })(InputResume);
+export default connect(null, { fetchPortfolio, updatePortfolio })(InputResume);
