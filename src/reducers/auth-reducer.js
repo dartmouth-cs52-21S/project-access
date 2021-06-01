@@ -2,6 +2,7 @@ import { ActionTypes } from '../actions';
 
 const initialState = {
   authenticated: false,
+  authError: '',
 };
 
 const PostsReducer = (state = initialState, action) => {
@@ -11,7 +12,7 @@ const PostsReducer = (state = initialState, action) => {
     case ActionTypes.DEAUTH_USER:
       return { ...state, authenticated: false };
     case ActionTypes.AUTH_ERROR:
-      return { ...state, authenticated: false };
+      return { ...state, authError: action.payload };
     default:
       return state;
   }
