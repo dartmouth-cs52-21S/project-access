@@ -196,7 +196,7 @@ export function signinUser({ email, password }, history) {
       localStorage.setItem('token', response.data.token);
       history.push('/');
     }).catch((error) => {
-      dispatch(authError(error.response.data));
+      dispatch(authError('Failed sign in'));
     });
   };
 }
