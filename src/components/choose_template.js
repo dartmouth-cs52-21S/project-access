@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import ReactModal from 'react-modal';
 import { createPortfolio, fetchTemplates } from '../actions';
 
 // createPortfolio(templateId, {
@@ -20,6 +21,7 @@ class ChooseTemplate extends Component {
       isCreating: false,
       portfolioName: '',
       templateSelected: '',
+      showModal: false,
     };
   }
 
@@ -31,6 +33,7 @@ class ChooseTemplate extends Component {
     console.log('current template id selected', id);
     this.setState({ isCreating: true });
     this.setState({ templateSelected: id });
+    this.handleOpenModal();
   }
 
   onPortfolioNameChange = (event) => {
@@ -38,8 +41,20 @@ class ChooseTemplate extends Component {
   }
 
   onCreateTemplate = () => {
-    console.log('template id', this.state.templateSelected);
-    this.props.createPortfolio(this.state.templateSelected, this.state.portfolioName, this.props.history);
+    // console.log('template id', this.state.templateSelected);
+    if (this.state.portfolioName !== '') {
+      this.props.createPortfolio(this.state.templateSelected, this.state.portfolioName, this.props.history);
+    }
+  }
+
+  displayInvalidPortfolioName = () => {
+    if (this.state.portfolioName === '') {
+      return (
+        <div className="black-font">Please ensure that portfolio name has been chosen before proceeding</div>
+      );
+    } else {
+      return null;
+    }
   }
 
   displayCreatingTemplates = () => {
@@ -82,11 +97,31 @@ class ChooseTemplate extends Component {
     }
   }
 
+  handleOpenModal = () => {
+    this.setState({ showModal: true });
+  }
+
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
+  }
+
   render() {
     return (
     // desigining the template page
       <div className="choose-template-page">
         {this.displayAll()}
+        <ReactModal
+          isOpen={this.state.showModal}
+          contentLabel="Select Portfolio Name"
+          ariaHideApp={false}
+        >
+          <h2 className="black-font">You chose template {this.state.templateSelected}</h2>
+          <h2 className="black-font">Portfolio Name</h2>
+          <input onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="Insert portfolio name" />
+          {this.displayInvalidPortfolioName()}
+          <button type="button" onClick={this.handleCloseModal}>Back</button>
+          <button type="button" onClick={this.onCreateTemplate}>Create Portfolio</button>
+        </ReactModal>
       </div>
     );
   }
