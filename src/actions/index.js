@@ -43,8 +43,9 @@ export function createPortfolio(templateId, portfolioName, history) {
     // axios.post(`${ROOT_URL}/portfolio/${templateId}${firstName}${lastName}`, {
     axios.post(`${ROOT_URL}/portfolios/create/${templateId}`, { portfolioName }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        console.log('createPortfolio', response.data);
         dispatch({ type: ActionTypes.CREATE_PORTFOLIO, payload: response.data });
-        history.push('/portfolios');
+        history.push(`/portfolios/edit/${response.data.id}`);
       })
       .catch((error) => {
         console.log('create portfolio error found');
@@ -98,9 +99,9 @@ export function fetchTemplates() {
   };
 }
 
-export function updatePortfolio(templates, portfolioId) {
+export function updatePortfolio(portfolioId, portfolioFields) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/posts/${portfolioId}}`, templates, { headers: { authorization: localStorage.getItem('token') } })
+    axios.put(`${ROOT_URL}/portfolios/${portfolioId}`, portfolioFields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PORTFOLIO, payload: response.data });
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
@@ -115,10 +116,10 @@ export function updatePortfolio(templates, portfolioId) {
 
 export function deletePortfolio(portfolioId, history) {
   return (dispatch) => {
-    axios.delete(`${ROOT_URL}/posts/${portfolioId}`, { headers: { authorization: localStorage.getItem('token') } })
+    axios.delete(`${ROOT_URL}/portfolios/${portfolioId}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.DELETE_PORTFOLIO, payload: response.data });
-        history.push('/');
+        history.push('/portfolios');
       })
       .catch((error) => {
         console.log('delete portfolio error found');

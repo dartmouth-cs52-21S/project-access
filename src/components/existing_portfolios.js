@@ -2,7 +2,7 @@
 import '../style.scss';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { fetchPortfolios } from '../actions';
 
 class ExistingPortfolios extends Component {
@@ -20,9 +20,13 @@ class ExistingPortfolios extends Component {
   displayPortfolios = () => {
     return (
       this.props.portfolios.map((portfolio) => {
+        console.log(portfolio);
         return (
-          <div>
-            Portfolio page
+          <div key={portfolio._id}>
+            {/* pp */}
+            <Link to={`portfolio/edit/${portfolio._id}`}>
+              {portfolio.name}
+            </Link>
           </div>
         );
       })

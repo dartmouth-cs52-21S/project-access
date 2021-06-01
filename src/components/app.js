@@ -10,11 +10,11 @@ import LandingPage from './landing_page';
 import SignIn from './sign_in';
 import SignUp from './sign_up';
 import PrivateRoute from './private_route';
-// import Customize from './customize';
 import ChooseTemplate from './choose_template';
 import ExistingPortfolios from './existing_portfolios';
 import InputResume from './input_resume';
 import Portfolio from './portfolio';
+import customize from './customize';
 
 const App = (props) => {
   return (
@@ -26,15 +26,20 @@ const App = (props) => {
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/resume" component={InputResume} />
           <PrivateRoute exact path="/templates" component={ChooseTemplate} />
+          {/* <PrivateRoute exact path="/portfolios/:id" component={Portfolio} /> */}
+          {/* Anyone can view Portfolio. Does not need PrivateRoute */}
+          <PrivateRoute exact path="/portfolios/edit/:id" component={customize} />
           <Route exact path="/portfolios/:id" component={Portfolio} />
           <PrivateRoute exact path="/portfolios" component={ExistingPortfolios} />
-          {/* Anyone can view Portfolio. Does not need PrivateRoute */}
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
+<<<<<<< HEAD
           {/* <Route path="/signup" component={Customize} />
           <Route path="/signup" component={ChooseTemplate} />
           <Route path="/signup" component={existingPortfolios} /> */}
           <Route path="/temp" component={InputResume} />
+=======
+>>>>>>> customize-feature
           <Route render={() => (<div>post not found</div>)} />
         </Switch>
       </div>
