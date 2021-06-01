@@ -11,22 +11,44 @@ class SignIn extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
-      authenticated: true,
+      user: {
+        email: '',
+        password: '',
+      },
     };
   }
 
   handlePassword = (event) => {
-    this.setState({ password: event.target.value });
+    this.setState(((prevState) => ({
+      user: {
+        ...prevState.user,
+        password: event.target.value,
+      },
+    })));
   }
 
   handleUsername = (event) => {
-    this.setState({ email: event.target.value });
+    this.setState(((prevState) => ({
+      user: {
+        ...prevState.user,
+        email: event.target.value,
+      },
+    })));
+  }
+
+  displayIncorrectFields = (props) => {
+    if (this.props.autherr === 'Failed sign in') {
+      return (
+        <div> Incorrect username or password! </div>
+      );
+    } else {
+      return (
+        null
+      );
+    }
   }
 
   renderSignInError = () => {
-    console.log('eat it');
     console.log(this.state.authenticated);
     if (this.state.authenticated === false) {
       return (
@@ -44,23 +66,20 @@ class SignIn extends Component {
         <form className="form">
           <input type="text" name="username" placeholder="Username" onChange={this.handleUsername} />
           <input type="password" name="password" placeholder="Password" onChange={this.handlePassword} />
+          {this.displayIncorrectFields()}
           <div className="sign-button"
             onClick={() => {
-              this.props.signinUser(this.state, this.props.history);
-              this.state.authenticated = this.props.auth_state;
-              console.log(this.state.authenticated);
+              this.props.signinUser(this.state.user, this.props.history);
             }}
           ><h2>Sign In</h2>
           </div>
-          {this.renderSignInError()}
         </form>
       </div>
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  auth_state: state.auth.authenticated,
+const mapStateToProps = (reduxState) => ({
+  autherr: reduxState.auth.authError,
 });
 
 export default withRouter(connect(mapStateToProps, { signinUser })(SignIn));
