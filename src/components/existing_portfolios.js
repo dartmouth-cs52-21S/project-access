@@ -20,12 +20,17 @@ class ExistingPortfolios extends Component {
   displayPortfolios = () => {
     return (
       this.props.portfolios.map((portfolio) => {
-        console.log(portfolio);
         return (
           <div key={portfolio._id}>
             {/* pp */}
-            <Link to={`portfolio/edit/${portfolio._id}`}>
+            <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
               {portfolio.name}
+            </Link>
+            <div>
+              {}
+            </div>
+            <Link to={`/portfolios/${portfolio._id}`}>
+              view
             </Link>
           </div>
         );

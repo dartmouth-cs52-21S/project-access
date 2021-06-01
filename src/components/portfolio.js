@@ -16,9 +16,27 @@ class Portfolio extends Component {
   }
 
   render() {
-    return (
-      <div>Renders the portfolio view page</div>
-    );
+    if (Object.keys(this.props.curr).length === 0) {
+      return null;
+    } else {
+      return (
+        <div>
+          {console.log(this.props.curr)}
+          <div className="header">
+            <h1>{this.props.curr.resume.event.name}</h1>
+          </div>
+          <div className="aboutme">
+            <h3>About Me</h3>
+            <p>backgroundColor: {this.props.curr.aboutMe.backgroundColor}</p>
+            <p>color: {this.props.curr.aboutMe.Color}</p>
+            <p>flexDirection: {this.props.curr.aboutMe.flexDirection}</p>
+            <p>fontSize: {this.props.curr.aboutMe.fontSize}</p>
+            <p>justifyContent: {this.props.curr.aboutMe.justifyContent}</p>
+            <p>padding: {this.props.curr.aboutMe.padding}</p>
+          </div>
+        </div>
+      );
+    }
   }
 }
 

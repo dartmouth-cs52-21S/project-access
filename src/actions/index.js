@@ -105,6 +105,7 @@ export function updatePortfolio(portfolioId, portfolioFields) {
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PORTFOLIO, payload: response.data });
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
+        console.log('put updateportfolio');
       })
       .catch((error) => {
         console.log('update portfolio error found');

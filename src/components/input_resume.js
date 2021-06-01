@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { fetchPortfolio, updatePortfolio } from '../actions';
 
 function InputResume(props) {
+  const portfolio = props.curr;
   const {
     register, handleSubmit, formState: { errors }, unregister,
   } = useForm();
@@ -25,7 +26,7 @@ function InputResume(props) {
     college: '', gpa: '', degree: '', relevantCoursework: '',
   });
   const [research, setResearch] = useState([{
-    researchLab: '', startdate: '', enddate: '', position: '', description: '',
+    researchlab: '', startdate: '', enddate: '', position: '', description: '',
   }]);
   const [work, setWork] = useState([{
     company: '', startdate: '', enddate: '', position: '', description: '',
@@ -43,6 +44,48 @@ function InputResume(props) {
       console.log(props.match.params.id);
     }
   }, [props.match.params.id]);
+
+  useEffect(() => {
+    if (Object.keys(portfolio).length > 0) {
+      if (Object.keys(portfolio.resume).length > 0) {
+        setName({ name: portfolio.resume.event.name });
+        setPhone({ phone: portfolio.resume.event.phone });
+        setEmail({ email: portfolio.resume.event.email });
+        setLinkedIn({ linkedIn: portfolio.resume.event.linkedIn });
+
+        setEd({
+          college: portfolio.resume.event.college,
+          gpa: portfolio.resume.event.gpa,
+          degree: portfolio.resume.event.degree,
+          relevantCoursework: portfolio.resume.event.relevantCoursework,
+        });
+
+        let savedresearch = [];
+        for (let i = 0; portfolio.resume.event?.[`research${i}`] !== undefined; i += 1) {
+          savedresearch = [...savedresearch, portfolio.resume.event?.[`research${i}`]];
+        }
+        setResearch(savedresearch);
+
+        let savedwork = [];
+        for (let i = 0; portfolio.resume.event?.[`work${i}`] !== undefined; i += 1) {
+          savedwork = [...savedwork, portfolio.resume.event?.[`work${i}`]];
+        }
+        setWork(savedwork);
+
+        let savedprojects = [];
+        for (let i = 0; portfolio.resume.event?.[`projects${i}`] !== undefined; i += 1) {
+          savedprojects = [...savedprojects, portfolio.resume.event?.[`projects${i}`]];
+        }
+        setProjects(savedprojects);
+
+        let savedskills = [];
+        for (let i = 0; portfolio.resume.event?.[`skills${i}`] !== undefined; i += 1) {
+          savedskills = [...savedskills, portfolio.resume.event?.[`skills${i}`]];
+        }
+        setSkills(savedskills);
+      }
+    }
+  }, [portfolio]);
 
   const updateName = (value) => {
     setName({ ...name, name: value });
@@ -82,9 +125,9 @@ function InputResume(props) {
 
   const updateResearch = (index, fieldIdx, value) => {
     switch (fieldIdx) {
-      case 'researchLab':
+      case 'researchlab':
         let temp = research[index];
-        temp.researchLab = value;
+        temp.researchlab = value;
         setResearch([...research.slice(0, index), temp, ...research.slice(index + 1)]);
         break;
       case 'startdate':
@@ -209,7 +252,7 @@ function InputResume(props) {
         <input placeholder="Name" className="name" {...register('name', { required: 'your name is required' })} value={name.name} onChange={(event) => { updateName(event.target.value); }} />
         <p>{errors.name?.message}</p>
         <div className="contact-info">
-          <input placeholder="Phone" className="text-input" {...register('phone', { required: 'phone number is required', minLength: { value: 9, message: 'invalid phone number' } })} value={phone.phone} onChange={(event) => { updatePhone(event.target.value); }} />
+          <input placeholder="Phone" className="text-input" {...register('phone', { required: 'phone number is required', validate: { value: 9, message: 'invalid phone number' } })} value={phone.phone} onChange={(event) => { updatePhone(event.target.value); }} />
           <p>{errors.phone?.message}</p>
           <input placeholder="Email" className="text-input" {...register('email', { required: 'email is required', pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: 'invalid email address' } })} value={email.email} onChange={(event) => { updateEmail(event.target.value); }} />
           <p>{errors.email?.message}</p>
@@ -247,7 +290,7 @@ function InputResume(props) {
           return (
             <li key={index}>
               <div className="name-and-time">
-                <input placeholder="Research Lab" name="researchlab" className="text-input" {...register(`research${index}.researchlab`, { required: 'this field is required' })} value={research[index].researchLab} onChange={(event) => { updateResearch(index, 'researchLab', event.target.value); }} />
+                <input placeholder="Research Lab" name="researchlab" className="text-input" {...register(`research${index}.researchlab`, { required: 'this field is required' })} value={research[index].researchlab} onChange={(event) => { updateResearch(index, 'researchlab', event.target.value); }} />
                 <p>{errors?.[`research${index}`]?.researchlab?.message}</p>
                 <div>
                   <input placeholder="Start Date" type="date" className="text-input" {...register(`research${index}.startdate`, { required: 'start date is required' })} value={research[index].startdate} onChange={(event) => { updateResearch(index, 'startdate', event.target.value); }} />
@@ -263,7 +306,7 @@ function InputResume(props) {
                 <p>{errors?.[`research${index}`]?.description?.message}</p>
               </div>
               <div>
-                <i className="material-icons" onClick={() => { setResearch([...research.slice(0, index), ...research.slice(index + 1)]); }}>clear</i>
+                <i className="material-icons" onClick={() => { setResearch([...research.slice(0, index), ...research.slice(index + 1)]); unregister(`research${index}`); }}>clear</i>
               </div>
             </li>
           );
@@ -302,7 +345,7 @@ function InputResume(props) {
                 <p>{errors?.[`work${index}`]?.description?.message}</p>
               </div>
               <div>
-                <i className="material-icons" onClick={() => { setWork([...work.slice(0, index), ...work.slice(index + 1)]); }}>clear</i>
+                <i className="material-icons" onClick={() => { setWork([...work.slice(0, index), ...work.slice(index + 1)]); unregister(`work${index}`); }}>clear</i>
               </div>
             </li>
           );
@@ -381,4 +424,9 @@ function InputResume(props) {
     </form>
   );
 }
-export default connect(null, { fetchPortfolio, updatePortfolio })(InputResume);
+function mapStateToProps(reduxState) {
+  return {
+    curr: reduxState.portfolio.current,
+  };
+}
+export default connect(mapStateToProps, { fetchPortfolio, updatePortfolio })(InputResume);
