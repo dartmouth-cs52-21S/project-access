@@ -120,7 +120,7 @@ export function deletePortfolio(portfolioId, history) {
     axios.delete(`${ROOT_URL}/portfolios/${portfolioId}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.DELETE_PORTFOLIO, payload: response.data });
-        history.push('/portfolios');
+        history.push('/profile');
       })
       .catch((error) => {
         console.log('delete portfolio error found');
