@@ -7,6 +7,7 @@ import {
   NavLink,
 } from 'react-router-dom';
 import { getUserProfile } from '../actions/index';
+import '../styles/profile-page.scss';
 
 // Profile page commponent that displays username, email, and provides routed
 // options to create, print, edit resume, as well as settings and logout
@@ -19,49 +20,38 @@ class Profile extends Component {
     };
   }
 
+  // fetching user profile information
   componentDidMount = (props) => {
     this.props.getUserProfile();
   }
-  // this.usernameretreive = () => {
-  //   getUser
-  // }
 
   render() {
     return (
       <div className="profile-page">
         <div className="profile-user-info">
           <div className="profile-img">
-            <img src="" alt="none" />
+            {/* extra feature: implementing image upload */}
+            <img src="https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg" alt="none" />
           </div>
           <div className="profile-info">
-            <div className="profile-info-name">Arista WIlliams</div>
-            <div className="profile-info-email">arista.williams.22@dartmouth.edu</div>
+            {console.log(this.props.profile)}
+            <div className="profile-info-name">{this.props.profile.firstName} {this.props.profile.lastName}</div>
+            <div className="profile-info-email">{this.props.profile.email}</div>
           </div>
         </div>
         <div className="view-portfolios">
           <NavLink exact to="/portfolios">
-            <button className="button" type="button">View All Portfolios</button>
+            <button className="button" type="button"><span>View Existing Portfolios</span></button>
           </NavLink>
         </div>
         <div className="create-portfolio">
-          <NavLink exact to="/resume">
-            <button className="button" type="button">Create New Portolio</button>
-          </NavLink>
-        </div>
-        <div className="print-resume">
-          {/* Link to print resume to be done */}
-          <NavLink exact to="/">
-            <button className="button" type="button">Print Resume</button>
-          </NavLink>
-        </div>
-        <div className="edit-resume">
-          <NavLink exact to="/resume">
-            <button className="button" type="button">Edit Resume</button>
+          <NavLink exact to="/templates">
+            <button className="button" type="button"><span>Create New Portfolio</span></button>
           </NavLink>
         </div>
         <div className="settings">
-          <NavLink exact to="/templates">
-            <button className="button" type="button">Settings</button>
+          <NavLink exact to="/settings">
+            <button className="button" type="button"><span>Settings</span></button>
           </NavLink>
         </div>
       </div>
