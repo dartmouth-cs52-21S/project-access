@@ -101,7 +101,7 @@ export function fetchTemplates() {
 
 export function updatePortfolio(portfolioId, portfolioFields) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/portfolios/${portfolioId}`, { ...portfolioFields }, { headers: { authorization: localStorage.getItem('token') } })
+    axios.put(`${ROOT_URL}/portfolios/${portfolioId}`, portfolioFields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PORTFOLIO, payload: response.data });
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
