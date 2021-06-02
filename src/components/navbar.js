@@ -17,14 +17,26 @@ class NavBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      portfolio_page: '',
     };
+  }
+
+  componentDidMount = () => {
+    // Essentially check if the current location has an extension after /portfolios/
+    // if so, we know it is a portfolio page, and we do not render the navbar
+    console.log('History');
+    console.log(this.props.history.location.pathname);
+    if (this.props.history.location.pathname.includes('/portfolios/')) {
+      this.setState({ portfolio_page: true });
+      console.log('In a portfolio page');
+    }
   }
 
   displayNav = (props) => {
     console.log(this.props.auth);
     const { auth } = this.props; // temporary placeholder. to be removed once the authentication action has been created
     // auth = true;
-    if (auth) {
+    if (auth && this.state.portfolio_page !== true) {
       return (
         <nav>
           <ul className="navbar">
@@ -39,6 +51,11 @@ class NavBar extends Component {
             </div>
           </ul>
         </nav>
+      );
+    } else if (this.state.portfolio_page) {
+      console.log('IN A PORTFOLIO PAGE', this.props.history.location.pathname);
+      return (
+        <div />
       );
     } else {
       return (
