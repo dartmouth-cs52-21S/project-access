@@ -1,0 +1,11 @@
+.display-portfolios {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.display-portfolios iframe {
+    width: 100%;
+}

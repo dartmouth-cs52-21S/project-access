@@ -1,9 +1,11 @@
+/* eslint-disable react/style-prop-object */
 // import React, { useEffect, useState } from 'react';
 import '../style.scss';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { fetchPortfolios } from '../actions';
+import '../styles/existing-portfolios.scss';
 
 class ExistingPortfolios extends Component {
   constructor(props) {
@@ -20,19 +22,23 @@ class ExistingPortfolios extends Component {
   displayPortfolios = () => {
     return (
       this.props.portfolios.map((portfolio) => {
+        console.log(portfolio.id);
         return (
-          <div key={portfolio._id}>
-            {/* pp */}
-            <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
-              edit resume
-            </Link>
-            <div>
-              {}
+          <iframe width="1024" height="768" title={`Portfolio ${portfolio.__v}`} src={`/portfolios/${portfolio.id}`}>
+            {/* <iframe src={`/portfolios/${portfolio.id}`} title={`Portfolio ${portfolio.__v}`}> */}
+            <div key={portfolio._id}>
+              {/* pp */}
+              <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
+                edit resume
+              </Link>
+              <div>
+                {}
+              </div>
+              <Link to={`/portfolios/${portfolio._id}`}>
+                view portfolio
+              </Link>
             </div>
-            <Link to={`/portfolios/${portfolio._id}`}>
-              view portfolio
-            </Link>
-          </div>
+          </iframe>
         );
       })
     );
@@ -40,7 +46,7 @@ class ExistingPortfolios extends Component {
 
   render() {
     return (
-      <div>
+      <div className="display-portfolios">
         {this.displayPortfolios()}
       </div>
     );
