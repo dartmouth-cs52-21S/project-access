@@ -44,6 +44,7 @@ function customize(props) {
   const [contactmeDir, setContactmeDir] = useState('');
 
   const onChangeHandler = (setter) => (e) => setter(e.target.value);
+  // const onChangeHandlerColor = (setter) => (e) => setter(e.target.value && validateColor(e.target.value) ? e.target.value : 'white');
 
   useEffect(() => {
     if (props.match.params.id) {
