@@ -25,8 +25,11 @@ class Portfolio extends Component {
       font: this.props.curr.header?.role.font,
       fontSize: this.props.curr.header?.role.fontSize,
       justifyContent: this.props.curr.header?.role.justifyContent,
-      padding: this.props.curr.header?.role.padding,
+      paddingBottom: this.props.curr.header?.role.paddingBottom,
+      paddingLeft: this.props.curr.header?.role.paddingLeft,
+      paddingRight: this.props.curr.header?.role.paddingRight,
       weight: this.props.curr.header?.role.weight,
+      textAlign: this.props.curr.header?.role.textAlign,
     };
 
     const headerusernamestyle = {
@@ -37,8 +40,11 @@ class Portfolio extends Component {
       font: this.props.curr.header?.userName.font,
       fontSize: this.props.curr.header?.userName.fontSize,
       justifyContent: this.props.curr.header?.userName.justifyContent,
-      padding: this.props.curr.header?.userName.padding,
+      paddingTop: this.props.curr.header?.userName.paddingTop,
+      paddingLeft: this.props.curr.header?.userName.paddingLeft,
+      paddingRight: this.props.curr.header?.userName.paddingRight,
       weight: this.props.curr.header?.userName.weight,
+      textAlign: this.props.curr.header?.userName.textAlign,
     };
 
     const aboutmestyle = {
@@ -56,6 +62,7 @@ class Portfolio extends Component {
       backgroundColor: this.props.curr.projects?.backgroundColor,
       color: this.props.curr.projects?.color,
       display: this.props.curr.projects?.display,
+      // display: 'flex',
       flexDirection: this.props.curr.projects?.flexDirection,
       font: this.props.curr.projects?.font,
       fontSize: this.props.curr.projects?.fontSize,
@@ -74,6 +81,15 @@ class Portfolio extends Component {
       padding: this.props.curr.contactMe?.padding,
     };
 
+    const spacing = {
+      paddingTop: '10px',
+      paddingBottom: '10px',
+    };
+
+    const bodycolor = {
+      backgroundColor: this.props.curr.header?.userName.backgroundColor,
+    };
+
     if (Object.keys(this.props.curr).length === 0) {
       return null;
     } else {
@@ -82,13 +98,33 @@ class Portfolio extends Component {
         projs = [...projs, this.props.curr.resume?.event?.[`projects${i}`]];
       }
 
+      let res = [];
+      for (let i = 0; this.props.curr.resume?.event?.[`research${i}`] !== undefined; i += 1) {
+        res = [...res, this.props.curr.resume?.event?.[`research${i}`]];
+      }
+
+      let work = [];
+      for (let i = 0; this.props.curr.resume?.event?.[`work${i}`] !== undefined; i += 1) {
+        work = [...work, this.props.curr.resume?.event?.[`work${i}`]];
+      }
+
+      let skill = [];
+      for (let i = 0; this.props.curr.resume?.event?.[`skills${i}`] !== undefined; i += 1) {
+        skill = [...skill, this.props.curr.resume?.event?.[`skills${i}`]];
+      }
+
       let LINKEDIN = '';
       if (this.props.curr.resume?.event?.linkedIn !== '') {
         LINKEDIN = <p>LinkedIn: {this.props.curr.resume?.event?.linkedIn}</p>;
       }
 
+      let GPA = '';
+      if (this.props.curr.resume?.event?.gpa !== '') {
+        GPA = <p>GPA: {this.props.curr.resume.event.gpa}</p>;
+      }
+
       return (
-        <div>
+        <div style={bodycolor}>
           {console.log(this.props.curr)}
           <div className="header">
             <h1 style={headerusernamestyle}>{this.props.curr.resume?.event?.name}</h1>
@@ -98,14 +134,57 @@ class Portfolio extends Component {
             <h2>About Me</h2>
             <p>{this.props.curr.resume?.event?.about}</p>
           </div>
+          <div className="education" style={projectstyle}>
+            <h2>Education</h2>
+            <p>{this.props.curr.resume.event.college}</p>
+            <p>{this.props.curr.resume.event.degree}</p>
+            {GPA}
+          </div>
+          <div className="research" style={aboutmestyle}>
+            <h2>Research</h2>
+            {res.map((research, index) => {
+              return (
+                <ul key={index} style={spacing}>
+                  <h3>{research.researchlab}</h3>
+                  <p>{new Date(research.startdate).toDateString()} - {new Date(research.enddate).toDateString()}</p>
+                  <p>{research.position}</p>
+                  <p>{research.description}</p>
+                </ul>
+              );
+            })}
+          </div>
           <div className="projects" style={projectstyle}>
             <h2>Projects</h2>
             {projs.map((project, index) => {
               return (
-                <ul key={index}>
+                <ul key={index} style={spacing}>
                   <h3>{project.project}</h3>
                   <p>{new Date(project.startdate).toDateString()} - {new Date(project.enddate).toDateString()}</p>
                   <p>{project.description}</p>
+                </ul>
+              );
+            })}
+          </div>
+          <div className="work" style={aboutmestyle}>
+            <h2>Work Experience</h2>
+            {work.map((w, index) => {
+              return (
+                <ul key={index} style={spacing}>
+                  <h3>{w.company}</h3>
+                  <p>{new Date(w.startdate).toDateString()} - {new Date(w.enddate).toDateString()}</p>
+                  <p>{w.position}</p>
+                  <p>{w.description}</p>
+                </ul>
+              );
+            })}
+          </div>
+          <div className="skills" style={projectstyle}>
+            <h2>Skills and Experience</h2>
+            {skill.map((s, index) => {
+              return (
+                <ul key={index} style={spacing}>
+                  <p>{s.technical}</p>
+                  <p>{s.languages}</p>
                 </ul>
               );
             })}
