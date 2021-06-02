@@ -6,11 +6,11 @@
     align-content: center;
 
     h1 {
-        font-size: 300%;
+        font-size: 200%;
     }
 
     h2 {
-        font-size: 200%;
+        font-size: 150%;
     }
 }
 
@@ -42,7 +42,7 @@ input[type="password"] {
     border-bottom: 1px solid #AAA;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
-    font-size: 25px;
+    font-size: 20px;
     transition: 0.2s ease;
 }
 
@@ -69,7 +69,7 @@ input[type="password"]:focus {
 .sign-button:hover {
     background-color: white;
     color:black;
-    transition: 0.6s ease;
+    transition: 0.8s ease;
     font-weight: bolder;
-    border: 3px solid rgb(1, 187, 1) !important;
+    // border: 3px solid rgb(1, 187, 1) !important;
 }

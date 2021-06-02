@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://localhost:9090/api';
+// const ROOT_URL = 'http://localhost:9090/api';
+const ROOT_URL = 'https://cs52access.herokuapp.com/api';
 
 // keys for actiontypes
 export const ActionTypes = {
@@ -105,6 +106,7 @@ export function updatePortfolio(portfolioId, portfolioFields) {
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PORTFOLIO, payload: response.data });
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
+        console.log('put updateportfolio');
       })
       .catch((error) => {
         console.log('update portfolio error found');
