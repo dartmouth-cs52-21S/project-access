@@ -12,7 +12,7 @@ body, html {
     color:white;
     justify-content: space-between;
     font-weight: bold;
-    font-size: 200%;
+    font-size: 150%;
     a {
         text-decoration: none;
         color: white;
@@ -38,7 +38,7 @@ body, html {
     position: relative;
 }
 
-.lefttabs a:before {
+.lefttabs a h1:before {
   content: "";
   position: absolute;
   width: 0;
@@ -48,13 +48,9 @@ body, html {
   background-color: #FFF;
   visibility: hidden;
   transition: all 0.3s ease-in-out;
-
-  h1 {
-      margin-bottom: 1px;
-  }
 }
 
-.lefttabs a:hover:before {
+.lefttabs h1:hover:before {
   visibility: visible;
   width: 100%;
 }

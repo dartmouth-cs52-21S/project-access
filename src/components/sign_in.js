@@ -1,71 +1,85 @@
-/* eslint-disable no-alert */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { Component } from 'react';
+import '../style.scss';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import React, { Component } from 'react';
-import TextareaAutosize from 'react-textarea-autosize';
 import { signinUser } from '../actions';
-import '../style.scss';
+import '../styles/sign_in.scss';
 
-class signIn extends Component {
+class SignIn extends Component {
   constructor(props) {
     super(props);
-
-    this.user = {
-      email: null,
-      password: null,
+    this.state = {
+      user: {
+        email: '',
+        password: '',
+      },
     };
   }
 
-  componentDidMount() {
-    this.user = {
-      email: null,
-      password: null,
-    };
+  handlePassword = (event) => {
+    this.setState(((prevState) => ({
+      user: {
+        ...prevState.user,
+        password: event.target.value,
+      },
+    })));
   }
 
-  OnInputChangeEmail = (event) => {
-    this.user = { ...this.user, email: event.target.value };
+  handleUsername = (event) => {
+    this.setState(((prevState) => ({
+      user: {
+        ...prevState.user,
+        email: event.target.value,
+      },
+    })));
   }
 
-  OnInputChangePassword = (event) => {
-    this.user = { ...this.user, password: event.target.value };
+  displayIncorrectFields = (props) => {
+    if (this.props.autherr === 'Failed sign in') {
+      return (
+        <div> Incorrect username or password! </div>
+      );
+    } else {
+      return (
+        null
+      );
+    }
   }
 
-  submitinfo = () => {
-    this.props.signinUser(this.user, this.props.history);
-    console.log(this.props.history);
-    // console.log(this.user);
+  renderSignInError = () => {
+    console.log(this.state.authenticated);
+    if (this.state.authenticated === false) {
+      return (
+        <div>Invalid Username or Password</div>
+      );
+    } else {
+      return <div />;
+    }
   }
 
   render() {
-    let ERROR = null;
-
-    if (this.props.autherr === 'Unauthorized') {
-      ERROR = 'Your email or password is incorrect';
-    } else if (this.props.autherr === 'Bad Request') {
-      ERROR = 'Please input your email and password';
-    }
-
     return (
-      <div id="signin_up">
-        <div>
-          <h1 id="signin_up_title">Sign In</h1>
-          <h2>Email</h2>
-          <TextareaAutosize id="utextinput" onChange={this.OnInputChangeEmail} placeholder="Email" />
-          <h2>Password</h2>
-          <TextareaAutosize id="utextinput" onChange={this.OnInputChangePassword} placeholder="Password" />
-        </div>
-        <div>
-          <div className="sign-button" onClick={this.submitinfo}>Sign In</div>
-        </div>
-        {ERROR}
+      <div className="signin-page">
+        <h1>Welcome back!</h1>
+        <form className="form">
+          <input type="text" name="username" placeholder="Username" onChange={this.handleUsername} />
+          <input type="password" name="password" placeholder="Password" onChange={this.handlePassword} />
+          {this.displayIncorrectFields()}
+          <div className="sign-button"
+            onClick={() => {
+              this.props.signinUser(this.state.user, this.props.history);
+            }}
+          ><h2>Sign In</h2>
+          </div>
+        </form>
       </div>
     );
   }
 }
 const mapStateToProps = (reduxState) => ({
-  autherr: reduxState.auth.autherr,
+  autherr: reduxState.auth.authError,
 });
 
-export default withRouter(connect(mapStateToProps, { signinUser })(signIn));
+export default withRouter(connect(mapStateToProps, { signinUser })(SignIn));
