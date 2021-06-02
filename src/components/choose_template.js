@@ -5,12 +5,13 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import { createPortfolio, fetchTemplates } from '../actions';
+import '../styles/choose-template.scss';
 
 class ChooseTemplate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCreating: false,
+      // isCreating: false,
       portfolioName: '',
       templateSelected: '',
       showModal: false,
@@ -23,7 +24,7 @@ class ChooseTemplate extends Component {
 
   clickTemplate = (id) => {
     console.log('current template id selected', id);
-    this.setState({ isCreating: true });
+    // this.setState({ isCreating: true });
     this.setState({ templateSelected: id });
     this.handleOpenModal();
   }
@@ -53,7 +54,7 @@ class ChooseTemplate extends Component {
     return (
       this.props.templates.map((template, id) => {
         return (
-          <div>
+          <div className="template-containers">
             <img src={template} alt="none" onClick={() => { this.clickTemplate(id); }} />
           </div>
         );
@@ -66,21 +67,21 @@ class ChooseTemplate extends Component {
     if (this.props.templates.length === 0) {
       // console.log('empty!');
       return (<div>No Templates</div>);
-    } else if (this.state.isCreating) {
-      return (
-        <div>
-          {this.displayCreatingTemplates()}
-          <div>
-            <input onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="insert portfolio name" />
-            <button type="button" onClick={this.onCreateTemplate}>Create Portfolio</button>
-          </div>
-        </div>
-      );
+    // } else if (this.state.isCreating) {
+    //   return (
+    //     <div>
+    //       {this.displayCreatingTemplates()}
+    //       <div>
+    //         <input onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="insert portfolio name" />
+    //         <button type="button" onClick={this.onCreateTemplate}>Create Portfolio</button>
+    //       </div>
+    //     </div>
+    //   );
     } else {
       return (
         this.props.templates.map((template, id) => {
           return (
-            <div>
+            <div className="template-containers">
               <img src={template} alt="none" onClick={() => { this.clickTemplate(id); }} />
             </div>
           );
@@ -107,12 +108,14 @@ class ChooseTemplate extends Component {
           contentLabel="Select Portfolio Name"
           ariaHideApp={false}
         >
-          <h2 className="black-font">You chose template {this.state.templateSelected}</h2>
-          <h2 className="black-font">Portfolio Name</h2>
-          <input onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="Insert portfolio name" />
+          <h2 className="black-font portfolio-chosen">You chose template {this.state.templateSelected}!</h2>
+          <h2 className="black-font portfolio-name">Portfolio Name</h2>
+          <input type="text" className="portfolio-name-enter" onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="Enter your portfolio name" />
           {this.displayInvalidPortfolioName()}
-          <button type="button" onClick={this.handleCloseModal}>Back</button>
-          <button type="button" onClick={this.onCreateTemplate}>Create Portfolio</button>
+          <div className="bottom-options">
+            <button type="button" className="modalbuttons" onClick={this.handleCloseModal}>Back</button>
+            <button type="button" className="modalbuttons" onClick={this.onCreateTemplate}>Create Portfolio</button>
+          </div>
         </ReactModal>
       </div>
     );

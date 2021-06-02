@@ -55,7 +55,8 @@ class LandingPage extends Component {
           {this.getStarted()}
         </div>
         <div className="center-container">
-          <div className="image"><img src="src/img/landing_page/you_got_this.png" alt="" /></div>
+          {/* converted image into a link using postimg.cc */}
+          <div className="image"><img src="https://i.postimg.cc/25cvxWcg/you-got-this.png" alt="" /></div>
           <div>
             <p>You’re destined for big things, let's get you there!</p>
             <p>Make a beautiful site to showcase all your amazing experiences.</p>
@@ -63,7 +64,7 @@ class LandingPage extends Component {
         </div>
         <div className="bottom-container">
           <p>Boost your applications <br /> and get your dream job now!</p>
-          <div className="image"><img src="src/img/landing_page/chat.png" alt="" /></div>
+          <div className="image"><img src="https://i.postimg.cc/L4Zfznz0/chat.png" alt="" /></div>
         </div>
         {this.startNow()}
       </div>
