@@ -102,14 +102,14 @@ class Settings extends Component {
           {this.displayMissingName()}
           <input className="profile-info-name" value={this.state.user.firstName} onChange={this.handleFirstName} />
           <input className="profile-info-name" value={this.state.user.lastName} onChange={this.handleLastName} />
-          <button type="button" onClick={this.save}>Save</button>
+          <button className="sign-button" type="button" onClick={this.save}>Save</button>
         </div>
       );
     } else {
       return (
         <div>
           <div className="profile-info-name">{this.props.profile.firstName} {this.props.profile.lastName}</div>
-          <button type="button" onClick={this.changeName}>Change Name</button>
+          <button className="sign-button" type="button" onClick={this.changeName}>Change Name</button>
         </div>
       );
     }
