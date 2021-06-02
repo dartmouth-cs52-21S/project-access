@@ -115,7 +115,7 @@ class Portfolio extends Component {
 
       let LINKEDIN = '';
       if (this.props.curr.resume?.event?.linkedIn !== '') {
-        LINKEDIN = <p>LinkedIn: {this.props.curr.resume.event.linkedIn}</p>;
+        LINKEDIN = <p>LinkedIn: {this.props.curr.resume?.event?.linkedIn}</p>;
       }
 
       let GPA = '';
@@ -127,12 +127,12 @@ class Portfolio extends Component {
         <div style={bodycolor}>
           {console.log(this.props.curr)}
           <div className="header">
-            <h1 style={headerusernamestyle}>{this.props.curr.resume.event.name}</h1>
-            <h2 style={headerrolestyle}>{this.props.curr.resume.event.role}</h2>
+            <h1 style={headerusernamestyle}>{this.props.curr.resume?.event?.name}</h1>
+            <h2 style={headerrolestyle}>{this.props.curr.resume?.event?.role}</h2>
           </div>
           <div className="aboutme" style={aboutmestyle}>
             <h2>About Me</h2>
-            <p>{this.props.curr.resume.event.about}</p>
+            <p>{this.props.curr.resume?.event?.about}</p>
           </div>
           <div className="education" style={projectstyle}>
             <h2>Education</h2>
@@ -191,8 +191,8 @@ class Portfolio extends Component {
           </div>
           <div className="contactme" style={contactstyle}>
             <h2>Contact Me</h2>
-            <p>Phone: {this.props.curr.resume.event.phone}</p>
-            <p>Email: {this.props.curr.resume.event.email}</p>
+            <p>Phone: {this.props.curr.resume?.event?.phone}</p>
+            <p>Email: {this.props.curr.resume?.event?.email}</p>
             {LINKEDIN}
           </div>
         </div>

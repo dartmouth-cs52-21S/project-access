@@ -31,7 +31,9 @@ class Profile extends Component {
         <div className="profile-user-info">
           <div className="profile-img">
             {/* extra feature: implementing image upload */}
-            <img src="https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg" alt="none" />
+            <NavLink exact to="/settings">
+              <img src="https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg" alt="none" />
+            </NavLink>
           </div>
           <div className="profile-info">
             {console.log(this.props.profile)}
@@ -46,22 +48,11 @@ class Profile extends Component {
         </div>
         <div className="create-portfolio">
           <NavLink exact to="/templates">
-            <button className="button" type="button"><span>Create New Portolio</span></button>
-          </NavLink>
-        </div>
-        <div className="print-resume">
-          {/* Link to print resume to be done */}
-          <NavLink exact to="/">
-            <button className="button" type="button"><span>Print Resume</span></button>
-          </NavLink>
-        </div>
-        <div className="edit-resume">
-          <NavLink exact to="/resume">
-            <button className="button" type="button"><span>Edit Resume</span></button>
+            <button className="button" type="button"><span>Create New Portfolio</span></button>
           </NavLink>
         </div>
         <div className="settings">
-          <NavLink exact to="/templates">
+          <NavLink exact to="/settings">
             <button className="button" type="button"><span>Settings</span></button>
           </NavLink>
         </div>
