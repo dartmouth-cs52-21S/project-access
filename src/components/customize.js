@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, withRouter, Link } from 'react-router-dom';
 import '../style.scss';
 import { connect } from 'react-redux';
+// import validateColor from 'validate-color';
 import { fetchPortfolio, updatePortfolio, deletePortfolio } from '../actions';
 
 function customize(props) {

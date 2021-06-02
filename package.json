@@ -64,6 +64,7 @@
     "react-textarea-autosize": "^8.3.2",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
+    "validate-color": "^2.1.1",
     "validator": "^13.6.0",
     "yup": "^0.32.9"
   }
