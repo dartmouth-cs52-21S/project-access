@@ -1,16 +1,15 @@
 body, html {
-    font-family: "Roboto", sans-serif;
-    background: linear-gradient(to bottom, #87e0fd 0%,#53cbf1 40%,#05abe0 100%);
+    font-family: 'Raleway', sans-serif;
     height: 100%;
 }
-.logo {
-    background-image: url('img/MYIMAGE.png');
-    width: 100px;
-    height: 100px;
-    background-repeat: no-repeat;
-    background-size: contain;
+
+.black-font {
+    color: black;
 }
 
-.active {
-    color: pink;
+.custom_section {
+    background-color: #424242;
+    border-radius: 5vh;
+    padding: 2vh;
+    margin: 2vh;
 }
