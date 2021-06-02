@@ -24,11 +24,11 @@ const App = (props) => {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <PrivateRoute exact path="/profile" component={Profile} />
-          <PrivateRoute exact path="/resume" component={InputResume} />
           <PrivateRoute exact path="/templates" component={ChooseTemplate} />
           {/* <PrivateRoute exact path="/portfolios/:id" component={Portfolio} /> */}
           {/* Anyone can view Portfolio. Does not need PrivateRoute */}
-          <PrivateRoute exact path="/portfolios/edit/:id" component={customize} />
+          <PrivateRoute exact path="/portfolios/edit/resume/:id" component={InputResume} />
+          <PrivateRoute exact path="/portfolios/edit/style/:id" component={customize} />
           <Route exact path="/portfolios/:id" component={Portfolio} />
           <PrivateRoute exact path="/portfolios" component={ExistingPortfolios} />
           <Route path="/signin" component={SignIn} />

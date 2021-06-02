@@ -27,7 +27,7 @@ export const ActionTypes = {
 export function authError(error) {
   return {
     type: ActionTypes.AUTH_ERROR,
-    message: error,
+    payload: error.toString(),
   };
 }
 
@@ -45,7 +45,7 @@ export function createPortfolio(templateId, portfolioName, history) {
       .then((response) => {
         console.log('createPortfolio', response.data);
         dispatch({ type: ActionTypes.CREATE_PORTFOLIO, payload: response.data });
-        history.push(`/portfolios/edit/${response.data.id}`);
+        history.push(`/portfolios/edit/resume/${response.data.id}`);
       })
       .catch((error) => {
         console.log('create portfolio error found');
@@ -194,9 +194,9 @@ export function signinUser({ email, password }, history) {
     axios.post(`${ROOT_URL}/signin`, { email, password }).then((response) => {
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
-      history.push('/');
+      history.push('/profile');
     }).catch((error) => {
-      dispatch(authError(`Sign In Failed: ${error.response.data}`));
+      dispatch(authError('Failed sign in'));
     });
   };
 }
@@ -204,18 +204,16 @@ export function signinUser({ email, password }, history) {
 export function signupUser({
   firstName, lastName, email, password, resume,
 }, history) {
-  // takes in an object with email and password (minimal user object)
-  // returns a thunk method that takes dispatch as an argument (just like our create post method really)
-  console.log(email);
   return (dispatch) => {
     axios.post(`${ROOT_URL}/signup`, {
       firstName, lastName, email, password, resume,
     }).then((response) => {
       dispatch({ type: ActionTypes.AUTH_USER });
       localStorage.setItem('token', response.data.token);
-      history.push('/');
+      history.push('/profile');
     }).catch((error) => {
-      dispatch(authError(`Sign Up Failed: ${error.response.data}`));
+      console.log('errormessage', error.response.data);
+      dispatch(authError(`${error.response.data.error.toString()}`));
     });
   };
 }
@@ -223,7 +221,7 @@ export function signupUser({
 // deletes token from localstorage
 // and deauths
 export function signoutUser(history) {
-  console.log('sign out ugh');
+  console.log('sign out');
   return (dispatch) => {
     localStorage.removeItem('token');
     dispatch({ type: ActionTypes.DEAUTH_USER });
