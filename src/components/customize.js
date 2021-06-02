@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, withRouter, Link } from 'react-router-dom';
 import '../style.scss';
 import { connect } from 'react-redux';
+// import validateColor from 'validate-color';
 import { fetchPortfolio, updatePortfolio, deletePortfolio } from '../actions';
 
 function customize(props) {
@@ -43,6 +44,7 @@ function customize(props) {
   const [contactmeDir, setContactmeDir] = useState('');
 
   const onChangeHandler = (setter) => (e) => setter(e.target.value);
+  // const onChangeHandlerColor = (setter) => (e) => setter(e.target.value && validateColor(e.target.value) ? e.target.value : 'white');
 
   useEffect(() => {
     if (props.match.params.id) {

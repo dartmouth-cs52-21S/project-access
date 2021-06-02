@@ -106,7 +106,6 @@ export function updatePortfolio(portfolioId, portfolioFields) {
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PORTFOLIO, payload: response.data });
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
-        console.log('put updateportfolio');
       })
       .catch((error) => {
         console.log('update portfolio error found');
@@ -121,7 +120,7 @@ export function deletePortfolio(portfolioId, history) {
     axios.delete(`${ROOT_URL}/portfolios/${portfolioId}`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.DELETE_PORTFOLIO, payload: response.data });
-        history.push('/portfolios');
+        history.push('/profile');
       })
       .catch((error) => {
         console.log('delete portfolio error found');
@@ -165,7 +164,6 @@ export function getUserProfile() {
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PROFILE, payload: response.data });
         // history.push('/');
-        console.log('response data', response.data);
       })
       .catch((error) => {
         console.log('get profile error found');
@@ -176,10 +174,9 @@ export function getUserProfile() {
 
 export function updateUserProfile(userFields) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/profile`, { userFields }, { headers: { authorization: localStorage.getItem('token') } })
+    axios.put(`${ROOT_URL}/profile`, userFields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.UPDATE_PROFILE, payload: response.data });
-        // history.push('/');
       })
       .catch((error) => {
         console.log('get profile error found');
