@@ -25,6 +25,20 @@ class Profile extends Component {
     this.props.getUserProfile();
   }
 
+  displayViewExistingButton = (props) => {
+    if (this.props.profile.portfolioIds === undefined || this.props.profile.portfolioIds.length === 0) {
+      return null;
+    } else {
+      return (
+        <div className="view-portfolios">
+          <NavLink exact to="/portfolios">
+            <button className="button" type="button"><span>View Existing Portfolios</span></button>
+          </NavLink>
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="profile-page">
@@ -41,11 +55,12 @@ class Profile extends Component {
             <div className="profile-info-email">{this.props.profile.email}</div>
           </div>
         </div>
-        <div className="view-portfolios">
+        {this.displayViewExistingButton()}
+        {/* <div className="view-portfolios">
           <NavLink exact to="/portfolios">
             <button className="button" type="button"><span>View Existing Portfolios</span></button>
           </NavLink>
-        </div>
+        </div> */}
         <div className="create-portfolio">
           <NavLink exact to="/templates">
             <button className="button" type="button"><span>Create New Portfolio</span></button>

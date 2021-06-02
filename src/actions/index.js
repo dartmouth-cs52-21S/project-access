@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const ROOT_URL = 'http://localhost:9090/api';
+// const ROOT_URL = 'https://cs52access.herokuapp.com/api';
 
 // keys for actiontypes
 export const ActionTypes = {
@@ -105,7 +106,6 @@ export function updatePortfolio(portfolioId, portfolioFields) {
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PORTFOLIO, payload: response.data });
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
-        console.log('put updateportfolio');
       })
       .catch((error) => {
         console.log('update portfolio error found');
@@ -164,7 +164,6 @@ export function getUserProfile() {
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PROFILE, payload: response.data });
         // history.push('/');
-        console.log('response data', response.data);
       })
       .catch((error) => {
         console.log('get profile error found');
@@ -175,10 +174,9 @@ export function getUserProfile() {
 
 export function updateUserProfile(userFields) {
   return (dispatch) => {
-    axios.put(`${ROOT_URL}/profile`, { userFields }, { headers: { authorization: localStorage.getItem('token') } })
+    axios.put(`${ROOT_URL}/profile`, userFields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.UPDATE_PROFILE, payload: response.data });
-        // history.push('/');
       })
       .catch((error) => {
         console.log('get profile error found');
