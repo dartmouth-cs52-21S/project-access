@@ -31,7 +31,9 @@ class Profile extends Component {
         <div className="profile-user-info">
           <div className="profile-img">
             {/* extra feature: implementing image upload */}
-            <img src="https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg" alt="none" />
+            <NavLink exact to="/settings">
+              <img src="https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg" alt="none" />
+            </NavLink>
           </div>
           <div className="profile-info">
             {console.log(this.props.profile)}
