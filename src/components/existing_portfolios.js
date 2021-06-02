@@ -17,15 +17,14 @@ class ExistingPortfolios extends Component {
 
   componentDidMount = (props) => {
     this.props.fetchPortfolios();
-    this.props.fetchPortfolio(this.props.match.params.id);
+    // this.props.fetchPortfolio(this.props.match.params.id);
   }
 
-  onDeleteClick = () => {
-    this.props.history.push('/profile');
+  onDeleteClick = (id) => {
     console.log(this.props);
     console.log(this.props.match.params.id);
     // console.log('ID HERE', this.props.curr..params.id);
-    // this.props.deletePortfolio(this.props.match.params.id, this.props.history);
+    this.props.deletePortfolio(id, this.props.history);
   }
 
   displayPortfolios = () => {
@@ -47,7 +46,7 @@ class ExistingPortfolios extends Component {
                   View Portfolio
                 </Link>
                 <div>
-                  <button type="button" className="portfolio-delete" onClick={this.onDeleteClick}>Delete Portfolio</button>
+                  <button type="button" className="portfolio-delete" onClick={() => { this.onDeleteClick(portfolio.id); }}>Delete Portfolio</button>
                 </div>
               </div>
             </div>
