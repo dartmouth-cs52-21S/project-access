@@ -24,13 +24,13 @@ class ExistingPortfolios extends Component {
           <div key={portfolio._id}>
             {/* pp */}
             <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
-              {portfolio.name}
+              edit resume
             </Link>
             <div>
               {}
             </div>
             <Link to={`/portfolios/${portfolio._id}`}>
-              view
+              view portfolio
             </Link>
           </div>
         );

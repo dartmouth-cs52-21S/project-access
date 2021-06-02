@@ -18,25 +18,27 @@ function InputResume(props) {
     register, handleSubmit, formState: { errors }, unregister,
   } = useForm();
 
-  const [name, setName] = useState({ name: '' });
-  const [phone, setPhone] = useState({ phone: '' });
-  const [email, setEmail] = useState({ email: '' });
-  const [linkedIn, setLinkedIn] = useState({ linkedIn: '' });
-  const [education, setEd] = useState({
-    college: '', gpa: '', degree: '', relevantCoursework: '',
-  });
-  const [research, setResearch] = useState([{
-    researchlab: '', startdate: '', enddate: '', position: '', description: '',
-  }]);
-  const [work, setWork] = useState([{
-    company: '', startdate: '', enddate: '', position: '', description: '',
-  }]);
-  const [projects, setProjects] = useState([{
-    project: '', startdate: '', enddate: '', description: '',
-  }]);
-  const [skills, setSkills] = useState([{
-    technical: '', languages: '',
-  }]);
+  // const [name, setName] = useState({ name: '' });
+  // const [phone, setPhone] = useState({ phone: '' });
+  // const [email, setEmail] = useState({ email: '' });
+  // const [role, setRole] = useState({ role: '' });
+  // const [about, setAbout] = useState({ about: '' });
+  // const [linkedIn, setLinkedIn] = useState({ linkedIn: '' });
+  // const [education, setEd] = useState({
+  //   college: '', gpa: '', degree: '', relevantCoursework: '',
+  // });
+  // const [research, setResearch] = useState([{
+  //   researchlab: '', startdate: '', enddate: '', position: '', description: '',
+  // }]);
+  // const [work, setWork] = useState([{
+  //   company: '', startdate: '', enddate: '', position: '', description: '',
+  // }]);
+  // const [projects, setProjects] = useState([{
+  //   project: '', startdate: '', enddate: '', description: '',
+  // }]);
+  // const [skills, setSkills] = useState([{
+  //   technical: '', languages: '',
+  // }]);
 
   useEffect(() => {
     if (props.match.params.id) {
@@ -45,47 +47,49 @@ function InputResume(props) {
     }
   }, [props.match.params.id]);
 
-  useEffect(() => {
-    if (Object.keys(portfolio).length > 0) {
-      if (Object.keys(portfolio.resume).length > 0) {
-        setName({ name: portfolio.resume.event.name });
-        setPhone({ phone: portfolio.resume.event.phone });
-        setEmail({ email: portfolio.resume.event.email });
-        setLinkedIn({ linkedIn: portfolio.resume.event.linkedIn });
+  // useEffect(() => {
+  //   if (Object.keys(portfolio).length > 0) {
+  //     if (Object.keys(portfolio.resume).length > 0) {
+  const [name, setName] = useState({ name: portfolio.resume?.event?.name });
+  const [phone, setPhone] = useState({ phone: portfolio.resume?.event?.phone });
+  const [email, setEmail] = useState({ email: portfolio.resume?.event?.email });
+  const [role, setRole] = useState({ role: portfolio.resume?.event?.role });
+  const [about, setAbout] = useState({ about: portfolio.resume?.event?.about });
+  const [linkedIn, setLinkedIn] = useState({ linkedIn: portfolio.resume?.event?.linkedIn });
 
-        setEd({
-          college: portfolio.resume.event.college,
-          gpa: portfolio.resume.event.gpa,
-          degree: portfolio.resume.event.degree,
-          relevantCoursework: portfolio.resume.event.relevantCoursework,
-        });
+  const [education, setEd] = useState({
+    college: portfolio.resume?.event?.college,
+    gpa: portfolio.resume?.event?.gpa,
+    degree: portfolio.resume?.event?.degree,
+    relevantCoursework: portfolio.resume?.event?.relevantCoursework,
+  });
 
-        let savedresearch = [];
-        for (let i = 0; portfolio.resume.event?.[`research${i}`] !== undefined; i += 1) {
-          savedresearch = [...savedresearch, portfolio.resume.event?.[`research${i}`]];
-        }
-        setResearch(savedresearch);
+  let savedresearch = [];
+  for (let i = 0; portfolio.resume?.event?.[`research${i}`] !== undefined; i += 1) {
+    savedresearch = [...savedresearch, portfolio.resume?.event?.[`research${i}`]];
+  }
+  const [research, setResearch] = useState(savedresearch);
 
-        let savedwork = [];
-        for (let i = 0; portfolio.resume.event?.[`work${i}`] !== undefined; i += 1) {
-          savedwork = [...savedwork, portfolio.resume.event?.[`work${i}`]];
-        }
-        setWork(savedwork);
+  let savedwork = [];
+  for (let i = 0; portfolio.resume?.event?.[`work${i}`] !== undefined; i += 1) {
+    savedwork = [...savedwork, portfolio.resume?.event?.[`work${i}`]];
+  }
+  const [work, setWork] = useState(savedwork);
 
-        let savedprojects = [];
-        for (let i = 0; portfolio.resume.event?.[`projects${i}`] !== undefined; i += 1) {
-          savedprojects = [...savedprojects, portfolio.resume.event?.[`projects${i}`]];
-        }
-        setProjects(savedprojects);
+  let savedprojects = [];
+  for (let i = 0; portfolio.resume?.event?.[`projects${i}`] !== undefined; i += 1) {
+    savedprojects = [...savedprojects, portfolio.resume?.event?.[`projects${i}`]];
+  }
+  const [projects, setProjects] = useState(savedprojects);
 
-        let savedskills = [];
-        for (let i = 0; portfolio.resume.event?.[`skills${i}`] !== undefined; i += 1) {
-          savedskills = [...savedskills, portfolio.resume.event?.[`skills${i}`]];
-        }
-        setSkills(savedskills);
-      }
-    }
-  }, [portfolio]);
+  let savedskills = [];
+  for (let i = 0; portfolio.resume?.event?.[`skills${i}`] !== undefined; i += 1) {
+    savedskills = [...savedskills, portfolio.resume?.event?.[`skills${i}`]];
+  }
+  const [skills, setSkills] = useState(savedskills);
+  //     }
+  //   }
+  // }, [portfolio]);
 
   const updateName = (value) => {
     setName({ ...name, name: value });
@@ -97,6 +101,14 @@ function InputResume(props) {
 
   const updateEmail = (value) => {
     setEmail({ ...email, email: value });
+  };
+
+  const updateRole = (value) => {
+    setRole({ ...role, role: value });
+  };
+
+  const updateAbout = (value) => {
+    setAbout({ ...about, about: value });
   };
 
   const updateLinkedIn = (value) => {
@@ -249,13 +261,17 @@ function InputResume(props) {
 
       <div>
         <h2>General Information</h2>
-        <input placeholder="Name" className="name" {...register('name', { required: 'your name is required' })} value={name.name} onChange={(event) => { updateName(event.target.value); }} />
+        <input placeholder="Name" className="name" {...register('name')} value={name.name} onChange={(event) => { updateName(event.target.value); }} />
         <p>{errors.name?.message}</p>
         <div className="contact-info">
-          <input placeholder="Phone" className="text-input" {...register('phone', { required: 'phone number is required', validate: { value: 9, message: 'invalid phone number' } })} value={phone.phone} onChange={(event) => { updatePhone(event.target.value); }} />
+          <input placeholder="Phone" className="text-input" {...register('phone')} value={phone.phone} onChange={(event) => { updatePhone(event.target.value); }} />
           <p>{errors.phone?.message}</p>
-          <input placeholder="Email" className="text-input" {...register('email', { required: 'email is required', pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: 'invalid email address' } })} value={email.email} onChange={(event) => { updateEmail(event.target.value); }} />
+          <input placeholder="Email" className="text-input" {...register('email')} value={email.email} onChange={(event) => { updateEmail(event.target.value); }} />
           <p>{errors.email?.message}</p>
+          <input placeholder="Current Role" className="text-input" {...register('role')} value={role.role} onChange={(event) => { updateRole(event.target.value); }} />
+          <p>{errors.role?.message}</p>
+          <input placeholder="Please describe yourself" className="text-input" {...register('about')} value={about.about} onChange={(event) => { updateAbout(event.target.value); }} />
+          <p>{errors.about?.message}</p>
           <input placeholder="LinkedIn" className="text-input" {...register('linkedIn')} value={linkedIn.linkedIn} onChange={(event) => { updateLinkedIn(event.target.value); }} />
         </div>
       </div>
@@ -263,12 +279,12 @@ function InputResume(props) {
       <div className="Education">
         <h2>Education</h2>
         <div className="college-gpa">
-          <input placeholder="College or University" className="text-input" {...register('college', { required: 'College or University is required' })} value={education.college} onChange={(event) => { updateEduc('college', event.target.value); }} />
+          <input placeholder="College or University" className="text-input" {...register('college')} value={education.college} onChange={(event) => { updateEduc('college', event.target.value); }} />
           <p>{errors.college?.message}</p>
           <input placeholder="GPA /4.00" className="text-input" type="number" {...register('gpa')} value={education.gpa} onChange={(event) => { updateEduc('gpa', event.target.value); }} />
         </div>
         <div className="flex-column-details">
-          <input placeholder="Degree" className="text-input" {...register('degree', { required: 'please input your degree' })} value={education.degree} onChange={(event) => { updateEduc('degree', event.target.value); }} />
+          <input placeholder="Degree" className="text-input" {...register('degree')} value={education.degree} onChange={(event) => { updateEduc('degree', event.target.value); }} />
           <p>{errors.degree?.message}</p>
           <input placeholder="Relevant Coursework" className="text-input" {...register('relevantCoursework')} value={education.relevantCoursework} onChange={(event) => { updateEduc('relevantCoursework', event.target.value); }} />
         </div>
@@ -290,19 +306,19 @@ function InputResume(props) {
           return (
             <li key={index}>
               <div className="name-and-time">
-                <input placeholder="Research Lab" name="researchlab" className="text-input" {...register(`research${index}.researchlab`, { required: 'this field is required' })} value={research[index].researchlab} onChange={(event) => { updateResearch(index, 'researchlab', event.target.value); }} />
+                <input placeholder="Research Lab" name="researchlab" className="text-input" {...register(`research${index}.researchlab`)} value={research[index].researchlab} onChange={(event) => { updateResearch(index, 'researchlab', event.target.value); }} />
                 <p>{errors?.[`research${index}`]?.researchlab?.message}</p>
                 <div>
-                  <input placeholder="Start Date" type="date" className="text-input" {...register(`research${index}.startdate`, { required: 'start date is required' })} value={research[index].startdate} onChange={(event) => { updateResearch(index, 'startdate', event.target.value); }} />
+                  <input placeholder="Start Date" type="date" className="text-input" {...register(`research${index}.startdate`)} value={research[index].startdate} onChange={(event) => { updateResearch(index, 'startdate', event.target.value); }} />
                   <p>{errors?.[`research${index}`]?.startdate?.message}</p>
-                  <input placeholder="End Date" type="date" className="text-input" {...register(`research${index}.enddate`, { required: 'end date is required' })} value={research[index].enddate} onChange={(event) => { updateResearch(index, 'enddate', event.target.value); }} />
+                  <input placeholder="End Date" type="date" className="text-input" {...register(`research${index}.enddate`)} value={research[index].enddate} onChange={(event) => { updateResearch(index, 'enddate', event.target.value); }} />
                   <p>{errors?.[`research${index}`]?.enddate?.message}</p>
                 </div>
               </div>
               <div className="flex-column-details">
-                <input placeholder="Position" className="text-input" {...register(`research${index}.position`, { required: 'please include your position' })} value={research[index].position} onChange={(event) => { updateResearch(index, 'position', event.target.value); }} />
+                <input placeholder="Position" className="text-input" {...register(`research${index}.position`)} value={research[index].position} onChange={(event) => { updateResearch(index, 'position', event.target.value); }} />
                 <p>{errors?.[`research${index}`]?.position?.message}</p>
-                <input placeholder="Description" className="text-input" {...register(`research${index}.description`, { required: 'description required' })} value={research[index].description} onChange={(event) => { updateResearch(index, 'description', event.target.value); }} />
+                <input placeholder="Description" className="text-input" {...register(`research${index}.description`)} value={research[index].description} onChange={(event) => { updateResearch(index, 'description', event.target.value); }} />
                 <p>{errors?.[`research${index}`]?.description?.message}</p>
               </div>
               <div>
@@ -329,19 +345,19 @@ function InputResume(props) {
           return (
             <li key={index}>
               <div className="name-and-time">
-                <input placeholder="Company Name" name="company" className="text-input" {...register(`work${index}.company`, { required: 'this field is required' })} value={work[index].company} onChange={(event) => { updateWork(index, 'company', event.target.value); }} />
+                <input placeholder="Company Name" name="company" className="text-input" {...register(`work${index}.company`)} value={work[index].company} onChange={(event) => { updateWork(index, 'company', event.target.value); }} />
                 <p>{errors?.[`work${index}`]?.company?.message}</p>
                 <div>
-                  <input placeholder="Start Date" type="date" className="text-input" {...register(`work${index}.startdate`, { required: 'start date is required' })} value={work[index].startdate} onChange={(event) => { updateWork(index, 'startdate', event.target.value); }} />
+                  <input placeholder="Start Date" type="date" className="text-input" {...register(`work${index}.startdate`)} value={work[index].startdate} onChange={(event) => { updateWork(index, 'startdate', event.target.value); }} />
                   <p>{errors?.[`work${index}`]?.startdate?.message}</p>
-                  <input placeholder="End Date" type="date" className="text-input" {...register(`work${index}.enddate`, { required: 'end date is required' })} value={work[index].enddate} onChange={(event) => { updateWork(index, 'enddate', event.target.value); }} />
+                  <input placeholder="End Date" type="date" className="text-input" {...register(`work${index}.enddate`)} value={work[index].enddate} onChange={(event) => { updateWork(index, 'enddate', event.target.value); }} />
                   <p>{errors?.[`work${index}`]?.enddate?.message}</p>
                 </div>
               </div>
               <div className="flex-column-details">
-                <input placeholder="Position" className="text-input" {...register(`work${index}.position`, { required: 'please include your position' })} value={work[index].position} onChange={(event) => { updateWork(index, 'position', event.target.value); }} />
+                <input placeholder="Position" className="text-input" {...register(`work${index}.position`)} value={work[index].position} onChange={(event) => { updateWork(index, 'position', event.target.value); }} />
                 <p>{errors?.[`work${index}`]?.position?.message}</p>
-                <input placeholder="Description" className="text-input" {...register(`work${index}.description`, { required: 'description required' })} value={work[index].description} onChange={(event) => { updateWork(index, 'description', event.target.value); }} />
+                <input placeholder="Description" className="text-input" {...register(`work${index}.description`)} value={work[index].description} onChange={(event) => { updateWork(index, 'description', event.target.value); }} />
                 <p>{errors?.[`work${index}`]?.description?.message}</p>
               </div>
               <div>
@@ -368,17 +384,17 @@ function InputResume(props) {
           return (
             <li key={index}>
               <div className="name-and-time">
-                <input placeholder="Project" name="project" className="text-input" {...register(`projects${index}.project`, { required: 'this field is required' })} value={projects[index].project} onChange={(event) => { updateProjects(index, 'project', event.target.value); }} />
+                <input placeholder="Project" name="project" className="text-input" {...register(`projects${index}.project`)} value={projects[index].project} onChange={(event) => { updateProjects(index, 'project', event.target.value); }} />
                 <p>{errors?.[`projects${index}`]?.project?.message}</p>
                 <div>
-                  <input placeholder="Start Date" type="date" className="text-input" {...register(`projects${index}.startdate`, { required: 'start date is required' })} value={projects[index].startdate} onChange={(event) => { updateProjects(index, 'startdate', event.target.value); }} />
+                  <input placeholder="Start Date" type="date" className="text-input" {...register(`projects${index}.startdate`)} value={projects[index].startdate} onChange={(event) => { updateProjects(index, 'startdate', event.target.value); }} />
                   <p>{errors?.[`projects${index}`]?.startdate?.message}</p>
-                  <input placeholder="End Date" type="date" className="text-input" {...register(`projects${index}.enddate`, { required: 'end date is required' })} value={projects[index].enddate} onChange={(event) => { updateProjects(index, 'enddate', event.target.value); }} />
+                  <input placeholder="End Date" type="date" className="text-input" {...register(`projects${index}.enddate`)} value={projects[index].enddate} onChange={(event) => { updateProjects(index, 'enddate', event.target.value); }} />
                   <p>{errors?.[`projects${index}`]?.enddate?.message}</p>
                 </div>
               </div>
               <div className="flex-column-details">
-                <input placeholder="Description" className="text-input" {...register(`projects${index}.description`, { required: 'description required' })} value={projects[index].description} onChange={(event) => { updateProjects(index, 'description', event.target.value); }} />
+                <input placeholder="Description" className="text-input" {...register(`projects${index}.description`)} value={projects[index].description} onChange={(event) => { updateProjects(index, 'description', event.target.value); }} />
                 <p>{errors?.[`projects${index}`]?.description?.message}</p>
               </div>
               <div>
@@ -405,11 +421,11 @@ function InputResume(props) {
           return (
             <li key={index}>
               <div className="name-and-time">
-                <input placeholder="Technical Skills" name="technical" className="text-input" {...register(`skills${index}.technical`, { required: 'this field is required' })} value={skills[index].technical} onChange={(event) => { updateSkills(index, 'technical', event.target.value); }} />
+                <input placeholder="Technical Skills" name="technical" className="text-input" {...register(`skills${index}.technical`)} value={skills[index].technical} onChange={(event) => { updateSkills(index, 'technical', event.target.value); }} />
                 <p>{errors?.[`skills${index}`]?.technical?.message}</p>
               </div>
               <div className="flex-column-details">
-                <input placeholder="Languages" className="text-input" {...register(`skills${index}.languages`, { required: 'this field is required' })} value={skills[index].languages} onChange={(event) => { updateSkills(index, 'languages', event.target.value); }} />
+                <input placeholder="Languages" className="text-input" {...register(`skills${index}.languages`)} value={skills[index].languages} onChange={(event) => { updateSkills(index, 'languages', event.target.value); }} />
                 <p>{errors?.[`skills${index}`]?.languages?.message}</p>
               </div>
               <div>
