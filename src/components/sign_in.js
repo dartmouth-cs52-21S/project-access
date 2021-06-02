@@ -48,6 +48,17 @@ class SignIn extends Component {
     }
   }
 
+  renderSignInError = () => {
+    console.log(this.state.authenticated);
+    if (this.state.authenticated === false) {
+      return (
+        <div>Invalid Username or Password</div>
+      );
+    } else {
+      return <div />;
+    }
+  }
+
   render() {
     return (
       <div className="signin-page">
