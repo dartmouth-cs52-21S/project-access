@@ -20,10 +20,9 @@ class ExistingPortfolios extends Component {
   displayPortfolios = () => {
     return (
       this.props.portfolios.map((portfolio) => {
+        console.log(portfolio.id);
         return (
-          <div>
-            Portfolio page
-          </div>
+          <iframe src={`/portfolios/${portfolio.id}`} title="Portfolio" />
         );
       })
     );
