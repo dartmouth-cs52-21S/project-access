@@ -46,12 +46,14 @@ input[type="password"] {
     transition: 0.2s ease;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
+.signin-page input[type="text"]:focus,
+.signin-page input[type="password"]:focus {
     border-bottom: 3px solid rgb(1, 187, 1);
     color: rgb(1, 187, 1);;
     transition: 0.2s ease;
 }
+
+
 
 .sign-button {
     display: flex;

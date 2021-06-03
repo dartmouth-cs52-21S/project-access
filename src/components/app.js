@@ -35,7 +35,7 @@ const App = (props) => {
           <PrivateRoute exact path="/portfolios" component={ExistingPortfolios} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
-          <Route render={() => (<div>post not found</div>)} />
+          <Route render={() => (<div>Post not found</div>)} />
         </Switch>
       </div>
     </Router>

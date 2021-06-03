@@ -1,13 +1,17 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
-import '../style.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
+// import '../style.scss';
 import { connect } from 'react-redux';
 import {
   withRouter,
 //   NavLink,
 } from 'react-router-dom';
 import { getUserProfile, updateUserProfile } from '../actions/index';
-import '../styles/profile-page.scss';
+// import '../styles/profile-page.scss';
+import '../styles/settings.scss';
 
 // Profile page commponent that displays username, email, and provides routed
 // options to create, print, edit resume, as well as settings and logout
@@ -98,18 +102,32 @@ class Settings extends Component {
   displayEditableName = () => {
     if (this.state.editingName) {
       return (
-        <div>
+        <div className="editing">
           {this.displayMissingName()}
-          <input className="profile-info-name" value={this.state.user.firstName} onChange={this.handleFirstName} />
-          <input className="profile-info-name" value={this.state.user.lastName} onChange={this.handleLastName} />
-          <button className="sign-button" type="button" onClick={this.save}>Save</button>
+          <div className="col">
+            <input className="textbox" type="text" placeholder="First Name" value={this.state.user.firstName} onChange={this.handleFirstName} />
+            <span className="focus-bg" />
+          </div>
+          <br />
+          <div className="col">
+            <input className="textbox" type="text" placeholder="Last Name" value={this.state.user.lastName} onChange={this.handleLastName} />
+            <span className="focus-bg" />
+          </div>
+          {/* <input className="profile-info-name-editing" placeholder="First Name" value={this.state.user.firstName} onChange={this.handleFirstName} />
+          <input className="profile-info-name-editing" placeholder="Last Name" value={this.state.user.lastName} onChange={this.handleLastName} /> */}
+          <button className="save-button" type="button" onClick={this.save}>Save Profile</button>
         </div>
       );
     } else {
       return (
-        <div>
-          <div className="profile-info-name">{this.props.profile.firstName} {this.props.profile.lastName}</div>
-          <button className="sign-button" type="button" onClick={this.changeName}>Change Name</button>
+        <div className="profile-name-section">
+          <div className="profile-name-email">
+            <div className="profile-info-name">
+              {this.props.profile.firstName} {this.props.profile.lastName}
+              <button className="sign-button" type="button" onClick={this.changeName}><FontAwesomeIcon icon={faUserEdit} /></button>
+            </div>
+            <div className="profile-info-email">{this.props.profile.email}</div>
+          </div>
         </div>
       );
     }
@@ -137,7 +155,6 @@ class Settings extends Component {
           </div>
           <div className="profile-info">
             {this.displayEditableName()}
-            <div className="profile-info-email">{this.props.profile.email}</div>
           </div>
         </div>
       </div>
