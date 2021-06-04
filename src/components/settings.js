@@ -110,6 +110,7 @@ class Settings extends Component {
   }
 
   displayEmailUsed = (props) => {
+    console.log(this.props.autherr);
     if (this.props.autherr === 'Error: Email is in use') {
       return (
         <div>Email is already in use!</div>
@@ -137,6 +138,7 @@ class Settings extends Component {
           </div>
           <br />
           {this.displayMissingEmail()}
+          {this.displayEmailUsed()}
           <div className="col">
             <input className="textbox emailbox" type="text" placeholder="Email" value={this.state.user.email} onChange={this.handleEmail} />
             <span className="focus-bg" />
