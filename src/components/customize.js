@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, withRouter, Link } from 'react-router-dom';
 import '../style.scss';
 import { connect } from 'react-redux';
-// import validateColor from 'validate-color';
+import validateColor from 'validate-color';
 import { fetchPortfolio, updatePortfolio, deletePortfolio } from '../actions';
 
 function customize(props) {
@@ -44,7 +44,7 @@ function customize(props) {
   const [contactmeDir, setContactmeDir] = useState('');
 
   const onChangeHandler = (setter) => (e) => setter(e.target.value);
-  // const onChangeHandlerColor = (setter) => (e) => setter(e.target.value && validateColor(e.target.value) ? e.target.value : 'white');
+  const onChangeHandlerColor = (setter) => (e) => (validateColor(e.target.value) ? setter(e.target.value) : setter('white'));
 
   useEffect(() => {
     if (props.match.params.id) {
@@ -225,10 +225,10 @@ function customize(props) {
               <h2>Header</h2>
               <h3>Name section</h3>
               <p>color:
-                <input onChange={onChangeHandler(setUserNameColor)} value={userNameColor} />
+                <input onChange={onChangeHandler(setUserNameColor)} value={userNameColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
               <p>Background color:
-                <input onChange={onChangeHandler(setUserNameBgColor)} value={userNameBgColor} />
+                <input onChange={onChangeHandler(setUserNameBgColor)} value={userNameBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
               <p>Font:
                 <input onChange={onChangeHandler(setUserNameFont)} value={userNameFont} />
@@ -242,10 +242,10 @@ function customize(props) {
 
               <h3>Job title</h3>
               <p>color:
-                <input onChange={onChangeHandler(setRoleColor)} value={roleColor} />
+                <input onChange={onChangeHandler(setRoleColor)} value={roleColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
               <p>Background color:
-                <input onChange={onChangeHandler(setRoleBgColor)} value={roleBgColor} />
+                <input onChange={onChangeHandler(setRoleBgColor)} value={roleBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
               <p>Font:
                 <input onChange={onChangeHandler(setRoleFont)} value={roleFont} />
@@ -261,10 +261,10 @@ function customize(props) {
             <div className="custom_section">
               <h2>About Me</h2>
               <p>color:
-                <input onChange={onChangeHandler(setAboutmeColor)} value={aboutmeColor} />
+                <input onChange={onChangeHandler(setAboutmeColor)} value={aboutmeColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
               <p>Background color:
-                <input onChange={onChangeHandler(setAboutmeBgColor)} value={aboutmeBgColor} />
+                <input onChange={onChangeHandler(setAboutmeBgColor)} value={aboutmeBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
               <p>Font:
                 <input onChange={onChangeHandler(setAboutmeFont)} value={aboutmeFont} />
@@ -280,10 +280,10 @@ function customize(props) {
             <div className="custom_section">
               <h2>Projects</h2>
               <p>color:
-                <input onChange={onChangeHandler(setProjectsColor)} value={projectsColor} />
+                <input onChange={onChangeHandler(setProjectsColor)} value={projectsColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
               <p>Background color:
-                <input onChange={onChangeHandler(setProjectsBgColor)} value={projectsBgColor} />
+                <input onChange={onChangeHandler(setProjectsBgColor)} value={projectsBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
               <p>Font:
                 <input onChange={onChangeHandler(setProjectsFont)} value={projectsFont} />
@@ -299,10 +299,10 @@ function customize(props) {
             <div className="custom_section">
               <h2>Contact Me</h2>
               <p>color:
-                <input onChange={onChangeHandler(setContactmeColor)} value={contactmeColor} />
+                <input onChange={onChangeHandler(setContactmeColor)} value={contactmeColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
               <p>Background color:
-                <input onChange={onChangeHandler(setContactmeBgColor)} value={contactmeBgColor} />
+                <input onChange={onChangeHandler(setContactmeBgColor)} value={contactmeBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
               <p>Font:
                 <input onChange={onChangeHandler(setContactmeFont)} value={contactmeFont} />
