@@ -75,6 +75,16 @@ class Settings extends Component {
     })));
   }
 
+  handleEmail = (event) => {
+    this.setState(((prevState) => ({
+      ...prevState,
+      user: {
+        ...prevState.user,
+        email: event.target.value,
+      },
+    })));
+  }
+
   changeName = () => {
     this.setState(((prevState) => ({
       ...prevState,
@@ -86,7 +96,7 @@ class Settings extends Component {
   }
 
   save = (props) => {
-    if (this.state.user.firstName !== '' && this.state.user.lastName !== '') {
+    if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '') {
       this.setState(((prevState) => ({
         ...prevState,
         user: {
@@ -104,13 +114,21 @@ class Settings extends Component {
       return (
         <div className="editing">
           {this.displayMissingName()}
-          <div className="col">
-            <input className="textbox" type="text" placeholder="First Name" value={this.state.user.firstName} onChange={this.handleFirstName} />
-            <span className="focus-bg" />
+          <div className="editingname">
+            <div className="col">
+              <input className="textbox" type="text" placeholder="First Name" value={this.state.user.firstName} onChange={this.handleFirstName} />
+              <span className="focus-bg" />
+            </div>
+            <br />
+            <div className="col">
+              <input className="textbox" type="text" placeholder="Last Name" value={this.state.user.lastName} onChange={this.handleLastName} />
+              <span className="focus-bg" />
+            </div>
           </div>
           <br />
+          {this.displayMissingEmail()}
           <div className="col">
-            <input className="textbox" type="text" placeholder="Last Name" value={this.state.user.lastName} onChange={this.handleLastName} />
+            <input className="textbox emailbox" type="text" placeholder="Email" value={this.state.user.email} onChange={this.handleEmail} />
             <span className="focus-bg" />
           </div>
           {/* <input className="profile-info-name-editing" placeholder="First Name" value={this.state.user.firstName} onChange={this.handleFirstName} />
@@ -138,6 +156,18 @@ class Settings extends Component {
       return (
         <div>
           First name and last name must be filled!
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  displayMissingEmail = () => {
+    if (this.state.user.email === '') {
+      return (
+        <div>
+          Email must be filled!
         </div>
       );
     } else {
