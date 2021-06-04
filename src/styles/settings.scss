@@ -52,16 +52,35 @@
     
 }
 
+.editingname {
+    display: flex;
+    flex-direction: row;
+
+    .col {
+        padding-right: 15px;
+    }
+
+    .textbox {
+        width: 15vw;
+        height: auto !important; 
+    }
+}
+
 // adapted from: https://www.html-code-generator.com/css/textbox-style
 .col {
 	margin-top: 12px;
     display: inline-block;
     position: relative;
 }
+
+.emailbox{
+    width: 32vw !important;
+    height: auto !important; 
+}
+
 .textbox {
-    width: 250px;
     padding: 2px 4px;
-    font: 14px/24px "Lato", Arial, sans-serif;
+    font-size: 2vw !important;
     color: white;
     box-sizing: border-box;
     letter-spacing: 1px;
@@ -91,7 +110,7 @@
     width: auto;
 }
 
-// button style adapted from 
+// button style adapted from https://fdossena.com/?p=html5cool/buttons/i.frag
 
 .save-button{
     display:inline-block;
