@@ -12,7 +12,10 @@ body, html {
     color:white;
     justify-content: space-between;
     font-weight: bold;
-    font-size: 200%;
+    font-size: 150%;
+    padding-inline-start: 0;
+    padding-left:4vw;
+    padding-right:4vw;
     a {
         text-decoration: none;
         color: white;
@@ -27,8 +30,8 @@ body, html {
     flex-direction: row;
     font-size: 80%;
     a {
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: 2vw;
+        margin-right: 2vw;
         
     }
 }
@@ -38,11 +41,15 @@ body, html {
     position: relative;
 }
 
+.signinup:hover {
+    cursor:pointer;
+}
+
 .lefttabs h1:before {
   content: "";
   position: absolute;
   width: 0;
-  height: 0.1px;
+  height: 1px;
   bottom: 0;
   left: 0;
   background-color: #FFF;

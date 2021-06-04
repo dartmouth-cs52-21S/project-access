@@ -15,6 +15,7 @@ import ExistingPortfolios from './existing_portfolios';
 import InputResume from './input_resume';
 import Portfolio from './portfolio';
 import customize from './customize';
+import Settings from './settings';
 
 const App = (props) => {
   return (
@@ -25,6 +26,7 @@ const App = (props) => {
           <Route exact path="/" component={LandingPage} />
           <PrivateRoute exact path="/profile" component={Profile} />
           <PrivateRoute exact path="/templates" component={ChooseTemplate} />
+          <PrivateRoute exact path="/settings" component={Settings} />
           {/* <PrivateRoute exact path="/portfolios/:id" component={Portfolio} /> */}
           {/* Anyone can view Portfolio. Does not need PrivateRoute */}
           <PrivateRoute exact path="/portfolios/edit/resume/:id" component={InputResume} />
@@ -33,7 +35,7 @@ const App = (props) => {
           <PrivateRoute exact path="/portfolios" component={ExistingPortfolios} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
-          <Route render={() => (<div>post not found</div>)} />
+          <Route render={() => (<div>Post not found</div>)} />
         </Switch>
       </div>
     </Router>
