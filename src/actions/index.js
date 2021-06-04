@@ -179,8 +179,9 @@ export function updateUserProfile(userFields) {
         dispatch({ type: ActionTypes.UPDATE_PROFILE, payload: response.data });
       })
       .catch((error) => {
-        console.log('get profile error found');
-        console.log(error);
+        console.log('update user profile error');
+        console.log('errormessage', error.response.data);
+        dispatch(authError(`${error.response.data.error.toString()}`));
       });
   };
 }

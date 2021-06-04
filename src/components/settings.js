@@ -1,9 +1,11 @@
+/* eslint-disable no-lonely-if */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 // import '../style.scss';
+import validator from 'validator';
 import { connect } from 'react-redux';
 import {
   withRouter,
@@ -96,7 +98,7 @@ class Settings extends Component {
   }
 
   save = (props) => {
-    if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '') {
+    if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '' && validator.isEmail(this.state.user.email.toString())) {
       this.setState(((prevState) => ({
         ...prevState,
         user: {
@@ -109,12 +111,50 @@ class Settings extends Component {
     }
   }
 
+  // Email error handling
+
   displayEmailUsed = (props) => {
-    console.log(this.props.autherr);
-    if (this.props.autherr === 'Error: Email is in use') {
+    console.log('ERROR HERE,', this.props.autherr);
+    if (this.props.autherr === 'Error: Email is in use' && this.state.user.email !== this.props.profile.email) {
       return (
         <div>Email is already in use!</div>
       );
+    } else {
+      // this.props.history.push('/settings');
+      return null;
+    }
+  }
+
+  displayMissingEmail = () => {
+    if (this.state.user.email === '') {
+      return (
+        <div>
+          Email must be filled!
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  displayInvalidEmail = () => {
+    if (this.state.user.email !== '') {
+      if (validator.isEmail(this.state.user.email)) {
+        // console.log('email valid');
+        return (
+          // <div className="errormsg">Email Valid</div>
+          null
+        );
+      } else {
+        // console.log('email invalid');
+        if (this.state.user.email !== '') {
+          return (
+            <div className="errormsg">Email Invalid</div>
+          );
+        } else {
+          return (null);
+        }
+      }
     } else {
       return null;
     }
@@ -139,6 +179,7 @@ class Settings extends Component {
           <br />
           {this.displayMissingEmail()}
           {this.displayEmailUsed()}
+          {this.displayInvalidEmail()}
           <div className="col">
             <input className="textbox emailbox" type="text" placeholder="Email" value={this.state.user.email} onChange={this.handleEmail} />
             <span className="focus-bg" />
@@ -168,18 +209,6 @@ class Settings extends Component {
       return (
         <div>
           First name and last name must be filled!
-        </div>
-      );
-    } else {
-      return null;
-    }
-  }
-
-  displayMissingEmail = () => {
-    if (this.state.user.email === '') {
-      return (
-        <div>
-          Email must be filled!
         </div>
       );
     } else {
