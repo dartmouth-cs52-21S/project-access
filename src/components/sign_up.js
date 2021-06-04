@@ -131,7 +131,7 @@ class signUp extends Component {
   displayEmailUsed = (props) => {
     if (this.props.autherr === 'Error: Email is in use') {
       return (
-        <div>Email is already in used!</div>
+        <div>Email is already in use!</div>
       );
     } else {
       return null;

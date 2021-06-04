@@ -109,6 +109,16 @@ class Settings extends Component {
     }
   }
 
+  displayEmailUsed = (props) => {
+    if (this.props.autherr === 'Error: Email is in use') {
+      return (
+        <div>Email is already in use!</div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   displayEditableName = () => {
     if (this.state.editingName) {
       return (
@@ -194,6 +204,7 @@ class Settings extends Component {
 
 const mapStateToProps = (state) => ({
   profile: state.user.profile,
+  autherr: state.auth.authError,
 });
 
 // export default Profile;
