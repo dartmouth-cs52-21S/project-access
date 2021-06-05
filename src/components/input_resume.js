@@ -10,10 +10,10 @@ import { connect } from 'react-redux';
 // import { withRouter } from 'react-router-dom';
 import './input_resume_style.scss';
 import { useForm } from 'react-hook-form';
-import { fetchPortfolio, updatePortfolio } from '../actions';
+import { fetchPortfolio, updatePortfolio, fetchPortfolios } from '../actions';
+import 'regenerator-runtime/runtime';
 
 function InputResume(props) {
-  const portfolio = props.curr;
   const {
     register, handleSubmit, formState: { errors }, unregister,
   } = useForm();
@@ -43,53 +43,106 @@ function InputResume(props) {
   useEffect(() => {
     if (props.match.params.id) {
       props.fetchPortfolio(props.match.params.id);
+      props.fetchPortfolios();
       console.log(props.match.params.id);
     }
   }, [props.match.params.id]);
 
-  // useEffect(() => {
-  //   if (Object.keys(portfolio).length > 0) {
-  //     if (Object.keys(portfolio.resume).length > 0) {
-  const [name, setName] = useState({ name: portfolio.resume?.event?.name });
-  const [phone, setPhone] = useState({ phone: portfolio.resume?.event?.phone });
-  const [email, setEmail] = useState({ email: portfolio.resume?.event?.email });
-  const [role, setRole] = useState({ role: portfolio.resume?.event?.role });
-  const [about, setAbout] = useState({ about: portfolio.resume?.event?.about });
-  const [linkedIn, setLinkedIn] = useState({ linkedIn: portfolio.resume?.event?.linkedIn });
+  const [name, setName] = useState({ name: props.curr?.resume?.event?.name });
+  const [phone, setPhone] = useState({ phone: props.curr?.resume?.event?.phone });
+  const [email, setEmail] = useState({ email: props.curr?.resume?.event?.email });
+  const [role, setRole] = useState({ role: props.curr?.resume?.event?.role });
+  const [about, setAbout] = useState({ about: props.curr?.resume?.event?.about });
+  const [linkedIn, setLinkedIn] = useState({ linkedIn: props.curr?.resume?.event?.linkedIn });
 
   const [education, setEd] = useState({
-    college: portfolio.resume?.event?.college,
-    gpa: portfolio.resume?.event?.gpa,
-    degree: portfolio.resume?.event?.degree,
-    relevantCoursework: portfolio.resume?.event?.relevantCoursework,
+    college: props.curr?.resume?.event?.college,
+    gpa: props.curr?.resume?.event?.gpa,
+    degree: props.curr?.resume?.event?.degree,
+    relevantCoursework: props.curr?.resume?.event?.relevantCoursework,
   });
 
   let savedresearch = [];
-  for (let i = 0; portfolio.resume?.event?.[`research${i}`] !== undefined; i += 1) {
-    savedresearch = [...savedresearch, portfolio.resume?.event?.[`research${i}`]];
+  for (let i = 0; props.curr?.resume?.event?.[`research${i}`] !== undefined; i += 1) {
+    savedresearch = [...savedresearch, props.curr?.resume?.event?.[`research${i}`]];
   }
   const [research, setResearch] = useState(savedresearch);
 
   let savedwork = [];
-  for (let i = 0; portfolio.resume?.event?.[`work${i}`] !== undefined; i += 1) {
-    savedwork = [...savedwork, portfolio.resume?.event?.[`work${i}`]];
+  for (let i = 0; props.curr?.resume?.event?.[`work${i}`] !== undefined; i += 1) {
+    savedwork = [...savedwork, props.curr?.resume?.event?.[`work${i}`]];
   }
   const [work, setWork] = useState(savedwork);
 
   let savedprojects = [];
-  for (let i = 0; portfolio.resume?.event?.[`projects${i}`] !== undefined; i += 1) {
-    savedprojects = [...savedprojects, portfolio.resume?.event?.[`projects${i}`]];
+  for (let i = 0; props.curr?.resume?.event?.[`projects${i}`] !== undefined; i += 1) {
+    savedprojects = [...savedprojects, props.curr?.resume?.event?.[`projects${i}`]];
   }
   const [projects, setProjects] = useState(savedprojects);
 
-  let savedskills = [];
-  for (let i = 0; portfolio.resume?.event?.[`skills${i}`] !== undefined; i += 1) {
-    savedskills = [...savedskills, portfolio.resume?.event?.[`skills${i}`]];
+  let savedtechnical = [];
+  for (let i = 0; props.curr?.resume?.event?.[`technical${i}`] !== undefined; i += 1) {
+    savedtechnical = [...savedtechnical, props.curr?.resume?.event?.[`technical${i}`]];
   }
-  const [skills, setSkills] = useState(savedskills);
-  //     }
-  //   }
-  // }, [portfolio]);
+  const [technical, setTechnical] = useState(savedtechnical);
+
+  let savedlanguage = [];
+  for (let i = 0; props.curr?.resume?.event?.[`language${i}`] !== undefined; i += 1) {
+    savedlanguage = [...savedlanguage, props.curr?.resume?.event?.[`language${i}`]];
+  }
+  const [language, setLanguage] = useState(savedlanguage);
+
+  useEffect(() => {
+    setName({ name: props.curr?.resume?.event?.name });
+    setPhone({ phone: props.curr?.resume?.event?.phone });
+    setEmail({ email: props.curr?.resume?.event?.email });
+    setRole({ role: props.curr?.resume?.event?.role });
+    setAbout({ about: props.curr?.resume?.event?.about });
+    setLinkedIn({ linkedIn: props.curr?.resume?.event?.linkedIn });
+
+    setEd({
+      college: props.curr?.resume?.event?.college,
+      gpa: props.curr?.resume?.event?.gpa,
+      degree: props.curr?.resume?.event?.degree,
+      relevantCoursework: props.curr?.resume?.event?.relevantCoursework,
+    });
+
+    savedresearch = [];
+    for (let i = 0; props.curr?.resume?.event?.[`research${i}`] !== undefined; i += 1) {
+      savedresearch = [...savedresearch, props.curr?.resume?.event?.[`research${i}`]];
+    }
+    setResearch(savedresearch);
+
+    savedwork = [];
+    for (let i = 0; props.curr?.resume?.event?.[`work${i}`] !== undefined; i += 1) {
+      savedwork = [...savedwork, props.curr?.resume?.event?.[`work${i}`]];
+    }
+    setWork(savedwork);
+
+    savedprojects = [];
+    for (let i = 0; props.curr?.resume?.event?.[`projects${i}`] !== undefined; i += 1) {
+      savedprojects = [...savedprojects, props.curr?.resume?.event?.[`projects${i}`]];
+    }
+    setProjects(savedprojects);
+
+    savedtechnical = [];
+    for (let i = 0; props.curr?.resume?.event?.[`technical${i}`] !== undefined; i += 1) {
+      savedtechnical = [...savedtechnical, props.curr?.resume?.event?.[`technical${i}`]];
+    }
+    setTechnical(savedtechnical);
+
+    savedlanguage = [];
+    for (let i = 0; props.curr?.resume?.event?.[`language${i}`] !== undefined; i += 1) {
+      savedlanguage = [...savedlanguage, props.curr?.resume?.event?.[`language${i}`]];
+    }
+    setLanguage(savedlanguage);
+  }, [props.curr]);
+
+  const getFolio = async (id) => {
+    await props.fetchPortfolio(id);
+    console.log(id);
+    console.log(props.curr);
+  };
 
   const updateName = (value) => {
     setName({ ...name, name: value });
@@ -229,22 +282,16 @@ function InputResume(props) {
     }
   };
 
-  const updateSkills = (index, fieldIdx, value) => {
-    switch (fieldIdx) {
-      case 'technical':
-        let temp = skills[index];
-        temp.technical = value;
-        setSkills([...skills.slice(0, index), temp, ...skills.slice(index + 1)]);
-        break;
-      case 'languages':
-        let temp1 = skills[index];
-        temp1.languages = value;
-        setSkills([...skills.slice(0, index), temp1, ...skills.slice(index + 1)]);
-        break;
-      default:
-        // code block
-        break;
-    }
+  const updateTechnical = (index, value) => {
+    let temp = technical[index];
+    temp.technical = value;
+    setTechnical([...technical.slice(0, index), temp, ...technical.slice(index + 1)]);
+  };
+
+  const updateLanguage = (index, value) => {
+    let temp1 = language[index];
+    temp1.language = value;
+    setLanguage([...language.slice(0, index), temp1, ...language.slice(index + 1)]);
   };
 
   const submitform = (event) => {
@@ -256,8 +303,39 @@ function InputResume(props) {
     props.history.push(`/portfolios/edit/style/${props.match.params.id}`);
   };
 
+  const folioOptions = () => {
+    let folios = 'No Portfolios Available';
+    if (Object.keys(props.all).length !== 0) {
+      let fs = props.all.map((pfolio, index) => {
+        return (
+          <button key={index} type="button" className="dropdown-item" onClick={() => { getFolio(pfolio._id); }}>
+            {pfolio.name}
+          </button>
+        );
+      });
+      folios = (
+        <div className="dropdown">
+          <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Portfolios
+          </button>
+          <div className="dropdown-menu" aria-labelledby="dropdownMenu2">
+            {fs}
+          </div>
+        </div>
+      );
+    }
+    return (
+      folios
+    );
+  };
+
   return (
     <form onSubmit={handleSubmit(submitform)}>
+
+      <div>
+        <h3>Select an Existing Portfolio</h3>
+        {folioOptions()}
+      </div>
 
       <div>
         <h2>General Information</h2>
@@ -405,31 +483,54 @@ function InputResume(props) {
         })}
       </div>
 
-      <div className="skills">
+      <div className="technical">
         <div className="section-title">
-          <h2>Skills</h2>
+          <h2>Technical Skills</h2>
           <i className="material-icons"
             onClick={() => {
-              setSkills([...skills, {
-                technical: '', languages: '',
+              setTechnical([...technical, {
+                technical: '',
               }]);
             }}
           >add_circle
           </i>
         </div>
-        {skills.map((object, index) => {
+        {technical.map((object, index) => {
           return (
             <li key={index}>
               <div className="name-and-time">
-                <input placeholder="Technical Skills" name="technical" className="text-input" {...register(`skills${index}.technical`)} value={skills[index].technical} onChange={(event) => { updateSkills(index, 'technical', event.target.value); }} />
-                <p>{errors?.[`skills${index}`]?.technical?.message}</p>
-              </div>
-              <div className="flex-column-details">
-                <input placeholder="Languages" className="text-input" {...register(`skills${index}.languages`)} value={skills[index].languages} onChange={(event) => { updateSkills(index, 'languages', event.target.value); }} />
-                <p>{errors?.[`skills${index}`]?.languages?.message}</p>
+                <input placeholder="Technical Skills" name="technical" className="text-input" {...register(`technical${index}.technical`)} value={technical[index].technical} onChange={(event) => { updateTechnical(index, event.target.value); }} />
+                <p>{errors?.[`technical${index}`]?.technical?.message}</p>
               </div>
               <div>
-                <i className="material-icons" onClick={() => { setSkills([...skills.slice(0, index), ...skills.slice(index + 1)]); unregister(`skills${index}`); }}>clear</i>
+                <i className="material-icons" onClick={() => { setTechnical([...technical.slice(0, index), ...technical.slice(index + 1)]); unregister(`technical${index}`); }}>clear</i>
+              </div>
+            </li>
+          );
+        })}
+      </div>
+
+      <div className="language">
+        <div className="section-title">
+          <h2>Languages</h2>
+          <i className="material-icons"
+            onClick={() => {
+              setLanguage([...language, {
+                language: '',
+              }]);
+            }}
+          >add_circle
+          </i>
+        </div>
+        {language.map((object, index) => {
+          return (
+            <li key={index}>
+              <div className="name-and-time">
+                <input placeholder="Languages" name="language" className="text-input" {...register(`language${index}.language`)} value={language[index].language} onChange={(event) => { updateLanguage(index, event.target.value); }} />
+                <p>{errors?.[`language${index}`]?.language?.message}</p>
+              </div>
+              <div>
+                <i className="material-icons" onClick={() => { setLanguage([...language.slice(0, index), ...language.slice(index + 1)]); unregister(`language${index}`); }}>clear</i>
               </div>
             </li>
           );
@@ -442,7 +543,8 @@ function InputResume(props) {
 }
 function mapStateToProps(reduxState) {
   return {
+    all: reduxState.portfolio.all,
     curr: reduxState.portfolio.current,
   };
 }
-export default connect(mapStateToProps, { fetchPortfolio, updatePortfolio })(InputResume);
+export default connect(mapStateToProps, { fetchPortfolio, updatePortfolio, fetchPortfolios })(InputResume);
