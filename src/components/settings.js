@@ -138,16 +138,13 @@ class Settings extends Component {
   save = (props) => {
     if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '' && validator.isEmail(this.state.user.email)) {
       this.props.updateUserProfile(this.state.user);
-      console.log(this.props.autherr);
-      if (this.props.autherr !== 'Error: Error: Email is in use') {
-        this.setState(((prevState) => ({
-          ...prevState,
-          user: {
-            ...prevState.user,
-          },
-          editingName: false,
-        })));
-      }
+      this.setState(((prevState) => ({
+        ...prevState,
+        user: {
+          ...prevState.user,
+        },
+        editingName: false,
+      })));
       console.log('saving');
       // this.props.history.push('/profile');
     }
@@ -156,7 +153,7 @@ class Settings extends Component {
   displayEmailExistsError = () => {
     if (this.props.autherr === 'Error: Error: Email is in use') {
       return (
-        <div>Update email failed. Email already in use!</div>
+        <div>Email already in use! Try another.</div>
       );
     } else {
       return null;
@@ -164,7 +161,7 @@ class Settings extends Component {
   }
 
   displayEditableName = () => {
-    if (this.state.editingName) {
+    if (this.state.editingName || this.props.autherr === 'Error: Error: Email is in use') {
       return (
         <div className="editing">
           {this.displayMissingName()}
