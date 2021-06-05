@@ -62,7 +62,7 @@ class SignIn extends Component {
   render() {
     return (
       <div className="signin-page">
-        <h1>Welcome back!</h1>
+        <h1>Welcome back!</h1><br />
         <form className="form">
           <input type="text" name="username" placeholder="Username" onChange={this.handleUsername} />
           <input type="password" name="password" placeholder="Password" onChange={this.handlePassword} />

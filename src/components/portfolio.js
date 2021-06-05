@@ -62,7 +62,6 @@ class Portfolio extends Component {
       backgroundColor: this.props.curr.projects?.backgroundColor,
       color: this.props.curr.projects?.color,
       display: this.props.curr.projects?.display,
-      // display: 'flex',
       flexDirection: this.props.curr.projects?.flexDirection,
       font: this.props.curr.projects?.font,
       fontSize: this.props.curr.projects?.fontSize,
@@ -136,17 +135,17 @@ class Portfolio extends Component {
             <h2 style={headerrolestyle}>{this.props.curr.resume?.event?.role}</h2>
           </div>
           <div className="aboutme" style={aboutmestyle}>
-            <h2>About Me</h2>
+            <h2>About Me</h2><br />
             <p>{this.props.curr.resume?.event?.about}</p>
           </div>
           <div className="education" style={projectstyle}>
-            <h2>Education</h2>
+            <h2>Education</h2><br />
             <p>{this.props.curr.resume.event.college}</p>
             <p>{this.props.curr.resume.event.degree}</p>
             {GPA}
           </div>
           <div className="research" style={aboutmestyle}>
-            <h2>Research</h2>
+            <h2>Research</h2><br />
             {res.map((research, index) => {
               return (
                 <li key={index} style={spacing}>
@@ -159,7 +158,7 @@ class Portfolio extends Component {
             })}
           </div>
           <div className="projects" style={projectstyle}>
-            <h2>Projects</h2>
+            <h2>Projects</h2><br />
             {projs.map((project, index) => {
               return (
                 <li key={index} style={spacing}>
@@ -171,7 +170,7 @@ class Portfolio extends Component {
             })}
           </div>
           <div className="work" style={aboutmestyle}>
-            <h2>Work Experience</h2>
+            <h2>Work Experience</h2><br />
             {work.map((w, index) => {
               return (
                 <li key={index} style={spacing}>
@@ -184,7 +183,7 @@ class Portfolio extends Component {
             })}
           </div>
           <div className="technical skills" style={projectstyle}>
-            <h2>Technical Skills</h2>
+            <h2>Technical Skills</h2><br />
             {technical.map((t, index) => {
               return (
                 <li key={index}>
@@ -194,7 +193,7 @@ class Portfolio extends Component {
             })}
           </div>
           <div className="languages" style={aboutmestyle}>
-            <h2>Languages</h2>
+            <h2>Languages</h2><br />
             {language.map((l, index) => {
               return (
                 <li key={index}>
@@ -204,7 +203,7 @@ class Portfolio extends Component {
             })}
           </div>
           <div className="contactme" style={contactstyle}>
-            <h2>Contact Me</h2>
+            <h2>Contact Me</h2><br />
             <p>Phone: {this.props.curr.resume?.event?.phone}</p>
             <p>Email: {this.props.curr.resume?.event?.email}</p>
             {LINKEDIN}

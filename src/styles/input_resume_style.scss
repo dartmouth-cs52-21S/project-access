@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-input{
+#resumeinput{
   width: 90%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -14,7 +14,7 @@ input{
   margin-left: auto;
 }
 
-input[type=submit]{
+#inputsubmit{
   width: 45%;
   color: black;
   padding: 14px 20px;
@@ -28,12 +28,12 @@ input[type=submit]{
   margin-left: auto;
 }
 
-h2{
+#inputheader{
   padding-left: 30px;
 }
 
 i{
-  padding-left: 30px;
+  padding-left: 5%;
   cursor: pointer;
 }
 
@@ -43,4 +43,17 @@ li{
 
 #dropdown{
    padding-left: 5%;
+}
+
+#bigtext{
+  width: 90%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  height: 150px;
 }
