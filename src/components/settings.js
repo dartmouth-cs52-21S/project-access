@@ -9,6 +9,7 @@ import {
   withRouter,
 //   NavLink,
 } from 'react-router-dom';
+import validator from 'validator';
 import { getUserProfile, updateUserProfile } from '../actions/index';
 // import '../styles/profile-page.scss';
 import '../styles/settings.scss';
@@ -55,6 +56,24 @@ class Settings extends Component {
     })));
   }
 
+  displayInvalidEmail = () => {
+    if (this.state.email !== null) {
+      if (validator.isEmail(this.state.user.email)) {
+        // console.log('email valid');
+        return (
+          <div>Email Valid</div>
+        );
+      } else {
+        // console.log('email invalid');
+        return (
+          <div>Email Invalid</div>
+        );
+      }
+    } else {
+      return null;
+    }
+  }
+
   handleFirstName = (event) => {
     this.setState(((prevState) => ({
       ...prevState,
@@ -96,16 +115,30 @@ class Settings extends Component {
   }
 
   save = (props) => {
-    if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '') {
-      this.setState(((prevState) => ({
-        ...prevState,
-        user: {
-          ...prevState.user,
-        },
-        editingName: false,
-      })));
+    if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '' && validator.isEmail(this.state.user.email)) {
       this.props.updateUserProfile(this.state.user);
-      this.props.history.push('/settings');
+      console.log(this.props.autherr);
+      if (this.props.autherr !== 'Error: Error: Email is in use') {
+        this.setState(((prevState) => ({
+          ...prevState,
+          user: {
+            ...prevState.user,
+          },
+          editingName: false,
+        })));
+      }
+      console.log('saving');
+      // this.props.history.push('/profile');
+    }
+  }
+
+  displayEmailExistsError = () => {
+    if (this.props.autherr === 'Error: Error: Email is in use') {
+      return (
+        <div>Update email failed. Email already in use!</div>
+      );
+    } else {
+      return null;
     }
   }
 
@@ -127,10 +160,12 @@ class Settings extends Component {
           </div>
           <br />
           {this.displayMissingEmail()}
+          {this.displayInvalidEmail()}
           <div className="col">
             <input className="textbox emailbox" type="text" placeholder="Email" value={this.state.user.email} onChange={this.handleEmail} />
             <span className="focus-bg" />
           </div>
+          {this.displayEmailExistsError()}
           {/* <input className="profile-info-name-editing" placeholder="First Name" value={this.state.user.firstName} onChange={this.handleFirstName} />
           <input className="profile-info-name-editing" placeholder="Last Name" value={this.state.user.lastName} onChange={this.handleLastName} /> */}
           <button className="save-button" type="button" onClick={this.save}>Save Profile</button>
@@ -194,6 +229,7 @@ class Settings extends Component {
 
 const mapStateToProps = (state) => ({
   profile: state.user.profile,
+  autherr: state.auth.authError,
 });
 
 // export default Profile;
