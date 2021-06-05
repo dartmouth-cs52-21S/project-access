@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 import React, { useEffect, useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import '../style.scss';
+import '../styles/customize-page.scss';
 import { connect } from 'react-redux';
 import validateColor from 'validate-color';
 import FontPicker from 'font-picker-react';
@@ -150,8 +150,8 @@ function customize(props) {
     if (!isEditing || !props.authenticated) {
       return (
         <div>
+          <h1>Customize {portfolio.name}</h1>
           <div className="input_div">
-            <h1>Customize {portfolio.name}</h1>
             <div className="custom_section">
               <h2>Header</h2>
               <h3>Name Section</h3>
