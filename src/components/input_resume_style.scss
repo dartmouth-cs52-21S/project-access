@@ -1,0 +1,46 @@
+.title{
+    text-align: center;
+}
+
+input{
+  width: 90%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+input[type=submit]{
+  width: 45%;
+  color: black;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: center;
+  margin: auto;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+h2{
+  padding-left: 30px;
+}
+
+i{
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+li{
+  list-style-type:none;
+}
+
+#dropdown{
+   padding-left: 5%;
+}

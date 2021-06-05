@@ -314,7 +314,7 @@ function InputResume(props) {
         );
       });
       folios = (
-        <div className="dropdown">
+        <div className="dropdown" id="dropdown">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Portfolios
           </button>
@@ -331,11 +331,11 @@ function InputResume(props) {
 
   return (
     <form onSubmit={handleSubmit(submitform)}>
-
+      <h1 className="title">Resume Information</h1><br />
       <div>
-        <h3>Select an Existing Portfolio</h3>
+        <h2>Select an Existing Portfolio</h2>
         {folioOptions()}
-      </div>
+      </div><br />
 
       <div>
         <h2>General Information</h2>
@@ -345,28 +345,27 @@ function InputResume(props) {
           <input placeholder="Phone" className="text-input" {...register('phone')} value={phone.phone} onChange={(event) => { updatePhone(event.target.value); }} />
           <p>{errors.phone?.message}</p>
           <input placeholder="Email" className="text-input" {...register('email')} value={email.email} onChange={(event) => { updateEmail(event.target.value); }} />
-          <p>{errors.email?.message}</p>
+          <p>{errors.email?.message}</p><br />
           <input placeholder="Current Role" className="text-input" {...register('role')} value={role.role} onChange={(event) => { updateRole(event.target.value); }} />
           <p>{errors.role?.message}</p>
-          <input placeholder="Please describe yourself" className="text-input" {...register('about')} value={about.about} onChange={(event) => { updateAbout(event.target.value); }} />
+          <input placeholder="Please describe yourself" id="bigtext" className="text-input" {...register('about')} value={about.about} onChange={(event) => { updateAbout(event.target.value); }} />
           <p>{errors.about?.message}</p>
           <input placeholder="LinkedIn" className="text-input" {...register('linkedIn')} value={linkedIn.linkedIn} onChange={(event) => { updateLinkedIn(event.target.value); }} />
         </div>
-      </div>
+      </div><br />
 
       <div className="Education">
         <h2>Education</h2>
-        <div className="college-gpa">
+        <div className="college">
           <input placeholder="College or University" className="text-input" {...register('college')} value={education.college} onChange={(event) => { updateEduc('college', event.target.value); }} />
           <p>{errors.college?.message}</p>
           <input placeholder="GPA /4.00" className="text-input" type="number" {...register('gpa')} value={education.gpa} onChange={(event) => { updateEduc('gpa', event.target.value); }} />
-        </div>
-        <div className="flex-column-details">
+          <p />
           <input placeholder="Degree" className="text-input" {...register('degree')} value={education.degree} onChange={(event) => { updateEduc('degree', event.target.value); }} />
           <p>{errors.degree?.message}</p>
           <input placeholder="Relevant Coursework" className="text-input" {...register('relevantCoursework')} value={education.relevantCoursework} onChange={(event) => { updateEduc('relevantCoursework', event.target.value); }} />
         </div>
-      </div>
+      </div><br />
 
       <div className="Research">
         <div className="section-title">
@@ -396,7 +395,7 @@ function InputResume(props) {
               <div className="flex-column-details">
                 <input placeholder="Position" className="text-input" {...register(`research${index}.position`)} value={research[index].position} onChange={(event) => { updateResearch(index, 'position', event.target.value); }} />
                 <p>{errors?.[`research${index}`]?.position?.message}</p>
-                <input placeholder="Description" className="text-input" {...register(`research${index}.description`)} value={research[index].description} onChange={(event) => { updateResearch(index, 'description', event.target.value); }} />
+                <input placeholder="Description" id="bigtext" className="text-input" {...register(`research${index}.description`)} value={research[index].description} onChange={(event) => { updateResearch(index, 'description', event.target.value); }} />
                 <p>{errors?.[`research${index}`]?.description?.message}</p>
               </div>
               <div>
@@ -405,7 +404,7 @@ function InputResume(props) {
             </li>
           );
         })}
-      </div>
+      </div><br />
 
       <div className="Work">
         <div className="section-title">
@@ -435,7 +434,7 @@ function InputResume(props) {
               <div className="flex-column-details">
                 <input placeholder="Position" className="text-input" {...register(`work${index}.position`)} value={work[index].position} onChange={(event) => { updateWork(index, 'position', event.target.value); }} />
                 <p>{errors?.[`work${index}`]?.position?.message}</p>
-                <input placeholder="Description" className="text-input" {...register(`work${index}.description`)} value={work[index].description} onChange={(event) => { updateWork(index, 'description', event.target.value); }} />
+                <input placeholder="Description" id="bigtext" className="text-input" {...register(`work${index}.description`)} value={work[index].description} onChange={(event) => { updateWork(index, 'description', event.target.value); }} />
                 <p>{errors?.[`work${index}`]?.description?.message}</p>
               </div>
               <div>
@@ -444,7 +443,7 @@ function InputResume(props) {
             </li>
           );
         })}
-      </div>
+      </div><br />
 
       <div className="Projects">
         <div className="section-title">
@@ -472,7 +471,7 @@ function InputResume(props) {
                 </div>
               </div>
               <div className="flex-column-details">
-                <input placeholder="Description" className="text-input" {...register(`projects${index}.description`)} value={projects[index].description} onChange={(event) => { updateProjects(index, 'description', event.target.value); }} />
+                <input placeholder="Description" id="bigtext" className="text-input" {...register(`projects${index}.description`)} value={projects[index].description} onChange={(event) => { updateProjects(index, 'description', event.target.value); }} />
                 <p>{errors?.[`projects${index}`]?.description?.message}</p>
               </div>
               <div>
@@ -481,7 +480,7 @@ function InputResume(props) {
             </li>
           );
         })}
-      </div>
+      </div><br />
 
       <div className="technical">
         <div className="section-title">
@@ -508,7 +507,7 @@ function InputResume(props) {
             </li>
           );
         })}
-      </div>
+      </div><br />
 
       <div className="language">
         <div className="section-title">
@@ -535,7 +534,7 @@ function InputResume(props) {
             </li>
           );
         })}
-      </div>
+      </div><br />
 
       <input type="submit" />
     </form>
