@@ -1,6 +1,7 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 // import '../style.scss';
@@ -10,6 +11,7 @@ import {
 //   NavLink,
 } from 'react-router-dom';
 import validator from 'validator';
+import Dropzone from 'react-dropzone';
 import { getUserProfile, updateUserProfile } from '../actions/index';
 // import '../styles/profile-page.scss';
 import '../styles/settings.scss';
@@ -20,21 +22,15 @@ import '../styles/settings.scss';
 class Settings extends Component {
   constructor(props) {
     super(props);
+    this.onDrop = (files) => {
+      this.setState({ files });
+    };
     this.state = {
       user: {},
       editingName: false,
+      preview: '',
     };
   }
-
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //       user: {
-  //         email: '',
-  //         password: '',
-  //       },
-  //     };
-  //   }
 
   //   handlePassword = (event) => {
   //     this.setState(((prevState) => ({
@@ -54,24 +50,6 @@ class Settings extends Component {
         ...this.props.profile,
       },
     })));
-  }
-
-  displayInvalidEmail = () => {
-    if (this.state.email !== null) {
-      if (validator.isEmail(this.state.user.email)) {
-        // console.log('email valid');
-        return (
-          <div>Email Valid</div>
-        );
-      } else {
-        // console.log('email invalid');
-        return (
-          <div>Email Invalid</div>
-        );
-      }
-    } else {
-      return null;
-    }
   }
 
   handleFirstName = (event) => {
@@ -102,6 +80,49 @@ class Settings extends Component {
         email: event.target.value,
       },
     })));
+  }
+
+  onImageUpload(event) {
+    console.log(event.target.files[0]);
+    const file = event.target.files[0];
+    // Handle null file
+    // Get url of the file and set it to the src of preview
+    if (file) {
+      this.setState({ preview: window.URL.createObjectURL(file), file });
+    }
+  }
+
+  displayS3 = () => {
+    return (
+      <div>
+        <img id="preview"
+          alt="preview"
+          src={(this.state.preview === '') ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.state.preview}
+        />
+        <input type="file"
+          name="coverImage"
+          onChange={this.onImageUpload}
+        />
+      </div>
+    );
+  }
+
+  displayInvalidEmail = () => {
+    if (this.state.email !== null) {
+      if (validator.isEmail(this.state.user.email)) {
+        // console.log('email valid');
+        return (
+          <div>Email Valid</div>
+        );
+      } else {
+        // console.log('email invalid');
+        return (
+          <div>Email Invalid</div>
+        );
+      }
+    } else {
+      return null;
+    }
   }
 
   changeName = () => {
@@ -210,17 +231,52 @@ class Settings extends Component {
     }
   }
 
+  displayDropZone = () => {
+    const dropzoneRef = createRef();
+    const openDialog = () => {
+      // Note that the ref is set async,
+      // so it might be null at some point
+      if (dropzoneRef.current) {
+        dropzoneRef.current.open();
+      }
+    };
+    return (
+      // Disable click and keydown behavior on the <Dropzone>
+      <Dropzone ref={dropzoneRef} noClick noDrag noKeyboard>
+        {({ getRootProps, getInputProps, acceptedFiles }) => {
+          return (
+            <div className="container">
+              <div {...getRootProps({ className: 'dropzone' })}>
+                <input {...getInputProps()} />
+                <img src={(this.state.files.length === 0) ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.state.files[0]} alt="none" onClick={openDialog} />
+              </div>
+              <aside>
+                <ul>
+                  {acceptedFiles.map((file) => (
+                    this.setState({ files: [file] })
+                  ))}
+                </ul>
+              </aside>
+            </div>
+          );
+        }}
+      </Dropzone>
+    );
+  }
+
   render() {
     return (
       <div className="profile-page">
+
         <div className="profile-user-info">
           <div className="profile-img">
             {/* extra feature: implementing image upload */}
-            <img src="https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg" alt="none" />
+            {/* {this.displayDropZone()} */}
+            {this.displayS3()}
           </div>
-          <div className="profile-info">
-            {this.displayEditableName()}
-          </div>
+        </div>
+        <div className="profile-info">
+          {this.displayEditableName()}
         </div>
       </div>
     );

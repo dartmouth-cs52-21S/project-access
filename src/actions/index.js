@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://localhost:9090/api';
+export const ROOT_URL = 'http://localhost:9090/api';
 // const ROOT_URL = 'https://cs52access.herokuapp.com/api';
 
 // keys for actiontypes
