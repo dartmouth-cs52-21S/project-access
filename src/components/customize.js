@@ -1,14 +1,18 @@
 /* eslint-disable eqeqeq */
 import React, { useEffect, useState } from 'react';
-import { useHistory, withRouter, Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import '../style.scss';
 import { connect } from 'react-redux';
 import validateColor from 'validate-color';
-import { fetchPortfolio, updatePortfolio, deletePortfolio } from '../actions';
+import FontPicker from 'font-picker-react';
+import { SketchPicker } from 'react-color';
+import { fetchPortfolio, updatePortfolio } from '../actions';
 
 function customize(props) {
   const portfolio = props.curr;
-  const history = useHistory();
+
+  const [userNameFontFam, setUserNameFontFam] = useState('');
+
   const [isEditing, setIsEditing] = useState(false);
 
   const [name, setName] = useState('');
@@ -45,6 +49,8 @@ function customize(props) {
 
   const onChangeHandler = (setter) => (e) => setter(e.target.value);
   const onChangeHandlerColor = (setter) => (e) => (validateColor(e.target.value) ? setter(e.target.value) : setter('white'));
+  const onChangeHandlerFont = (setter, font) => setter(font);
+  const onChangeHandlerColorPicker = (setter, color) => setter(color);
 
   useEffect(() => {
     if (props.match.params.id) {
@@ -55,7 +61,7 @@ function customize(props) {
   useEffect(() => {
     if (Object.keys(portfolio).length > 0) {
       setName(portfolio.name);
-
+      setUserNameFontFam(portfolio.header.userName.font);
       setUserNameColor(portfolio.header.userName.color);
       setUserNameBgColor(portfolio.header.userName.backgroundColor);
       setUserNameFont(portfolio.header.userName.font);
@@ -138,13 +144,6 @@ function customize(props) {
     });
   }
 
-  function onDeleteClick() {
-    if (props.authenticated) {
-      history.push('/posts');
-      props.deletePortfolio(props.match.params.id, history);
-    }
-  }
-
   if (Object.keys(portfolio).length === 0) {
     return null;
   } else if (props.error === '') {
@@ -205,7 +204,6 @@ function customize(props) {
             </div>
             <div className="buttons_div">
               <button id="icon" type="button" onClick={() => setIsEditing(!isEditing)}>edit</button>
-              <button id="icon" type="button" onClick={onDeleteClick}>Delete</button>
               <form action="/portfolios">
                 <button type="submit">Render</button>
               </form>
@@ -230,9 +228,16 @@ function customize(props) {
               <p>Background color:
                 <input onChange={onChangeHandler(setUserNameBgColor)} value={userNameBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
-              <p>Font:
-                <input onChange={onChangeHandler(setUserNameFont)} value={userNameFont} />
-              </p>
+              <p>Font:</p>
+              <div>
+                <FontPicker
+                  apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
+                  activeFontFamily={userNameFontFam}
+                  onChange={(nextFont) => onChangeHandlerFont(setUserNameFontFam, nextFont.family)}
+                />
+                <p className="apply-font">~Font preview~</p>
+              </div>
+              {/* <input onChange={onChangeHandler(setUserNameFont)} value={userNameFont} /> */}
               <p>Font Size:
                 <input onChange={onChangeHandler(setUserNameFontSize)} value={userNameFontSize} />
               </p>
@@ -263,6 +268,10 @@ function customize(props) {
               <p>color:
                 <input onChange={onChangeHandler(setAboutmeColor)} value={aboutmeColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setAboutmeColor, color.hex)}
+                color={aboutmeColor}
+              />
               <p>Background color:
                 <input onChange={onChangeHandler(setAboutmeBgColor)} value={aboutmeBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
               </p>
@@ -342,4 +351,4 @@ function mapStateToProps(reduxState) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, { fetchPortfolio, updatePortfolio, deletePortfolio })(customize));
+export default withRouter(connect(mapStateToProps, { fetchPortfolio, updatePortfolio })(customize));
