@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/iframe-has-title */
 /* eslint-disable react/style-prop-object */
 // import React, { useEffect, useState } from 'react';
 import '../style.scss';
@@ -30,31 +33,52 @@ class ExistingPortfolios extends Component {
   displayPortfolios = () => {
     return (
       this.props.portfolios.map((portfolio) => {
-        console.log(portfolio.id);
-<<<<<<< HEAD
-        return (
-          <iframe src={`/portfolios/${portfolio.id}`} title="Portfolio" />
-        );
-=======
+        console.log('THE PORTFOLIO', portfolio);
         if (portfolio) {
           return (
-            <div className="iframe-container" key={portfolio._id}>
-              <div className="blur" />
-              <iframe title={`Portfolio ${portfolio.__v}`} src={`/portfolios/${portfolio.id}`} />
-              {/* <iframe src={`/portfolios/${portfolio.id}`} title={`Portfolio ${portfolio.__v}`}> */}
-              <div className="portfolio-options">
-                {/* pp */}
-                <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
-                  Edit Resume
-                </Link>
-                <Link to={`/portfolios/${portfolio._id}`}>
-                  View Portfolio
-                </Link>
-                <div>
-                  <button type="button" className="portfolio-delete" onClick={() => { this.onDeleteClick(portfolio.id); }}>Delete Portfolio</button>
+            <div className="portfolio-construct">
+              <h2>{portfolio.name}</h2>
+              <div className="portfolio-container">
+                <div id="wrap" className="iframecontainer">
+                  <iframe id="scaled-frame" src={`/portfolios/${portfolio.id}`} />
+                </div>
+
+                <div className="portfolio-options">
+                  {/* pp */}
+                  <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
+                    Edit Content
+                  </Link>
+                  <Link to={`/portfolios/edit/style/${portfolio._id}`}>
+                    Edit Style
+                  </Link>
+                  {/* <Link to={`/portfolios/${portfolio._id}`}> */}
+                  <a onClick={() => { window.location.href = `/portfolios/${portfolio._id}`; }}>
+                    View Portfolio
+                  </a>
+                  {/* </Link> */}
+                  <div>
+                    <button type="button" className="portfolio-delete" onClick={() => { this.onDeleteClick(portfolio.id); }}>Delete Portfolio</button>
+                  </div>
                 </div>
               </div>
             </div>
+          // <div className="iframe-container" key={portfolio._id}>
+          //   <div className="blur" />
+          //   <iframe title={`Portfolio ${portfolio.__v}`} src={`/portfolios/${portfolio.id}`} />
+          //   {/* <iframe src={`/portfolios/${portfolio.id}`} title={`Portfolio ${portfolio.__v}`}> */}
+          //   <div className="portfolio-options">
+          //     {/* pp */}
+          //     <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
+          //       Edit Resume
+          //     </Link>
+          //     <Link to={`/portfolios/${portfolio._id}`}>
+          //       View Portfolio
+          //     </Link>
+          //     <div>
+          //       <button type="button" className="portfolio-delete" onClick={() => { this.onDeleteClick(portfolio.id); }}>Delete Portfolio</button>
+          //     </div>
+          //   </div>
+          // </div>
           );
         } else {
           return (
@@ -66,7 +90,6 @@ class ExistingPortfolios extends Component {
             </div>
           );
         }
->>>>>>> a65cd53d00d9db0ef956e48b7cf631be76759921
       })
     );
   }
