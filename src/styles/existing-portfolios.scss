@@ -33,7 +33,6 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    font-size: 150%;
 
     a {
         text-decoration: none;
@@ -147,6 +146,7 @@
     z-index: 9;
     margin: 30px;
     text-align: right;
+    font-size: 50px;
 
     a {
         margin-bottom: 10px;
@@ -160,10 +160,10 @@
     // }
     
     span svg {
-        border-radius: 60%;
+        border-radius: 50%;
         padding: 16px;
-        padding-bottom: 14px;
-        padding-top: 14px;
+        padding-bottom: 0px;
+        padding-top: 0px;
         border: 2px solid white;
         background-color: black;
         color: white;
@@ -191,10 +191,16 @@
     z-index: 999999999999;
     opacity: 0;
     transition: all 0.3s ease-in-out;
+    font-size: 23px;
+    color: black;
 }
 
 .portfolio-options span {
     z-index: 999999999999;
+    svg {
+        padding:15px !important;
+        width: 80px !important;
+    }
 }
 
 .portfolio-options:hover .dropdown-content{
