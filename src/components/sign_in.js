@@ -63,11 +63,11 @@ class SignIn extends Component {
     return (
       <div className="signin-page">
         <h1>Welcome back!</h1>
-        <form className="form">
+        <form className="form-signin">
           <input type="text" name="username" placeholder="Username" onChange={this.handleUsername} />
           <input type="password" name="password" placeholder="Password" onChange={this.handlePassword} />
           {this.displayIncorrectFields()}
-          <div className="sign-button"
+          <div className="sign-in-button"
             onClick={() => {
               this.props.signinUser(this.state.user, this.props.history);
             }}

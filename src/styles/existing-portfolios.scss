@@ -33,6 +33,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    font-size: 150%;
 
     a {
         text-decoration: none;
@@ -51,25 +52,25 @@
     }
 }
 
-.portfolio-delete {
-    text-decoration: none;
-    background-color: white;
-    color: black;
-    padding: 5px 20px;
-    border-radius: 5px;
-    border: 0;
-    font-family: "Raleway", sans-serif;
-    height: 100%;
-    font-size: 103%;
-}
+// .portfolio-delete {
+//     text-decoration: none;
+//     background-color: white;
+//     color: black;
+//     padding: 5px 20px;
+//     border-radius: 5px;
+//     border: 0;
+//     font-family: "Raleway", sans-serif;
+//     height: 100%;
+//     font-size: 103%;
+// }
 
-.portfolio-delete:hover {
-    text-decoration: none;
-    background-color: green;
-    color: white;
-    padding: 5px 20px;
-    border-radius: 5px;
-}
+// .portfolio-delete:hover {
+//     text-decoration: none;
+//     background-color: green;
+//     color: white;
+//     padding: 5px 20px;
+//     border-radius: 5px;
+// }
 
 .portfolio-construct {
     display: flex;
@@ -93,7 +94,7 @@
     padding: 0;
     overflow: none;
     border: 2px solid white;
-    transform: scale(0.5);
+    transform: scale(0.55);
   }
   #scaled-frame {
     height: 100%;
@@ -127,11 +128,48 @@
 //     }
 // }
 
+
+#wrap > div {
+    opacity: 0.3;
+    position:relative;
+    float: right;
+    left: 15px;
+    top: -920px;
+    transition: 0.5s;
+}
+#wrap > div {
+    opacity: 1;
+}  
+
 .portfolio-options {
     display: flex;
     flex-direction: column;
     z-index: 9;
     margin: 30px;
+    text-align: right;
+
+    a {
+        margin-bottom: 10px;
+    }
+
+    // span {
+    //     display: flex;
+    //     align-content: right !important;
+    //     align-items: right !important;
+    //     text-align: right !important;
+    // }
+    
+    span svg {
+        border-radius: 60%;
+        padding: 16px;
+        padding-bottom: 14px;
+        padding-top: 14px;
+        border: 2px solid white;
+        background-color: black;
+        color: white;
+        font-size: 160%;
+        margin-bottom: 20px;
+    }
 }
 
 
@@ -145,4 +183,34 @@
 
 .iframecontainer:hover {
     cursor: pointer;
+}
+
+.dropdown-content {
+    display: flex;
+    flex-direction: column;
+    z-index: 999999999999;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.portfolio-options span {
+    z-index: 999999999999;
+}
+
+.portfolio-options:hover .dropdown-content{
+    opacity: 1;
+    // transform: scale(1.01);
+    transition: all 0.3s ease-in-out;
+    flex-direction: column;
+}
+
+.portfolio-options span svg {
+    transition: all 0.3s ease-in-out ;
+}
+
+
+.portfolio-options:hover span svg {
+    transform: rotate(90deg);
+    transition: all 0.3s ease-in-out ;
+
 }

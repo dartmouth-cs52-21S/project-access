@@ -6,6 +6,10 @@
 import '../style.scss';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faEdit, faWindowClose, faWindowMaximize, faEye, faBars,
+} from '@fortawesome/free-solid-svg-icons';
 import { Link, withRouter } from 'react-router-dom';
 import { fetchPortfolio, fetchPortfolios, deletePortfolio } from '../actions';
 import '../styles/existing-portfolios.scss';
@@ -41,23 +45,23 @@ class ExistingPortfolios extends Component {
               <div className="portfolio-container">
                 <div id="wrap" className="iframecontainer">
                   <iframe id="scaled-frame" src={`/portfolios/${portfolio.id}`} />
-                </div>
-
-                <div className="portfolio-options">
-                  {/* pp */}
-                  <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
-                    Edit Content
-                  </Link>
-                  <Link to={`/portfolios/edit/style/${portfolio._id}`}>
-                    Edit Style
-                  </Link>
-                  {/* <Link to={`/portfolios/${portfolio._id}`}> */}
-                  <a onClick={() => { window.location.href = `/portfolios/${portfolio._id}`; }}>
-                    View Portfolio
-                  </a>
-                  {/* </Link> */}
-                  <div>
-                    <button type="button" className="portfolio-delete" onClick={() => { this.onDeleteClick(portfolio.id); }}>Delete Portfolio</button>
+                  <div className="portfolio-options">
+                    <span><FontAwesomeIcon icon={faBars} /></span>
+                    {/* pp */}
+                    <div className="dropdown-content">
+                      <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
+                        Edit Content     <FontAwesomeIcon icon={faEdit} />
+                      </Link>
+                      <Link to={`/portfolios/edit/style/${portfolio._id}`}>
+                        Edit Style       <FontAwesomeIcon icon={faWindowMaximize} />
+                      </Link>
+                      {/* <Link to={`/portfolios/${portfolio._id}`}> */}
+                      <a onClick={() => { window.location.href = `/portfolios/${portfolio._id}`; }}>
+                        View    <FontAwesomeIcon icon={faEye} />
+                      </a>
+                      {/* </Link> */}
+                      <a className="portfolio-delete" onClick={() => { this.onDeleteClick(portfolio.id); }}>Delete  <FontAwesomeIcon icon={faWindowClose} /></a>
+                    </div>
                   </div>
                 </div>
               </div>
