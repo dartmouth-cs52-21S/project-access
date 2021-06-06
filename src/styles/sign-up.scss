@@ -80,7 +80,7 @@
 }
   
 .input {
-    background-color: black;
+    background-color:white;
     border-radius: 12px;
     border: 0;
     box-sizing: border-box;
@@ -110,6 +110,10 @@
     transition: transform 200ms;
     width: 76px;
 }
+
+.cutlong {
+    width: 120px;
+}
   
 .cut-short {
     width: 50px;
@@ -118,6 +122,7 @@
 .input:focus ~ .cut,
 .input:not(:placeholder-shown) ~ .cut {
     transform: translateY(8px);
+    background-color: rgb(43, 43, 43);
 }
   
 .placeholder {
@@ -142,7 +147,7 @@
 }
   
 .input:focus ~ .placeholder {
-    color: green;
+    color: rgb(3, 190, 3);
 }
   
 .submit {
