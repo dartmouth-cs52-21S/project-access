@@ -214,7 +214,7 @@ function customize(props) {
             <div className="custom_section">
               <h3>Name section</h3>
               <p>Background color:
-                <input onChange={onChangeHandler(setUserNameBgColor)} value={userNameBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
+                <input onChange={onChangeHandler(setUserNameBgColor)} value={userNameBgColor} onBlur={onChangeHandlerColor(setUserNameBgColor)} />
               </p>
               <p>Font color:
                 <input onChange={onChangeHandler(setUserNameColor)} value={userNameColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
@@ -229,7 +229,8 @@ function customize(props) {
                   activeFontFamily={userNameFont}
                   onChange={(nextFont) => onChangeHandlerFont(setUserNameFont, nextFont.family)}
                 />
-                <p className="apply-font" component style={{ fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p>
+                {/* <p className="apply-font" component style={{ fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p> */}
+                <p component style={{ font: userNameFont, fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p>
               </div>
               <p>Row or Column:
                 <input onChange={onChangeHandler(setUserNameDir)} value={userNameDir} />
@@ -250,6 +251,7 @@ function customize(props) {
               <p>Font Size:
                 <input onChange={onChangeHandler(setRoleFontSize)} value={roleFontSize} />
               </p>
+              <p component style={{ font: roleFont, fontSize: roleFontSize, color: roleColor }}>~Font preview~</p>
               <p>Row or Column:
                 <input onChange={onChangeHandler(setRoleDir)} value={roleDir} />
               </p>
