@@ -15,6 +15,7 @@ class ChooseTemplate extends Component {
       portfolioName: '',
       templateSelected: '',
       templateSelectedImg: '',
+      templateSelectedName: '',
       showModal: false,
     };
   }
@@ -25,8 +26,16 @@ class ChooseTemplate extends Component {
 
   clickTemplate = (template, id) => {
     console.log('current template id selected', id);
+    const dict = {
+      0: 'Classic',
+      1: 'Bleu',
+      2: 'Verbatim',
+      3: 'Arista',
+      4: 'Corvey',
+      5: 'Fancy',
+    };
     // this.setState({ isCreating: true });
-    this.setState({ templateSelected: id, templateSelectedImg: template });
+    this.setState({ templateSelected: id, templateSelectedImg: template, templateSelectedName: dict[id % 5] });
     this.handleOpenModal();
   }
 
@@ -56,10 +65,32 @@ class ChooseTemplate extends Component {
       this.props.templates.map((template, id) => {
         return (
           <div className="template-containers">
+            <div className="template-name">
+              {this.displayPortfolioName(id)}
+            </div>
             <img src={template} alt="none" onClick={() => { this.clickTemplate(template, id); }} />
           </div>
         );
       })
+    );
+  }
+
+  displayPortfolioName = (id) => {
+    const moddedId = id % 5;
+    const dict = {
+      0: 'Classic',
+      1: 'Bleu',
+      2: 'Verbatim',
+      3: 'Arista',
+      4: 'Corvey',
+      5: 'Fancy',
+    };
+
+    const selectedname = dict[moddedId];
+
+    // this.setState({ templateSelectedName: selectedname });
+    return (
+      selectedname
     );
   }
 
@@ -83,6 +114,9 @@ class ChooseTemplate extends Component {
         this.props.templates.map((template, id) => {
           return (
             <div className="template-containers">
+              <div className="template-name">
+                {this.displayPortfolioName(id)}
+              </div>
               <img src={template} alt="none" onClick={() => { this.clickTemplate(template, id); }} />
             </div>
           );
@@ -114,7 +148,7 @@ class ChooseTemplate extends Component {
               <img src={this.state.templateSelectedImg} alt="none" />
             </div>
             <div className="selectedmodalright">
-              <h2 className="black-font portfolio-chosen">You chose template {this.state.templateSelected}!</h2>
+              <h2 className="black-font portfolio-chosen">Thank you for choosing {this.state.templateSelectedName}!</h2>
               <h2 className="black-font portfolio-name">Portfolio Name</h2>
               <input type="text" className="portfolio-name-enter" onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="Enter your portfolio name" />
               {this.displayInvalidPortfolioName()}
