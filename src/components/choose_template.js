@@ -14,6 +14,7 @@ class ChooseTemplate extends Component {
       // isCreating: false,
       portfolioName: '',
       templateSelected: '',
+      templateSelectedImg: '',
       showModal: false,
     };
   }
@@ -22,10 +23,10 @@ class ChooseTemplate extends Component {
     this.props.fetchTemplates();
   }
 
-  clickTemplate = (id) => {
+  clickTemplate = (template, id) => {
     console.log('current template id selected', id);
     // this.setState({ isCreating: true });
-    this.setState({ templateSelected: id });
+    this.setState({ templateSelected: id, templateSelectedImg: template });
     this.handleOpenModal();
   }
 
@@ -43,7 +44,7 @@ class ChooseTemplate extends Component {
   displayInvalidPortfolioName = () => {
     if (this.state.portfolioName === '') {
       return (
-        <div className="black-font">Please ensure that portfolio name has been chosen before proceeding</div>
+        <div className="black-font error-msg-name">Please name your portfolio before proceeding!</div>
       );
     } else {
       return null;
@@ -55,7 +56,7 @@ class ChooseTemplate extends Component {
       this.props.templates.map((template, id) => {
         return (
           <div className="template-containers">
-            <img src={template} alt="none" onClick={() => { this.clickTemplate(id); }} />
+            <img src={template} alt="none" onClick={() => { this.clickTemplate(template, id); }} />
           </div>
         );
       })
@@ -82,7 +83,7 @@ class ChooseTemplate extends Component {
         this.props.templates.map((template, id) => {
           return (
             <div className="template-containers">
-              <img src={template} alt="none" onClick={() => { this.clickTemplate(id); }} />
+              <img src={template} alt="none" onClick={() => { this.clickTemplate(template, id); }} />
             </div>
           );
         })
@@ -108,13 +109,20 @@ class ChooseTemplate extends Component {
           contentLabel="Select Portfolio Name"
           ariaHideApp={false}
         >
-          <h2 className="black-font portfolio-chosen">You chose template {this.state.templateSelected}!</h2>
-          <h2 className="black-font portfolio-name">Portfolio Name</h2>
-          <input type="text" className="portfolio-name-enter" onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="Enter your portfolio name" />
-          {this.displayInvalidPortfolioName()}
-          <div className="bottom-options">
-            <button type="button" className="modalbuttons" onClick={this.handleCloseModal}>Back</button>
-            <button type="button" className="modalbuttons" onClick={this.onCreateTemplate}>Create Portfolio</button>
+          <div className="selectedmodal">
+            <div className="selectedmodalleft">
+              <img src={this.state.templateSelectedImg} alt="none" />
+            </div>
+            <div className="selectedmodalright">
+              <h2 className="black-font portfolio-chosen">You chose template {this.state.templateSelected}!</h2>
+              <h2 className="black-font portfolio-name">Portfolio Name</h2>
+              <input type="text" className="portfolio-name-enter" onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="Enter your portfolio name" />
+              {this.displayInvalidPortfolioName()}
+              <div className="bottom-options">
+                <button type="button" className="modalbuttons" onClick={this.handleCloseModal}>Back</button>
+                <button type="button" className="modalbuttons" onClick={this.onCreateTemplate}>Create Portfolio</button>
+              </div>
+            </div>
           </div>
         </ReactModal>
       </div>
