@@ -93,56 +93,61 @@ class Portfolio extends Component {
       return null;
     } else {
       let projs = [];
-      for (let i = 0; this.props.curr.resume?.event?.[`projects${i}`] !== undefined; i += 1) {
-        projs = [...projs, this.props.curr.resume?.event?.[`projects${i}`]];
+      for (let i = 0; this.props.curr.resume?.event?.projects[i] !== undefined; i += 1) {
+        projs = [...projs, this.props.curr.resume?.event?.projects[i]];
       }
 
       let res = [];
-      for (let i = 0; this.props.curr.resume?.event?.[`research${i}`] !== undefined; i += 1) {
-        res = [...res, this.props.curr.resume?.event?.[`research${i}`]];
+      for (let i = 0; this.props.curr.resume?.event?.research[i] !== undefined; i += 1) {
+        res = [...res, this.props.curr.resume?.event?.research[i]];
       }
 
       let work = [];
-      for (let i = 0; this.props.curr.resume?.event?.[`work${i}`] !== undefined; i += 1) {
-        work = [...work, this.props.curr.resume?.event?.[`work${i}`]];
+      for (let i = 0; this.props.curr.resume?.event?.work[i] !== undefined; i += 1) {
+        work = [...work, this.props.curr.resume?.event?.work[i]];
       }
 
       let technical = [];
-      for (let i = 0; this.props.curr.resume?.event?.[`technical${i}`] !== undefined; i += 1) {
-        technical = [...technical, this.props.curr.resume?.event?.[`technical${i}`]];
+      for (let i = 0; this.props.curr.resume?.event?.technical[i] !== undefined; i += 1) {
+        technical = [...technical, this.props.curr.resume?.event?.technical[i]];
       }
 
       let language = [];
-      for (let i = 0; this.props.curr.resume?.event?.[`language${i}`] !== undefined; i += 1) {
-        language = [...language, this.props.curr.resume?.event?.[`language${i}`]];
+      for (let i = 0; this.props.curr.resume?.event?.language[i] !== undefined; i += 1) {
+        language = [...language, this.props.curr.resume?.event?.language[i]];
       }
 
-      let LINKEDIN = '';
-      if (this.props.curr.resume?.event?.linkedIn !== '') {
-        LINKEDIN = <p>LinkedIn: {this.props.curr.resume?.event?.linkedIn}</p>;
+      let LINKEDIN = null;
+      if (this.props.curr.resume?.event?.linkedIn.linkedIn !== undefined && this.props.curr.resume?.event?.linkedIn.linkedIn !== '') {
+        LINKEDIN = <p>LinkedIn: {this.props.curr.resume?.event?.linkedIn.linkedIn}</p>;
       }
 
-      let GPA = '';
-      if (this.props.curr.resume?.event?.gpa !== '') {
-        GPA = <p>GPA: {this.props.curr.resume.event.gpa}</p>;
+      let GPA = null;
+      if (this.props.curr.resume?.event?.education.gpa !== undefined && this.props.curr.resume?.event?.education.gpa !== '') {
+        GPA = <p>GPA: {this.props.curr.resume.event.education.gpa}</p>;
+      }
+
+      let RELEVANT = null;
+      if (this.props.curr.resume?.event?.education.relevantCoursework !== undefined && this.props.curr.resume?.event?.education.relevantCoursework !== '') {
+        RELEVANT = <p>Relevant Coursework: {this.props.curr.resume.event.education.relevantCoursework}</p>;
       }
 
       return (
         <div style={bodycolor}>
-          {console.log(this.props.curr)}
           <div className="header">
-            <h1 style={headerusernamestyle}>{this.props.curr.resume?.event?.name}</h1>
-            <h2 style={headerrolestyle}>{this.props.curr.resume?.event?.role}</h2>
+            <h1 style={headerusernamestyle}>{this.props.curr.resume?.event?.name.name}</h1>
+            <h2 style={headerrolestyle}>{this.props.curr.resume?.event?.role.role}</h2>
           </div>
           <div className="aboutme" style={aboutmestyle}>
             <h2>About Me</h2><br />
-            <p>{this.props.curr.resume?.event?.about}</p>
+            <p>{this.props.curr.resume?.event?.about.about}</p>
           </div>
           <div className="education" style={projectstyle}>
             <h2>Education</h2><br />
-            <p>{this.props.curr.resume.event.college}</p>
-            <p>{this.props.curr.resume.event.degree}</p>
+            <p>{this.props.curr.resume.event.education.college}</p>
+            <p>{this.props.curr.resume.event.education.degree}</p>
             {GPA}
+            {RELEVANT}
           </div>
           <div className="research" style={aboutmestyle}>
             <h2>Research</h2><br />
@@ -204,8 +209,8 @@ class Portfolio extends Component {
           </div>
           <div className="contactme" style={contactstyle}>
             <h2>Contact Me</h2><br />
-            <p>Phone: {this.props.curr.resume?.event?.phone}</p>
-            <p>Email: {this.props.curr.resume?.event?.email}</p>
+            <p>Phone: {this.props.curr.resume?.event?.phone.phone}</p>
+            <p>Email: {this.props.curr.resume?.event?.email.email}</p>
             {LINKEDIN}
           </div>
         </div>
