@@ -135,7 +135,7 @@ function customize(props) {
     if (currentSlide == 3) {
       return (
         <div className="custom_section">
-          <h3>About me</h3>
+          <h3>About Me/Research/Work/Languages</h3>
           <div className="mainbody-overall">
             <div className="mainbody">
               <p>Background color: {portfolio.aboutMe?.backgroundColor} </p>
@@ -158,7 +158,7 @@ function customize(props) {
     if (currentSlide == 4) {
       return (
         <div className="custom_section">
-          <h3>Projects</h3>
+          <h3>Projects/Technical/Education</h3>
           <div className="mainbody-overall">
             <div className="mainbody">
               <p>Background color: {portfolio.projects?.backgroundColor} </p>
@@ -182,7 +182,7 @@ function customize(props) {
     if (currentSlide == 5) {
       return (
         <div className="custom_section">
-          <h3>Contact me</h3>
+          <h3>Contact Me</h3>
           <div className="mainbody-overall">
             <div className="mainbody">
               <p>Background color: {portfolio.contactMe?.backgroundColor} </p>
@@ -322,7 +322,7 @@ function customize(props) {
     if (currentSlide == 3) {
       return (
         <div className="custom_section">
-          <h3>About Me</h3>
+          <h3>About Me/Research/Work/Languages</h3>
           <div className="colorpickers">
             <div className="colorsections">
               <p>Background color:</p>
@@ -371,7 +371,7 @@ function customize(props) {
     if (currentSlide == 4) {
       return (
         <div className="custom_section">
-          <h3>Projects</h3>
+          <h3>Projects/Technical/Education</h3>
           <div className="colorpickers">
             <div className="colorsections">
               <p>Background color:</p>
