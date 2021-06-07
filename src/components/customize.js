@@ -73,7 +73,6 @@ function customize(props) {
     if (currentSlide == 1) {
       return (
         <div className="custom_section">
-          <h2>Header</h2>
           <h3>Name Section</h3>
           <p>Background color: {portfolio.header?.userName.backgroundColor} </p>
           <p>Color: {portfolio.header?.userName.color} </p>
@@ -82,6 +81,12 @@ function customize(props) {
           <p>fontSize: {portfolio.header?.userName.fontSize} </p>
           <p>justifyContent: {portfolio.header?.userName.justifyContent} </p>
           <p>padding: {portfolio.header?.userName.padding} </p>
+        </div>
+      );
+    }
+    if (currentSlide == 2) {
+      return (
+        <div className="custom_section">
           <h3>Job Title</h3>
           <p>Background color: {portfolio.header?.role.backgroundColor} </p>
           <p>Color: {portfolio.header?.role.color} </p>
@@ -93,7 +98,7 @@ function customize(props) {
         </div>
       );
     }
-    if (currentSlide == 2) {
+    if (currentSlide == 3) {
       return (
         <div className="custom_section">
           <h3>About me</h3>
@@ -107,7 +112,7 @@ function customize(props) {
         </div>
       );
     }
-    if (currentSlide == 3) {
+    if (currentSlide == 4) {
       return (
         <div className="custom_section">
           <h3>Projects</h3>
@@ -121,7 +126,7 @@ function customize(props) {
         </div>
       );
     }
-    if (currentSlide == 4) {
+    if (currentSlide == 5) {
       return (
         <div className="custom_section">
           <h3>Contact me</h3>
@@ -144,11 +149,22 @@ function customize(props) {
         <div className="custom_section">
           <h2>Header</h2>
           <h3>Name section</h3>
-          <p>color:
-            <input onChange={onChangeHandler(setUserNameColor)} value={userNameColor} />
-          </p>
           <p>Background color:
             <input onChange={onChangeHandler(setUserNameBgColor)} value={userNameBgColor} />
+          </p>
+          <SketchPicker
+            onChange={(color) => onChangeHandlerColorPicker(setUserNameBgColor, color.hex)}
+            color={userNameBgColor}
+          />
+          <p>Font color:
+            <input onChange={onChangeHandler(setUserNameColor)} value={userNameColor} />
+          </p>
+          <SketchPicker
+            onChange={(color) => onChangeHandlerColorPicker(setUserNameColor, color.hex)}
+            color={userNameColor}
+          />
+          <p>Font Size:
+            <input onChange={onChangeHandler(setUserNameFontSize)} value={userNameFontSize} />
           </p>
           <p>Font:</p>
           <div>
@@ -157,31 +173,10 @@ function customize(props) {
               activeFontFamily={userNameFont}
               onChange={(nextFont) => onChangeHandlerFont(setUserNameFont, nextFont.family)}
             />
-            {/* <p className="apply-font" component style={{ fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p> */}
-            <p component style={{ font: userNameFont, fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p>
+            <p className="apply-font" component style={{ fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p>
           </div>
-          <p>Font Size:
-            <input onChange={onChangeHandler(setUserNameFontSize)} value={userNameFontSize} />
-          </p>
           <p>Row or Column:
             <input onChange={onChangeHandler(setUserNameDir)} value={userNameDir} />
-          </p>
-
-          <h3>Job title</h3>
-          <p>color:
-            <input onChange={onChangeHandler(setRoleColor)} value={roleColor} />
-          </p>
-          <p>Background color:
-            <input onChange={onChangeHandler(setRoleBgColor)} value={roleBgColor} />
-          </p>
-          <p>Font:
-            <input onChange={onChangeHandler(setRoleFont)} value={roleFont} />
-          </p>
-          <p>Font Size:
-            <input onChange={onChangeHandler(setRoleFontSize)} value={roleFontSize} />
-          </p>
-          <p>Row or Column:
-            <input onChange={onChangeHandler(setRoleDir)} value={roleDir} />
           </p>
         </div>
       );
@@ -189,25 +184,35 @@ function customize(props) {
     if (currentSlide == 2) {
       return (
         <div className="custom_section">
-          <h2>About Me</h2>
-          <p>color:
-            <input onChange={onChangeHandler(setAboutmeColor)} value={aboutmeColor} />
+          <h3>Job title</h3>
+          <p>Background color:
+            <input onChange={onChangeHandler(setRoleBgColor)} value={roleBgColor} />
           </p>
           <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setAboutmeColor, color.hex)}
-            color={aboutmeColor}
+            onChange={(color) => onChangeHandlerColorPicker(setRoleBgColor, color.hex)}
+            color={roleBgColor}
           />
-          <p>Background color:
-            <input onChange={onChangeHandler(setAboutmeBgColor)} value={aboutmeBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
+          <p>Font color:
+            <input onChange={onChangeHandler(setRoleColor)} value={roleColor} />
           </p>
-          <p>Font:
-            <input onChange={onChangeHandler(setAboutmeFont)} value={aboutmeFont} />
-          </p>
+          <SketchPicker
+            onChange={(color) => onChangeHandlerColorPicker(setRoleColor, color.hex)}
+            color={roleColor}
+          />
           <p>Font Size:
-            <input onChange={onChangeHandler(setAboutmeFontSize)} value={aboutmeFontSize} />
+            <input onChange={onChangeHandler(setRoleFontSize)} value={roleFontSize} />
           </p>
+          <p>Font:</p>
+          <div>
+            <FontPicker
+              apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
+              activeFontFamily={roleFont}
+              onChange={(nextFont) => onChangeHandlerFont(setRoleFont, nextFont.family)}
+            />
+            <p className="apply-font" component style={{ fontSize: roleFontSize, color: roleColor }}>~Font preview~</p>
+          </div>
           <p>Row or Column:
-            <input onChange={onChangeHandler(setAboutmeDir)} value={aboutmeDir} />
+            <input onChange={onChangeHandler(setRoleDir)} value={roleDir} />
           </p>
         </div>
       );
@@ -215,21 +220,35 @@ function customize(props) {
     if (currentSlide == 3) {
       return (
         <div className="custom_section">
-          <h2>Projects</h2>
-          <p>color:
-            <input onChange={onChangeHandler(setProjectsColor)} value={projectsColor} />
-          </p>
+          <h2>About Me</h2>
           <p>Background color:
-            <input onChange={onChangeHandler(setProjectsBgColor)} value={projectsBgColor} />
+            <input onChange={onChangeHandler(setAboutmeBgColor)} value={aboutmeBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
           </p>
-          <p>Font:
-            <input onChange={onChangeHandler(setProjectsFont)} value={projectsFont} />
+          <SketchPicker
+            onChange={(color) => onChangeHandlerColorPicker(setAboutmeBgColor, color.hex)}
+            color={aboutmeBgColor}
+          />
+          <p>Font color:
+            <input onChange={onChangeHandler(setAboutmeColor)} value={aboutmeColor} />
           </p>
+          <SketchPicker
+            onChange={(color) => onChangeHandlerColorPicker(setAboutmeColor, color.hex)}
+            color={aboutmeColor}
+          />
           <p>Font Size:
-            <input onChange={onChangeHandler(setProjectsFontSize)} value={projectsFontSize} />
+            <input onChange={onChangeHandler(setAboutmeFontSize)} value={aboutmeFontSize} />
           </p>
+          <p>Font:</p>
+          <div>
+            <FontPicker
+              apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
+              activeFontFamily={aboutmeFont}
+              onChange={(nextFont) => onChangeHandlerFont(setAboutmeFont, nextFont.family)}
+            />
+            <p className="apply-font" component style={{ fontSize: aboutmeFontSize, color: aboutmeColor }}>~Font preview~</p>
+          </div>
           <p>Row or Column:
-            <input onChange={onChangeHandler(setProjectsDir)} value={projectsDir} />
+            <input onChange={onChangeHandler(setAboutmeDir)} value={aboutmeDir} />
           </p>
         </div>
       );
@@ -237,19 +256,69 @@ function customize(props) {
     if (currentSlide == 4) {
       return (
         <div className="custom_section">
-          <h2>Contact Me</h2>
-          <p>color:
-            <input onChange={onChangeHandler(setContactmeColor)} value={contactmeColor} />
+          <h2>Projects</h2>
+          <p>Background color:
+            <input onChange={onChangeHandler(setProjectsBgColor)} value={projectsBgColor} />
           </p>
+          <SketchPicker
+            onChange={(color) => onChangeHandlerColorPicker(setProjectsBgColor, color.hex)}
+            color={projectsBgColor}
+          />
+          <p>Font color:
+            <input onChange={onChangeHandler(setProjectsColor)} value={projectsColor} />
+          </p>
+          <SketchPicker
+            onChange={(color) => onChangeHandlerColorPicker(setProjectsColor, color.hex)}
+            color={projectsColor}
+          />
+          <p>Font Size:
+            <input onChange={onChangeHandler(setProjectsFontSize)} value={projectsFontSize} />
+          </p>
+          <p>Font:</p>
+          <div>
+            <FontPicker
+              apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
+              activeFontFamily={projectsFont}
+              onChange={(nextFont) => onChangeHandlerFont(setProjectsFont, nextFont.family)}
+            />
+            <p className="apply-font" component style={{ fontSize: projectsFontSize, color: projectsColor }}>~Font preview~</p>
+          </div>
+          <p>Row or Column:
+            <input onChange={onChangeHandler(setProjectsDir)} value={projectsDir} />
+          </p>
+        </div>
+      );
+    }
+    if (currentSlide == 5) {
+      return (
+        <div className="custom_section">
+          <h2>Contact Me</h2>
           <p>Background color:
             <input onChange={onChangeHandler(setContactmeBgColor)} value={contactmeBgColor} />
           </p>
-          <p>Font:
-            <input onChange={onChangeHandler(setContactmeFont)} value={contactmeFont} />
+          <SketchPicker
+            onChange={(color) => onChangeHandlerColorPicker(setContactmeBgColor, color.hex)}
+            color={contactmeBgColor}
+          />
+          <p>Font color:
+            <input onChange={onChangeHandler(setContactmeColor)} value={contactmeColor} />
           </p>
+          <SketchPicker
+            onChange={(color) => onChangeHandlerColorPicker(setContactmeColor, color.hex)}
+            color={contactmeColor}
+          />
           <p>Font Size:
             <input onChange={onChangeHandler(setContactmeFontSize)} value={contactmeFontSize} />
           </p>
+          <p>Font:</p>
+          <div>
+            <FontPicker
+              apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
+              activeFontFamily={contactmeFont}
+              onChange={(nextFont) => onChangeHandlerFont(setContactmeFont, nextFont.family)}
+            />
+            <p className="apply-font" component style={{ fontSize: contactmeFontSize, color: contactmeColor }}>~Font preview~</p>
+          </div>
           <p>Row or Column:
             <input onChange={onChangeHandler(setContactmeDir)} value={contactmeDir} />
           </p>
