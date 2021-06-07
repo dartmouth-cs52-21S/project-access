@@ -3,7 +3,7 @@
 }
 
 #resumeinput{
-  width: 90%;
+  width: 80%;
   padding: 12px 20px;
   margin: 8px 0;
   border: 1px solid #ccc;
@@ -14,8 +14,22 @@
   margin-left: auto;
 }
 
-#inputsubmit{
-  width: 45%;
+#leave{
+  width: 30%;
+  color: black;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-items: center;
+  margin: auto;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#sub{
+  width: 30%;
   color: black;
   padding: 14px 20px;
   border: none;
@@ -29,11 +43,11 @@
 }
 
 #inputheader{
-  padding-left: 30px;
+  padding-left: 10%;
 }
 
 i{
-  padding-left: 5%;
+  padding-left: 10%;
   cursor: pointer;
 }
 
@@ -42,11 +56,11 @@ li{
 }
 
 #dropdown{
-   padding-left: 5%;
+   padding-left: 10%;
 }
 
 #bigtext{
-  width: 90%;
+  width: 80%;
   padding: 12px 20px;
   margin: 8px 0;
   border: 1px solid #ccc;
@@ -59,6 +73,19 @@ li{
 }
 
 .emessage{
-  padding-left: 5%;
+  padding-left: 10%;
   color: #87ff2a
+}
+
+#selectedp{
+  padding-left: 10%;
+  color: #FF69B4
+}
+
+#leave:hover{
+  background-color:#B80F0A
+}
+
+#sub:hover{
+  background-color:#32CD32
 }
