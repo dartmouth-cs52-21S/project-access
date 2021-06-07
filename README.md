@@ -88,7 +88,7 @@ Created specific to dos that breaks website pages into smaller chunks. See miles
 <img width="542" alt="Screenshot 2021-05-22 at 11 35 57 PM" src="https://user-images.githubusercontent.com/51734801/119247331-818cc500-bb56-11eb-95c8-446a8911aca8.png">
 
 
-## Brief Summary / Debrief
+## Brief Summary
 
 * What worked
 
@@ -98,19 +98,43 @@ It is nice that each portfolio was able to have its own resume content such that
 
 1. Thinking about how to store the portfolio styles was challenging
 1. Determining the fields we need for the resume was also challenging
-1. 
 
 
-* What would have made this a better experience
+* Features we would've implemented with more time
 
 1. Other Authentication services - Facebook, Google, Github
 1. Mobile view version
 1. A live view of the full portfolio during customizing
+1. A pdf document reader which takes an uploaded resume pdf and autofill the fields to generate a portfolio accordingly
 
 ## Key Features
 
-1. 
+1. Generating and managing multiple portfolios each with its own resume content
+    1. Create portfolio
+    2. Update portfolio content / resume
+    3. Delete portfolio
+    4. View portfolio
+    5. View all portfolios
 
+1. Customizing portfolios' styles easily
+
+## Features
+
+1. Sign In page
+
+1. Sign Up page
+
+1. Landing Page
+
+1. Settings page
+    1. User profile (First name, last name, email, profile picture) changes
+
+1. Project images
+    1. Uploading and changing images 
+
+1. Clicking on Resumov does not route to landing page when signed in
+
+1. Allow user to pre-populate resume fields with user's existing portfolios
 
 ## Authors
 
