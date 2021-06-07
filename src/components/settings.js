@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 // import '../style.scss';
@@ -11,8 +11,9 @@ import {
 //   NavLink,
 } from 'react-router-dom';
 import validator from 'validator';
-import Dropzone from 'react-dropzone';
+// import Dropzone from 'react-dropzone';
 import { getUserProfile, updateUserProfile } from '../actions/index';
+import { uploadImage } from '../s3';
 // import '../styles/profile-page.scss';
 import '../styles/settings.scss';
 
@@ -22,13 +23,14 @@ import '../styles/settings.scss';
 class Settings extends Component {
   constructor(props) {
     super(props);
-    this.onDrop = (files) => {
-      this.setState({ files });
-    };
+    // this.onDrop = (files) => {
+    //   this.setState({ files });
+    // };
     this.state = {
       user: {},
       editingName: false,
       preview: '',
+      file: null,
     };
   }
 
@@ -44,6 +46,7 @@ class Settings extends Component {
   // fetching user profile information
   componentDidMount = (props) => {
     this.props.getUserProfile();
+    console.log('componentDidMount');
     this.setState(((prevState) => ({
       ...prevState,
       user: {
@@ -82,29 +85,46 @@ class Settings extends Component {
     })));
   }
 
-  onImageUpload(event) {
+  onImageUpload = (event) => {
     console.log(event.target.files[0]);
     const file = event.target.files[0];
     // Handle null file
     // Get url of the file and set it to the src of preview
     if (file) {
-      this.setState({ preview: window.URL.createObjectURL(file), file });
+      console.log('running onImageUpload');
+      this.setState(((prevState) => ({
+        ...prevState,
+        preview: window.URL.createObjectURL(file),
+        file,
+      })));
     }
+    console.log('state onImageUpload', this.state);
   }
 
   displayS3 = () => {
-    return (
-      <div>
-        <img id="preview"
-          alt="preview"
-          src={(this.state.preview === '') ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.state.preview}
-        />
-        <input type="file"
-          name="coverImage"
-          onChange={this.onImageUpload}
-        />
-      </div>
-    );
+    if (this.state.editingName) {
+      return (
+        <div>
+          <img id="preview"
+            alt="preview"
+            src={(this.state.preview === '') ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.state.preview}
+          />
+          <input type="file"
+            name="coverImage"
+            onChange={this.onImageUpload}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <img id="preview"
+            alt="preview"
+            src={(this.state.preview === '') ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.state.preview}
+          />
+        </div>
+      );
+    }
   }
 
   displayInvalidEmail = () => {
@@ -137,15 +157,34 @@ class Settings extends Component {
 
   save = (props) => {
     if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '' && validator.isEmail(this.state.user.email)) {
-      this.props.updateUserProfile(this.state.user);
-      this.setState(((prevState) => ({
-        ...prevState,
-        user: {
-          ...prevState.user,
-        },
-        editingName: false,
-      })));
-      console.log('saving');
+      let { profileUrl } = this.props.profile;
+      let user = {};
+      console.log('user', this.props.profile);
+      if (this.state.file) {
+        uploadImage(this.state.file).then((url) => {
+          // use url for content_url and
+          // either run your createPost actionCreator
+          // or your updatePost actionCreator
+          console.log('uploadImage called', url);
+          profileUrl = url;
+          console.log('fawefe', profileUrl);
+          user = { ...this.state.user, profileUrl };
+
+          // this.setState(((prevState) => ({
+          //   ...prevState,
+          //   user: {
+          //     ...prevState.user,
+          //     profileUrl: url,
+          //   },
+          // })));
+        }).catch((error) => {
+          console.log('error uploading image to S3:', error.toString());
+        });
+      }
+      console.log('profliefia', profileUrl);
+      // console.log('user save', user);
+      this.props.updateUserProfile(user);
+      this.setState({ editingName: false });
       // this.props.history.push('/profile');
     }
   }
@@ -228,38 +267,38 @@ class Settings extends Component {
     }
   }
 
-  displayDropZone = () => {
-    const dropzoneRef = createRef();
-    const openDialog = () => {
-      // Note that the ref is set async,
-      // so it might be null at some point
-      if (dropzoneRef.current) {
-        dropzoneRef.current.open();
-      }
-    };
-    return (
-      // Disable click and keydown behavior on the <Dropzone>
-      <Dropzone ref={dropzoneRef} noClick noDrag noKeyboard>
-        {({ getRootProps, getInputProps, acceptedFiles }) => {
-          return (
-            <div className="container">
-              <div {...getRootProps({ className: 'dropzone' })}>
-                <input {...getInputProps()} />
-                <img src={(this.state.files.length === 0) ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.state.files[0]} alt="none" onClick={openDialog} />
-              </div>
-              <aside>
-                <ul>
-                  {acceptedFiles.map((file) => (
-                    this.setState({ files: [file] })
-                  ))}
-                </ul>
-              </aside>
-            </div>
-          );
-        }}
-      </Dropzone>
-    );
-  }
+  // displayDropZone = () => {
+  //   const dropzoneRef = createRef();
+  //   const openDialog = () => {
+  //     // Note that the ref is set async,
+  //     // so it might be null at some point
+  //     if (dropzoneRef.current) {
+  //       dropzoneRef.current.open();
+  //     }
+  //   };
+  //   return (
+  //     // Disable click and keydown behavior on the <Dropzone>
+  //     <Dropzone ref={dropzoneRef} noClick noDrag noKeyboard>
+  //       {({ getRootProps, getInputProps, acceptedFiles }) => {
+  //         return (
+  //           <div className="container">
+  //             <div {...getRootProps({ className: 'dropzone' })}>
+  //               <input {...getInputProps()} />
+  //               <img src={(this.state.files.length === 0) ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.state.files[0]} alt="none" onClick={openDialog} />
+  //             </div>
+  //             <aside>
+  //               <ul>
+  //                 {acceptedFiles.map((file) => (
+  //                   this.setState({ files: [file] })
+  //                 ))}
+  //               </ul>
+  //             </aside>
+  //           </div>
+  //         );
+  //       }}
+  //     </Dropzone>
+  //   );
+  // }
 
   render() {
     return (

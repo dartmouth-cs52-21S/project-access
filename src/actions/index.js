@@ -176,6 +176,7 @@ export function updateUserProfile(userFields) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/profile`, userFields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        console.log('userFields updatUserprofile', userFields);
         dispatch({ type: ActionTypes.UPDATE_PROFILE, payload: response.data });
         dispatch(authError('""'));
       })
