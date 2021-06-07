@@ -135,6 +135,94 @@ class Portfolio extends Component {
         RELEVANT = <p>Relevant Coursework: {this.props.curr.resume.event.education.relevantCoursework}</p>;
       }
 
+      let RESEARCH = null;
+      if (Object.keys(res).length !== 0) {
+        RESEARCH = (
+          <div className="research" style={aboutmestyle}>
+            <p style={bolder}>Research</p><br />
+            {res.map((research, index) => {
+              return (
+                <li key={index}>
+                  <p style={border}>{research.researchlab}</p>
+                  <p>{research.startdate} - {research.enddate}</p>
+                  <p>{research.position}</p>
+                  <p>{research.description}</p><br />
+                </li>
+              );
+            })}
+          </div>
+        );
+      }
+
+      let PROJECTS = null;
+      if (Object.keys(projs).length !== 0) {
+        PROJECTS = (
+          <div className="projects" style={projectstyle}>
+            <p style={bolder}>Projects</p><br />
+            {projs.map((project, index) => {
+              return (
+                <li key={index}>
+                  <p style={border}>{project.project}</p>
+                  <p>{project.startdate} - {project.enddate}</p>
+                  <p>{project.description}</p><br />
+                </li>
+              );
+            })}
+          </div>
+        );
+      }
+
+      let WORK = null;
+      if (Object.keys(work).length !== 0) {
+        WORK = (
+          <div className="work" style={aboutmestyle}>
+            <p style={bolder}>Work Experience</p><br />
+            {work.map((w, index) => {
+              return (
+                <li key={index}>
+                  <p style={border}>{w.company}</p>
+                  <p>{w.startdate} - {w.enddate}</p>
+                  <p>{w.position}</p>
+                  <p>{w.description}</p><br />
+                </li>
+              );
+            })}
+          </div>
+        );
+      }
+
+      let TECHNICAL = null;
+      if (Object.keys(technical).length !== 0) {
+        TECHNICAL = (
+          <div className="technical skills" style={projectstyle}>
+            <p style={bolder}>Technical Skills</p><br />
+            {technical.map((t, index) => {
+              return (
+                <li key={index}>
+                  <p>{t.technical}</p>
+                </li>
+              );
+            })}
+          </div>
+        );
+      }
+
+      let LANGUAGES = null;
+      if (Object.keys(language).length !== 0) {
+        LANGUAGES = (
+          <div className="languages" style={aboutmestyle}>
+            <p style={bolder}>Languages</p><br />
+            {language.map((l, index) => {
+              return (
+                <li key={index}>
+                  <p>{l.language}</p>
+                </li>
+              );
+            })}
+          </div>
+        );
+      }
+
       return (
         <div style={bodycolor}>
           <div className="header" style={headerpadding}>
@@ -152,64 +240,11 @@ class Portfolio extends Component {
             {GPA}
             {RELEVANT}
           </div>
-          <div className="research" style={aboutmestyle}>
-            <p style={bolder}>Research</p><br />
-            {res.map((research, index) => {
-              return (
-                <li key={index}>
-                  <p style={border}>{research.researchlab}</p>
-                  <p>{research.startdate} - {research.enddate}</p>
-                  <p>{research.position}</p>
-                  <p>{research.description}</p><br />
-                </li>
-              );
-            })}
-          </div>
-          <div className="projects" style={projectstyle}>
-            <p style={bolder}>Projects</p><br />
-            {projs.map((project, index) => {
-              return (
-                <li key={index}>
-                  <p style={border}>{project.project}</p>
-                  <p>{project.startdate} - {project.enddate}</p>
-                  <p>{project.description}</p><br />
-                </li>
-              );
-            })}
-          </div>
-          <div className="work" style={aboutmestyle}>
-            <p style={bolder}>Work Experience</p><br />
-            {work.map((w, index) => {
-              return (
-                <li key={index}>
-                  <p style={border}>{w.company}</p>
-                  <p>{w.startdate} - {w.enddate}</p>
-                  <p>{w.position}</p>
-                  <p>{w.description}</p><br />
-                </li>
-              );
-            })}
-          </div>
-          <div className="technical skills" style={projectstyle}>
-            <p style={bolder}>Technical Skills</p><br />
-            {technical.map((t, index) => {
-              return (
-                <li key={index}>
-                  <p>{t.technical}</p>
-                </li>
-              );
-            })}
-          </div>
-          <div className="languages" style={aboutmestyle}>
-            <p style={bolder}>Languages</p><br />
-            {language.map((l, index) => {
-              return (
-                <li key={index}>
-                  <p>{l.language}</p>
-                </li>
-              );
-            })}
-          </div>
+          {RESEARCH}
+          {PROJECTS}
+          {WORK}
+          {TECHNICAL}
+          {LANGUAGES}
           <div className="contactme" style={contactstyle}>
             <p style={bolder}>Contact Me</p><br />
             <p>Phone: {this.props.curr.resume?.event?.phone.phone}</p>
