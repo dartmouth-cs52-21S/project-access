@@ -4,6 +4,7 @@
 /* eslint-disable object-shorthand */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { uploadImage } from '../s3';
 import '../styles/input_resume_style.scss';
 import { fetchPortfolio, updatePortfolio, fetchPortfolios } from '../actions';
 import 'regenerator-runtime/runtime';
@@ -78,6 +79,7 @@ function InputResume(props) {
     for (let i = 0; props.curr?.resume?.event?.projects[i] !== undefined; i += 1) {
       savedprojects = [...savedprojects, props.curr?.resume?.event?.projects[i]];
     }
+    console.log(savedprojects);
     setProjects(savedprojects);
 
     savedtechnical = [];
@@ -212,6 +214,10 @@ function InputResume(props) {
         break;
       case 'description':
         temp.description = value;
+        setProjects([...projects.slice(0, index), temp, ...projects.slice(index + 1)]);
+        break;
+      case 'url':
+        temp.url = value;
         setProjects([...projects.slice(0, index), temp, ...projects.slice(index + 1)]);
         break;
       default:
@@ -529,7 +535,42 @@ function InputResume(props) {
     );
   };
 
+  const onImageUpload = (event, index) => {
+    const file = event?.target?.files[0];
+    // Handle null file
+    // Get url of the file and set it to the src of preview
+    if (file) {
+      // console.log('running onImageUpload');
+      updateProjects(index, 'url', { url: '', file: file });
+    // console.log('state onImageUpload', this.state);
+    }
+  };
+
+  const submitimage = async () => {
+    projects.map((object, index) => {
+      if (object.url !== '' && object.url !== undefined) {
+        uploadImage(object.url.file).then((url) => {
+          // use url for content_url and
+          // either run your createPost actionCreator
+          // or your updatePost actionCreator
+          // console.log('uploadImage called', url);
+          // console.log('fawefe', profileUrl);
+
+          updateProjects(index, 'url', { ...object.url, url: url });
+          // console.log('user uploadImage', user);
+        }).catch((error) => {
+          console.log('error uploading image to S3:', error.toString());
+        });
+      }
+      return (true);
+    });
+    return (
+      true
+    );
+  };
+
   const submitform = async () => {
+    await submitimage();
     const event = {
       name,
       phone,
@@ -550,30 +591,14 @@ function InputResume(props) {
           event,
         },
       });
-      console.log(event);
-      props.history.push(`/portfolios/edit/style/${props.match.params.id}`);
+      console.log(props.curr);
+      // props.history.push(`/portfolios/edit/style/${props.match.params.id}`);
     }
   };
 
   const leaveform = () => {
     props.history.push('/profile');
   };
-
-  // const onImageUpload = (event) => {
-  //   console.log(event.target.files[0]);
-  //   const file = event.target.files[0];
-  //   // Handle null file
-  //   // Get url of the file and set it to the src of preview
-  //   if (file) {
-  //     // console.log('running onImageUpload');
-  //     this.setState(((prevState) => ({
-  //       ...prevState,
-  //       preview: window.URL.createObjectURL(file),
-  //       file,
-  //     })));
-  //   }
-  //   // console.log('state onImageUpload', this.state);
-  // }
 
   return (
     <div>
@@ -680,14 +705,14 @@ function InputResume(props) {
                 <input placeholder="Start Date" id="resumeinput" className="text-input" value={projects[index].startdate} onChange={(event) => { updateProjects(index, 'startdate', event.target.value); }} />
                 <input placeholder="End Date" id="resumeinput" className="text-input" value={projects[index].enddate} onChange={(event) => { updateProjects(index, 'enddate', event.target.value); }} />
                 <textarea placeholder="Description" row="6" id="bigtext" className="text-input" value={projects[index].description} onChange={(event) => { updateProjects(index, 'description', event.target.value); }} />
-                {/* <input type="file" name="coverImage" title="Choose a video please" onChange={onImageUpload} /> */}
+                <input type="file" id="uploader" name="coverImage" title="Choose a video please" onChange={(event) => { onImageUpload(event, index); }} />
               </li>
             );
-          })}
+          })}<br />
           <i className="material-icons"
             onClick={() => {
               setProjects([...projects, {
-                project: '', startdate: '', enddate: '', description: '',
+                project: '', startdate: '', enddate: '', description: '', url: '',
               }]);
             }}
             id="inputbutton"
@@ -744,6 +769,7 @@ function InputResume(props) {
         </div>
         {languageerror()}<br /><br /><br />
 
+        {console.log(projects)}
         <button type="button" id="sub" onClick={() => { submitform(); }}>Submit</button><br />
         <button type="button" id="leave" onClick={() => { leaveform(); }}>Cancel</button><br />
       </form>

@@ -92,6 +92,12 @@ class Portfolio extends Component {
       borderBottom: 'solid',
     };
 
+    const imagestyle = {
+      width: '300px',
+      height: 'auto',
+      borderRadius: '10px',
+    };
+
     if (Object.keys(this.props.curr).length === 0) {
       return null;
     } else {
@@ -162,6 +168,8 @@ class Portfolio extends Component {
             {projs.map((project, index) => {
               return (
                 <li key={index}>
+                  {console.log(project)}
+                  <img style={imagestyle} src={project.url.url} alt={project.url.url} />
                   <p style={border}>{project.project}</p>
                   <p>{project.startdate} - {project.enddate}</p>
                   <p>{project.description}</p><br />
