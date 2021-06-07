@@ -1,8 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/iframe-has-title */
 /* eslint-disable react/style-prop-object */
 // import React, { useEffect, useState } from 'react';
 import '../style.scss';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faEdit, faWindowClose, faWindowMaximize, faEye, faBars,
+} from '@fortawesome/free-solid-svg-icons';
 import { Link, withRouter } from 'react-router-dom';
 import { fetchPortfolio, fetchPortfolios, deletePortfolio } from '../actions';
 import '../styles/existing-portfolios.scss';
@@ -30,26 +37,52 @@ class ExistingPortfolios extends Component {
   displayPortfolios = () => {
     return (
       this.props.portfolios.map((portfolio) => {
-        console.log(portfolio.id);
+        console.log('THE PORTFOLIO', portfolio);
         if (portfolio) {
           return (
-            <div className="iframe-container" key={portfolio._id}>
-              <div className="blur" />
-              <iframe title={`Portfolio ${portfolio.__v}`} src={`/portfolios/${portfolio.id}`} />
-              {/* <iframe src={`/portfolios/${portfolio.id}`} title={`Portfolio ${portfolio.__v}`}> */}
-              <div className="portfolio-options">
-                {/* pp */}
-                <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
-                  Edit Resume
-                </Link>
-                <Link to={`/portfolios/${portfolio._id}`}>
-                  View Portfolio
-                </Link>
-                <div>
-                  <button type="button" className="portfolio-delete" onClick={() => { this.onDeleteClick(portfolio.id); }}>Delete Portfolio</button>
+            <div className="portfolio-construct">
+              <h2>{portfolio.name}</h2>
+              <div className="portfolio-container">
+                <div id="wrap" className="iframecontainer">
+                  <iframe id="scaled-frame" src={`/portfolios/${portfolio.id}`} />
+                  <div className="portfolio-options">
+                    <span><FontAwesomeIcon icon={faBars} /></span>
+                    {/* pp */}
+                    <div className="dropdown-content">
+                      <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
+                        Edit Content     <FontAwesomeIcon icon={faEdit} />
+                      </Link>
+                      <Link to={`/portfolios/edit/style/${portfolio._id}`}>
+                        Edit Style       <FontAwesomeIcon icon={faWindowMaximize} />
+                      </Link>
+                      {/* <Link to={`/portfolios/${portfolio._id}`}> */}
+                      <a onClick={() => { window.location.href = `/portfolios/${portfolio._id}`; }}>
+                        View    <FontAwesomeIcon icon={faEye} />
+                      </a>
+                      {/* </Link> */}
+                      <a className="portfolio-delete" onClick={() => { this.onDeleteClick(portfolio.id); }}>Delete  <FontAwesomeIcon icon={faWindowClose} /></a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          // <div className="iframe-container" key={portfolio._id}>
+          //   <div className="blur" />
+          //   <iframe title={`Portfolio ${portfolio.__v}`} src={`/portfolios/${portfolio.id}`} />
+          //   {/* <iframe src={`/portfolios/${portfolio.id}`} title={`Portfolio ${portfolio.__v}`}> */}
+          //   <div className="portfolio-options">
+          //     {/* pp */}
+          //     <Link to={`/portfolios/edit/resume/${portfolio._id}`}>
+          //       Edit Resume
+          //     </Link>
+          //     <Link to={`/portfolios/${portfolio._id}`}>
+          //       View Portfolio
+          //     </Link>
+          //     <div>
+          //       <button type="button" className="portfolio-delete" onClick={() => { this.onDeleteClick(portfolio.id); }}>Delete Portfolio</button>
+          //     </div>
+          //   </div>
+          // </div>
           );
         } else {
           return (
