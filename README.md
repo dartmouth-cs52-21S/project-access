@@ -4,7 +4,7 @@
 
 [*how?*](https://help.github.com/articles/about-readmes/#relative-links-and-image-paths-in-readme-files)
 
-[Api Link](https://github.com/dartmouth-cs52-21S/project-api-access/blob/master/README.md)
+[Api Link](https://resumov.netlify.app/)
 
 TODO: short project description, some sample screenshots or mockups
 
@@ -59,6 +59,7 @@ Created specific to dos that breaks website pages into smaller chunks. See miles
 
 <img width="542" alt="Screenshot 2021-05-22 at 11 35 57 PM" src="https://user-images.githubusercontent.com/51734801/119247331-818cc500-bb56-11eb-95c8-446a8911aca8.png">
 
+## Features
 
 
 ## Authors
