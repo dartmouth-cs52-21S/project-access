@@ -100,10 +100,11 @@ class Settings extends Component {
   displayS3 = () => {
     if (this.state.editing) {
       return (
-        <div>
+        <div className="imageuploadbundle">
           {this.displayProfileImage()}
           <input type="file"
             name="coverImage"
+            title="Choose a video please"
             onChange={this.onImageUpload}
           />
         </div>
@@ -243,9 +244,9 @@ class Settings extends Component {
           <div className="profile-img">
             {this.displayS3()}
           </div>
-        </div>
-        <div className="profile-info">
-          {this.displayEditable()}
+          <div className="profile-info">
+            {this.displayEditable()}
+          </div>
         </div>
       </div>
     );
