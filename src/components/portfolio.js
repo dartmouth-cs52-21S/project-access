@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import '../style.scss';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchPortfolio } from '../actions';
+import { fetchPortfolio, getUserProfile } from '../actions';
 
 class Portfolio extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class Portfolio extends Component {
 
   componentDidMount = (props) => {
     this.props.fetchPortfolio(this.props.match.params.id);
+    this.props.getUserProfile();
   }
 
   render() {
@@ -90,6 +91,16 @@ class Portfolio extends Component {
 
     const border = {
       borderBottom: 'solid',
+    };
+
+    const aboutstyle = {
+      display: 'flex',
+      justifyContent: 'space-around',
+      flexDirection: 'row',
+    };
+    const aboutimagestyle = {
+      width: '400px',
+      height: 'auto',
     };
 
     if (Object.keys(this.props.curr).length === 0) {
@@ -230,8 +241,13 @@ class Portfolio extends Component {
             <h2 style={headerrolestyle}>{this.props.curr.resume?.event?.role.role}</h2>
           </div>
           <div className="aboutme" style={aboutmestyle}>
-            <p style={bolder}>About Me</p><br />
-            <p>{this.props.curr.resume?.event?.about.about}</p>
+            <div style={aboutstyle}>
+              <img src={this.props.user.profileUrl} style={aboutimagestyle} alt="aboutimage" />
+              <div>
+                <p style={bolder}>About Me</p><br />
+                <p>{this.props.curr.resume?.event?.about.about}</p>
+              </div>
+            </div>
           </div>
           <div className="education" style={projectstyle}>
             <p style={bolder}>Education</p><br />
@@ -259,6 +275,7 @@ class Portfolio extends Component {
 
 const mapStateToProps = (reduxState) => ({
   curr: reduxState.portfolio.current,
+  user: reduxState.user.profile,
 });
 
-export default withRouter(connect(mapStateToProps, { fetchPortfolio })(Portfolio));
+export default withRouter(connect(mapStateToProps, { fetchPortfolio, getUserProfile })(Portfolio));
