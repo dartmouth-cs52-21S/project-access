@@ -26,7 +26,7 @@ class NavBar extends Component {
     // if so, we know it is a portfolio page, and we do not render the navbar
     console.log('History');
     console.log(this.props.history.location.pathname);
-    if (this.props.history.location.pathname.includes('/portfolios/')) {
+    if (this.props.history.location.pathname.includes('/portfolios/') && !this.props.history.location.pathname.includes('/edit/')) {
       this.setState({ portfolio_page: true });
       console.log('In a portfolio page');
     }
@@ -40,7 +40,7 @@ class NavBar extends Component {
       return (
         <nav>
           <ul className="navbar">
-            <NavLink className="resumov" exact to="/"><h1>Resumov</h1></NavLink>
+            <NavLink className="resumov" exact to="/profile"><h1>Resumov</h1></NavLink>
             {/* userID to get from signing in and storing the userID in redux? */}
             {/* <NavLink to="/profile/:userID">Profile</NavLink> */}
             <div className="lefttabs">

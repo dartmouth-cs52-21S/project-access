@@ -215,7 +215,7 @@ class signUp extends Component {
           </div>
           <div className="input-container ic2">
             <input id="confirmpass" className="input" type="password" placeholder=" " onChange={this.OnInputChangeConfirm} />
-            <div className="cut" />
+            <div className="cut cutlong" />
             <label htmlFor="confirmpass" className="placeholder">Confirm Password</label>
             {this.displayMissingConfirm()}
             {this.displayPasswordMismatch()}

@@ -62,7 +62,6 @@ class Portfolio extends Component {
       backgroundColor: this.props.curr.projects?.backgroundColor,
       color: this.props.curr.projects?.color,
       display: this.props.curr.projects?.display,
-      // display: 'flex',
       flexDirection: this.props.curr.projects?.flexDirection,
       font: this.props.curr.projects?.font,
       fontSize: this.props.curr.projects?.fontSize,
@@ -108,9 +107,14 @@ class Portfolio extends Component {
         work = [...work, this.props.curr.resume?.event?.[`work${i}`]];
       }
 
-      let skill = [];
-      for (let i = 0; this.props.curr.resume?.event?.[`skills${i}`] !== undefined; i += 1) {
-        skill = [...skill, this.props.curr.resume?.event?.[`skills${i}`]];
+      let technical = [];
+      for (let i = 0; this.props.curr.resume?.event?.[`technical${i}`] !== undefined; i += 1) {
+        technical = [...technical, this.props.curr.resume?.event?.[`technical${i}`]];
+      }
+
+      let language = [];
+      for (let i = 0; this.props.curr.resume?.event?.[`language${i}`] !== undefined; i += 1) {
+        language = [...language, this.props.curr.resume?.event?.[`language${i}`]];
       }
 
       let LINKEDIN = '';
@@ -131,66 +135,75 @@ class Portfolio extends Component {
             <h2 style={headerrolestyle}>{this.props.curr.resume?.event?.role}</h2>
           </div>
           <div className="aboutme" style={aboutmestyle}>
-            <h2>About Me</h2>
+            <h2>About Me</h2><br />
             <p>{this.props.curr.resume?.event?.about}</p>
           </div>
           <div className="education" style={projectstyle}>
-            <h2>Education</h2>
+            <h2>Education</h2><br />
             <p>{this.props.curr.resume.event.college}</p>
             <p>{this.props.curr.resume.event.degree}</p>
             {GPA}
           </div>
           <div className="research" style={aboutmestyle}>
-            <h2>Research</h2>
+            <h2>Research</h2><br />
             {res.map((research, index) => {
               return (
-                <ul key={index} style={spacing}>
+                <li key={index} style={spacing}>
                   <h3>{research.researchlab}</h3>
                   <p>{new Date(research.startdate).toDateString()} - {new Date(research.enddate).toDateString()}</p>
                   <p>{research.position}</p>
                   <p>{research.description}</p>
-                </ul>
+                </li>
               );
             })}
           </div>
           <div className="projects" style={projectstyle}>
-            <h2>Projects</h2>
+            <h2>Projects</h2><br />
             {projs.map((project, index) => {
               return (
-                <ul key={index} style={spacing}>
+                <li key={index} style={spacing}>
                   <h3>{project.project}</h3>
                   <p>{new Date(project.startdate).toDateString()} - {new Date(project.enddate).toDateString()}</p>
                   <p>{project.description}</p>
-                </ul>
+                </li>
               );
             })}
           </div>
           <div className="work" style={aboutmestyle}>
-            <h2>Work Experience</h2>
+            <h2>Work Experience</h2><br />
             {work.map((w, index) => {
               return (
-                <ul key={index} style={spacing}>
+                <li key={index} style={spacing}>
                   <h3>{w.company}</h3>
                   <p>{new Date(w.startdate).toDateString()} - {new Date(w.enddate).toDateString()}</p>
                   <p>{w.position}</p>
                   <p>{w.description}</p>
-                </ul>
+                </li>
               );
             })}
           </div>
-          <div className="skills" style={projectstyle}>
-            <h2>Skills and Experience</h2>
-            {skill.map((s, index) => {
+          <div className="technical skills" style={projectstyle}>
+            <h2>Technical Skills</h2><br />
+            {technical.map((t, index) => {
               return (
-                <ul key={index} style={spacing}>
-                  <p>{s.technical}</p>
-                  <p>{s.languages}</p>
-                </ul>
+                <li key={index}>
+                  <p>{t.technical}</p>
+                </li>
+              );
+            })}
+          </div>
+          <div className="languages" style={aboutmestyle}>
+            <h2>Languages</h2><br />
+            {language.map((l, index) => {
+              return (
+                <li key={index}>
+                  <p>{l.language}</p>
+                </li>
               );
             })}
           </div>
           <div className="contactme" style={contactstyle}>
-            <h2>Contact Me</h2>
+            <h2>Contact Me</h2><br />
             <p>Phone: {this.props.curr.resume?.event?.phone}</p>
             <p>Email: {this.props.curr.resume?.event?.email}</p>
             {LINKEDIN}
