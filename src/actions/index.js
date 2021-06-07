@@ -10,7 +10,6 @@ export const ActionTypes = {
   FETCH_PORTFOLIO: 'FETCH_PORTFOLIO',
   UPDATE_PORTFOLIO: 'UPDATE_PORTFOLIO',
   DELETE_PORTFOLIO: 'DELETE_PORTFOLIO',
-  // ERROR_FETCH_POST: 'ERROR_FETCH_POST',
   FETCH_PROFILE: 'FETCH_PROFILE',
   UPDATE_PROFILE: 'UPDATE_PROFILE',
   ERROR_SET: 'ERROR_SET',
@@ -21,8 +20,6 @@ export const ActionTypes = {
   FETCH_TEMPLATES: 'FETCH_TEMPLATES',
   FETCH_RESUME: 'FETCH_RESUME',
   UPDATE_RESUME: 'UPDATE_RESUME',
-  // FETCH_USERS: 'FETCH_USERS',
-  // FETCH_USER: 'FETCH_USER',
 };
 
 export function authError(error) {
@@ -32,16 +29,8 @@ export function authError(error) {
   };
 }
 
-// const field = {
-//   firstName, lastName, email, password, portfolioIds, resume,
-// };
-
-// export function createPortfolio(templateId, {
-//   firstName, lastName, email, password, portfolioIds, resume, portfolioName,
-// }, history) {
 export function createPortfolio(templateId, portfolioName, history) {
   return (dispatch) => {
-    // axios.post(`${ROOT_URL}/portfolio/${templateId}${firstName}${lastName}`, {
     axios.post(`${ROOT_URL}/portfolios/create/${templateId}`, { portfolioName }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         console.log('createPortfolio', response.data);
@@ -129,35 +118,6 @@ export function deletePortfolio(portfolioId, history) {
   };
 }
 
-export function getUserResume() {
-  return (dispatch) => {
-    axios.get(`${ROOT_URL}/resume`, { headers: { authorization: localStorage.getItem('token') } })
-      .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_RESUME, payload: response.data });
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log('get user resume error found');
-        console.log(error);
-      });
-  };
-}
-
-export function updateUserResume(resumeFields) {
-  return (dispatch) => {
-    axios.put(`${ROOT_URL}/resume`, { ...resumeFields }, { headers: { authorization: localStorage.getItem('token') } })
-      .then((response) => {
-        console.log('before resumeFields', { ...resumeFields });
-        dispatch({ type: ActionTypes.UPDATE_RESUME, payload: response.data });
-        console.log('resumeFields', { ...resumeFields });
-      })
-      .catch((error) => {
-        console.log('put user resume error found');
-        console.log(error);
-      });
-  };
-}
-
 export function getUserProfile() {
   return (dispatch) => {
     axios.get(`${ROOT_URL}/profile`, { headers: { authorization: localStorage.getItem('token') } })
@@ -176,14 +136,10 @@ export function updateUserProfile(userFields) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/profile`, userFields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        // console.log('userFields updateUserprofile', userFields);
         dispatch({ type: ActionTypes.UPDATE_PROFILE, payload: response.data });
         dispatch(authError('""'));
       })
       .catch((error) => {
-        console.log('update user profile error');
-        console.log('errormessage', error.response.data);
-        console.log(error.response.data.error.toString());
         dispatch(authError(`${error.response.data.error.toString()}`));
       });
   };
