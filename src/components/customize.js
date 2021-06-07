@@ -2,12 +2,19 @@
 /* eslint-disable eqeqeq */
 import React, { useEffect, useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
-import '../styles/customize-page.scss';
+
 import { connect } from 'react-redux';
 import validateColor from 'validate-color';
 import FontPicker from 'font-picker-react';
 import { SketchPicker } from 'react-color';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronLeft, faChevronRight, faEdit, faCheck,
+} from '@fortawesome/free-solid-svg-icons';
 import { fetchPortfolio, updatePortfolio } from '../actions';
+
+import '../styles/customize-page.scss';
 
 function customize(props) {
   const portfolio = props.curr;
@@ -53,7 +60,7 @@ function customize(props) {
   const onChangeHandlerColorPicker = (setter, color) => setter(color);
 
   const forwardSlide = () => {
-    if (currentSlide < 4) {
+    if (currentSlide < 5) {
       setSlide(currentSlide + 1);
     } else {
       setSlide(1);
@@ -64,7 +71,7 @@ function customize(props) {
     if (currentSlide > 1) {
       setSlide(currentSlide - 1);
     } else {
-      setSlide(4);
+      setSlide(5);
     }
   };
 
@@ -73,14 +80,23 @@ function customize(props) {
     if (currentSlide == 1) {
       return (
         <div className="custom_section">
-          <h3>Name Section</h3>
-          <p>Background color: {portfolio.header?.userName.backgroundColor} </p>
-          <p>Color: {portfolio.header?.userName.color} </p>
-          <p>flexDirection: {portfolio.header?.userName.flexDirection} </p>
-          <p>font: {portfolio.header?.userName.font} </p>
-          <p>fontSize: {portfolio.header?.userName.fontSize} </p>
-          <p>justifyContent: {portfolio.header?.userName.justifyContent} </p>
-          <p>padding: {portfolio.header?.userName.padding} </p>
+          <h3>Name</h3>
+          <div className="mainbody-overall">
+            <div className="mainbody">
+              <p>Background color: {portfolio.header?.userName.backgroundColor} </p>
+              <p>Color: {portfolio.header?.userName.color} </p>
+              <p>flexDirection: {portfolio.header?.userName.flexDirection} </p>
+              <p>font: {portfolio.header?.userName.font} </p>
+              <p>fontSize: {portfolio.header?.userName.fontSize} </p>
+              <p>justifyContent: {portfolio.header?.userName.justifyContent} </p>
+              <p>padding: {portfolio.header?.userName.padding} </p>
+            </div>
+            <div className="mainbody-preview">
+              <div className="preview-section" component style={{ backgroundColor: userNameBgColor }}>
+                <p className="apply-font" component style={{ fontSize: userNameFontSize, color: userNameColor, font: userNameFont }}>~Font preview~</p>
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -88,13 +104,22 @@ function customize(props) {
       return (
         <div className="custom_section">
           <h3>Job Title</h3>
-          <p>Background color: {portfolio.header?.role.backgroundColor} </p>
-          <p>Color: {portfolio.header?.role.color} </p>
-          <p>flexDirection: {portfolio.header?.role.flexDirection} </p>
-          <p>font: {portfolio.header?.role.font} </p>
-          <p>fontSize: {portfolio.header?.role.fontSize} </p>
-          <p>justifyContent: {portfolio.header?.role.justifyContent} </p>
-          <p>padding: {portfolio.header?.role.padding} </p>
+          <div className="mainbody-overall">
+            <div className="mainbody">
+              <p>Background color: {portfolio.header?.role.backgroundColor} </p>
+              <p>Color: {portfolio.header?.role.color} </p>
+              <p>flexDirection: {portfolio.header?.role.flexDirection} </p>
+              <p>font: {portfolio.header?.role.font} </p>
+              <p>fontSize: {portfolio.header?.role.fontSize} </p>
+              <p>justifyContent: {portfolio.header?.role.justifyContent} </p>
+              <p>padding: {portfolio.header?.role.padding} </p>
+            </div>
+            <div className="mainbody-preview">
+              <div className="preview-section" component style={{ backgroundColor: roleBgColor }}>
+                <p className="apply-font" component style={{ fontSize: roleFontSize, color: roleColor, font: roleFont }}>~Font preview~</p>
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -102,13 +127,22 @@ function customize(props) {
       return (
         <div className="custom_section">
           <h3>About me</h3>
-          <p>Background color: {portfolio.aboutMe?.backgroundColor} </p>
-          <p>Color: {portfolio.aboutMe?.color} </p>
-          <p>flexDirection: {portfolio.aboutMe?.flexDirection} </p>
-          <p>font: {portfolio.aboutMe?.font} </p>
-          <p>fontSize: {portfolio.aboutMe?.fontSize} </p>
-          <p>justifyContent: {portfolio.aboutMe?.justifyContent} </p>
-          <p>padding: {portfolio.aboutMe?.padding} </p>
+          <div className="mainbody-overall">
+            <div className="mainbody">
+              <p>Background color: {portfolio.aboutMe?.backgroundColor} </p>
+              <p>Color: {portfolio.aboutMe?.color} </p>
+              <p>flexDirection: {portfolio.aboutMe?.flexDirection} </p>
+              <p>font: {portfolio.aboutMe?.font} </p>
+              <p>fontSize: {portfolio.aboutMe?.fontSize} </p>
+              <p>justifyContent: {portfolio.aboutMe?.justifyContent} </p>
+              <p>padding: {portfolio.aboutMe?.padding} </p>
+            </div>
+            <div className="mainbody-preview">
+              <div className="preview-section" component style={{ backgroundColor: aboutmeBgColor }}>
+                <p className="apply-font" component style={{ fontSize: aboutmeFontSize, color: aboutmeColor, font: aboutmeFont }}>~Font preview~</p>
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -116,13 +150,23 @@ function customize(props) {
       return (
         <div className="custom_section">
           <h3>Projects</h3>
-          <p>Background color: {portfolio.projects?.backgroundColor} </p>
-          <p>Color: {portfolio.projects?.color} </p>
-          <p>flexDirection: {portfolio.projects?.flexDirection}</p>
-          <p>font: {portfolio.projects?.font} </p>
-          <p>fontSize: {portfolio.projects?.fontSize} </p>
-          <p>justifyContent: {portfolio.projects?.justifyContent} </p>
-          <p>padding: {portfolio.projects?.padding} </p>
+          <div className="mainbody-overall">
+            <div className="mainbody">
+              <p>Background color: {portfolio.projects?.backgroundColor} </p>
+              <p>Color: {portfolio.projects?.color} </p>
+              <p>flexDirection: {portfolio.projects?.flexDirection}</p>
+              <p>font: {portfolio.projects?.font} </p>
+              <p>fontSize: {portfolio.projects?.fontSize} </p>
+              <p>justifyContent: {portfolio.projects?.justifyContent} </p>
+              <p>padding: {portfolio.projects?.padding} </p>
+            </div>
+            <div className="mainbody-preview">
+              <div className="preview-section" component style={{ backgroundColor: projectsBgColor }}>
+                <p className="apply-font" component style={{ fontSize: projectsFontSize, color: projectsColor, font: projectsFont }}>~Font preview~</p>
+
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -130,13 +174,22 @@ function customize(props) {
       return (
         <div className="custom_section">
           <h3>Contact me</h3>
-          <p>Background color: {portfolio.contactMe?.backgroundColor} </p>
-          <p>Color: {portfolio.contactMe?.color} </p>
-          <p>flexDirection: {portfolio.contactMe?.flexDirection} </p>
-          <p>font: {portfolio.contactMe?.font} </p>
-          <p>fontSize: {portfolio.contactMe?.fontSize} </p>
-          <p>justifyContent: {portfolio.contactMe?.justifyContent} </p>
-          <p>padding: {portfolio.contactMe?.padding} </p>
+          <div className="mainbody-overall">
+            <div className="mainbody">
+              <p>Background color: {portfolio.contactMe?.backgroundColor} </p>
+              <p>Color: {portfolio.contactMe?.color} </p>
+              <p>flexDirection: {portfolio.contactMe?.flexDirection} </p>
+              <p>font: {portfolio.contactMe?.font} </p>
+              <p>fontSize: {portfolio.contactMe?.fontSize} </p>
+              <p>justifyContent: {portfolio.contactMe?.justifyContent} </p>
+              <p>padding: {portfolio.contactMe?.padding} </p>
+            </div>
+            <div className="mainbody-preview">
+              <div className="preview-section" component style={{ backgroundColor: contactmeBgColor }}>
+                <p className="apply-font" component style={{ fontSize: contactmeFontSize, color: contactmeColor, font: contactmeFont }}>~Font preview~</p>
+              </div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -147,32 +200,44 @@ function customize(props) {
     if (currentSlide == 1) {
       return (
         <div className="custom_section">
-          <h2>Header</h2>
-          <h3>Name section</h3>
-          <p>Background color:
-            <input onChange={onChangeHandler(setUserNameBgColor)} value={userNameBgColor} />
-          </p>
-          <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setUserNameBgColor, color.hex)}
-            color={userNameBgColor}
-          />
-          <p>Font color:
-            <input onChange={onChangeHandler(setUserNameColor)} value={userNameColor} />
-          </p>
-          <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setUserNameColor, color.hex)}
-            color={userNameColor}
-          />
-          <p>Font Size:
-            <input onChange={onChangeHandler(setUserNameFontSize)} value={userNameFontSize} />
-          </p>
-          <p>Font:</p>
-          <div>
-            <FontPicker
-              apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
-              activeFontFamily={userNameFont}
-              onChange={(nextFont) => onChangeHandlerFont(setUserNameFont, nextFont.family)}
-            />
+          <h3>Name</h3>
+          <div className="colorpickers">
+            <div className="colorsections">
+              <p>Background color:</p>
+              <input onChange={onChangeHandler(setUserNameBgColor)} value={userNameBgColor} />
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setUserNameBgColor, color.hex)}
+                color={userNameBgColor}
+              />
+            </div>
+            <div className="colorsections">
+              <p>Font color:</p>
+              <input onChange={onChangeHandler(setUserNameColor)} value={userNameColor} />
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setUserNameColor, color.hex)}
+                color={userNameColor}
+              />
+            </div>
+          </div>
+          <div className="fontpickers">
+            <div className="fontsections">
+              <p>Font Size: <input onChange={onChangeHandler(setUserNameFontSize)} value={userNameFontSize} />
+              </p>
+            </div>
+            <div className="fontsections">
+              <p>
+                Font:
+                <div>
+                  <FontPicker
+                    apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
+                    activeFontFamily={userNameFont}
+                    onChange={(nextFont) => onChangeHandlerFont(setUserNameFont, nextFont.family)}
+                  />
+                </div>
+              </p>
+            </div>
+          </div>
+          <div className="preview-section" component style={{ backgroundColor: userNameBgColor }}>
             <p className="apply-font" component style={{ fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
@@ -185,30 +250,43 @@ function customize(props) {
       return (
         <div className="custom_section">
           <h3>Job title</h3>
-          <p>Background color:
-            <input onChange={onChangeHandler(setRoleBgColor)} value={roleBgColor} />
-          </p>
-          <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setRoleBgColor, color.hex)}
-            color={roleBgColor}
-          />
-          <p>Font color:
-            <input onChange={onChangeHandler(setRoleColor)} value={roleColor} />
-          </p>
-          <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setRoleColor, color.hex)}
-            color={roleColor}
-          />
-          <p>Font Size:
-            <input onChange={onChangeHandler(setRoleFontSize)} value={roleFontSize} />
-          </p>
-          <p>Font:</p>
-          <div>
-            <FontPicker
-              apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
-              activeFontFamily={roleFont}
-              onChange={(nextFont) => onChangeHandlerFont(setRoleFont, nextFont.family)}
-            />
+          <div className="colorpickers">
+            <div className="colorsections">
+              <p>Background color:</p>
+              <input onChange={onChangeHandler(setRoleBgColor)} value={roleBgColor} />
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setRoleBgColor, color.hex)}
+                color={roleBgColor}
+              />
+            </div>
+            <div className="colorsections">
+              <p>Font color: </p>
+              <input onChange={onChangeHandler(setRoleColor)} value={roleColor} />
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setRoleColor, color.hex)}
+                color={roleColor}
+              />
+            </div>
+          </div>
+          <div className="fontpickers">
+            <div className="fontsections">
+              <p>Font Size:
+                <input onChange={onChangeHandler(setRoleFontSize)} value={roleFontSize} />
+              </p>
+            </div>
+            <div className="fontsections">
+              <p>Font:
+                <div>
+                  <FontPicker
+                    apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
+                    activeFontFamily={roleFont}
+                    onChange={(nextFont) => onChangeHandlerFont(setRoleFont, nextFont.family)}
+                  />
+                </div>
+              </p>
+            </div>
+          </div>
+          <div className="preview-section" component style={{ backgroundColor: roleBgColor }}>
             <p className="apply-font" component style={{ fontSize: roleFontSize, color: roleColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
@@ -220,31 +298,44 @@ function customize(props) {
     if (currentSlide == 3) {
       return (
         <div className="custom_section">
-          <h2>About Me</h2>
-          <p>Background color:
-            <input onChange={onChangeHandler(setAboutmeBgColor)} value={aboutmeBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
-          </p>
-          <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setAboutmeBgColor, color.hex)}
-            color={aboutmeBgColor}
-          />
-          <p>Font color:
-            <input onChange={onChangeHandler(setAboutmeColor)} value={aboutmeColor} />
-          </p>
-          <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setAboutmeColor, color.hex)}
-            color={aboutmeColor}
-          />
-          <p>Font Size:
-            <input onChange={onChangeHandler(setAboutmeFontSize)} value={aboutmeFontSize} />
-          </p>
-          <p>Font:</p>
-          <div>
-            <FontPicker
-              apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
-              activeFontFamily={aboutmeFont}
-              onChange={(nextFont) => onChangeHandlerFont(setAboutmeFont, nextFont.family)}
-            />
+          <h3>About Me</h3>
+          <div className="colorpickers">
+            <div className="colorsections">
+              <p>Background color:</p>
+              <input onChange={onChangeHandler(setAboutmeBgColor)} value={aboutmeBgColor} onBlur={onChangeHandlerColor(setUserNameColor)} />
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setAboutmeBgColor, color.hex)}
+                color={aboutmeBgColor}
+              />
+            </div>
+            <div className="colorsections">
+              <p>Font color: </p>
+              <input onChange={onChangeHandler(setAboutmeColor)} value={aboutmeColor} />
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setAboutmeColor, color.hex)}
+                color={aboutmeColor}
+              />
+            </div>
+          </div>
+          <div className="fontpickers">
+            <div className="fontsections">
+              <p>Font Size:
+                <input onChange={onChangeHandler(setAboutmeFontSize)} value={aboutmeFontSize} />
+              </p>
+            </div>
+            <div className="fontsections">
+              <p>Font:
+                <div>
+                  <FontPicker
+                    apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
+                    activeFontFamily={aboutmeFont}
+                    onChange={(nextFont) => onChangeHandlerFont(setAboutmeFont, nextFont.family)}
+                  />
+                </div>
+              </p>
+            </div>
+          </div>
+          <div className="preview-section" component style={{ backgroundColor: aboutmeBgColor }}>
             <p className="apply-font" component style={{ fontSize: aboutmeFontSize, color: aboutmeColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
@@ -256,31 +347,44 @@ function customize(props) {
     if (currentSlide == 4) {
       return (
         <div className="custom_section">
-          <h2>Projects</h2>
-          <p>Background color:
-            <input onChange={onChangeHandler(setProjectsBgColor)} value={projectsBgColor} />
-          </p>
-          <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setProjectsBgColor, color.hex)}
-            color={projectsBgColor}
-          />
-          <p>Font color:
-            <input onChange={onChangeHandler(setProjectsColor)} value={projectsColor} />
-          </p>
-          <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setProjectsColor, color.hex)}
-            color={projectsColor}
-          />
-          <p>Font Size:
-            <input onChange={onChangeHandler(setProjectsFontSize)} value={projectsFontSize} />
-          </p>
-          <p>Font:</p>
-          <div>
-            <FontPicker
-              apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
-              activeFontFamily={projectsFont}
-              onChange={(nextFont) => onChangeHandlerFont(setProjectsFont, nextFont.family)}
-            />
+          <h3>Projects</h3>
+          <div className="colorpickers">
+            <div className="colorsections">
+              <p>Background color:</p>
+              <input onChange={onChangeHandler(setProjectsBgColor)} value={projectsBgColor} />
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setProjectsBgColor, color.hex)}
+                color={projectsBgColor}
+              />
+            </div>
+            <div className="colorsections">
+              <p>Font color: </p>
+              <input onChange={onChangeHandler(setProjectsColor)} value={projectsColor} />
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setProjectsColor, color.hex)}
+                color={projectsColor}
+              />
+            </div>
+          </div>
+          <div className="fontpickers">
+            <div className="fontsections">
+              <p>Font Size:
+                <input onChange={onChangeHandler(setProjectsFontSize)} value={projectsFontSize} />
+              </p>
+            </div>
+            <div className="fontsections">
+              <p>Font:
+                <div>
+                  <FontPicker
+                    apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
+                    activeFontFamily={projectsFont}
+                    onChange={(nextFont) => onChangeHandlerFont(setProjectsFont, nextFont.family)}
+                  />
+                </div>
+              </p>
+            </div>
+          </div>
+          <div className="preview-section" component style={{ backgroundColor: projectsBgColor }}>
             <p className="apply-font" component style={{ fontSize: projectsFontSize, color: projectsColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
@@ -292,31 +396,44 @@ function customize(props) {
     if (currentSlide == 5) {
       return (
         <div className="custom_section">
-          <h2>Contact Me</h2>
-          <p>Background color:
-            <input onChange={onChangeHandler(setContactmeBgColor)} value={contactmeBgColor} />
-          </p>
-          <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setContactmeBgColor, color.hex)}
-            color={contactmeBgColor}
-          />
-          <p>Font color:
-            <input onChange={onChangeHandler(setContactmeColor)} value={contactmeColor} />
-          </p>
-          <SketchPicker
-            onChange={(color) => onChangeHandlerColorPicker(setContactmeColor, color.hex)}
-            color={contactmeColor}
-          />
-          <p>Font Size:
-            <input onChange={onChangeHandler(setContactmeFontSize)} value={contactmeFontSize} />
-          </p>
-          <p>Font:</p>
-          <div>
-            <FontPicker
-              apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
-              activeFontFamily={contactmeFont}
-              onChange={(nextFont) => onChangeHandlerFont(setContactmeFont, nextFont.family)}
-            />
+          <h3>Contact Me</h3>
+          <div className="colorpickers">
+            <div className="colorsections">
+              <p>Background color:</p>
+              <input onChange={onChangeHandler(setContactmeBgColor)} value={contactmeBgColor} />
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setContactmeBgColor, color.hex)}
+                color={contactmeBgColor}
+              />
+            </div>
+            <div className="colorsections">
+              <p>Font color: </p>
+              <input onChange={onChangeHandler(setContactmeColor)} value={contactmeColor} />
+              <SketchPicker
+                onChange={(color) => onChangeHandlerColorPicker(setContactmeColor, color.hex)}
+                color={contactmeColor}
+              />
+            </div>
+          </div>
+          <div className="fontpickers">
+            <div className="fontsections">
+              <p>Font Size:
+                <input onChange={onChangeHandler(setContactmeFontSize)} value={contactmeFontSize} />
+              </p>
+            </div>
+            <div className="fontsections">
+              <p>Font:
+                <div>
+                  <FontPicker
+                    apiKey="AIzaSyC4DvoDwyiylUaTcYuKr-U6Ccy8f1SR8mo"
+                    activeFontFamily={contactmeFont}
+                    onChange={(nextFont) => onChangeHandlerFont(setContactmeFont, nextFont.family)}
+                  />
+                </div>
+              </p>
+            </div>
+          </div>
+          <div className="preview-section" component style={{ backgroundColor: contactmeBgColor }}>
             <p className="apply-font" component style={{ fontSize: contactmeFontSize, color: contactmeColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
@@ -426,15 +543,16 @@ function customize(props) {
       return (
         <div>
           <div className="input_div">
-            <h1>Customize {portfolio.name}</h1>
-            <button type="button" onClick={forwardSlide}> forward! </button>
-            <button type="button" onClick={backSlide}> back! </button>
-            {renderSlide()}
-
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+            <h1>Add your creative spin! <button className="editicon-addspin" id="icon" type="button" onClick={() => setIsEditing(!isEditing)}><FontAwesomeIcon icon={faEdit} /></button></h1>
+            <div className="scrollable-options">
+              <button type="button" onClick={backSlide}> <FontAwesomeIcon icon={faChevronLeft} onClick={backSlide} /> </button>
+              {renderSlide()}
+              <button type="button" onClick={forwardSlide}> <FontAwesomeIcon icon={faChevronRight} onClick={forwardSlide} /> </button>
+            </div>
             <div className="buttons_div">
-              <button id="icon" type="button" onClick={() => setIsEditing(!isEditing)}>edit</button>
               <form action="/portfolios">
-                <button type="submit">Render</button>
+                <button className="editicon-addspin renderbutton" type="submit">Render</button>
               </form>
             </div>
           </div>
@@ -442,21 +560,22 @@ function customize(props) {
       );
     } else { // In editing mode
       return (
-        <div className="input_div">
-          <div className="post">
-            <h1>Edit Portfolio</h1>
-            <h2>Portfolio Name: </h2>
-            <input onChange={onChangeHandler(setName)} value={name} />
-            <button type="button" onClick={forwardSlide}> forward! </button>
-            <button type="button" onClick={backSlide}> back! </button>
-            {renderEditingSlides()}
+        <div className="input_div editing">
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+          <h1>Time to design! <button className="editicon-addspin done" id="icon" type="button" onClick={onDoneEdit}><FontAwesomeIcon icon={faCheck} /></button></h1>
+          <h3 className="h3portfolioname"> Portfolio Name: <input onChange={onChangeHandler(setName)} value={name} /></h3>
 
-            <div className="buttons_div">
-              <button id="icon" type="button" onClick={onDoneEdit}>Done</button>
-              <Link to="/">
-                <button id="icon" type="button">Cancel</button>
-              </Link>
-            </div>
+          <div className="scrollable-options">
+            <button type="button" onClick={backSlide}> <FontAwesomeIcon icon={faChevronLeft} onClick={backSlide} /> </button>
+            {renderEditingSlides()}
+            <button type="button" onClick={forwardSlide}> <FontAwesomeIcon icon={faChevronRight} onClick={forwardSlide} /> </button>
+          </div>
+          <div className="buttons_div">
+            <button className="editicon-addspin renderbutton cancel" id="icon" type="button" onClick={onDoneEdit}>Done</button>
+            <Link to="/">
+              {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+              <button className="editicon-addspin renderbutton cancel" id="icon" type="button">Cancel</button>
+            </Link>
           </div>
         </div>
       );
