@@ -1,50 +1,30 @@
-/* eslint-disable no-lonely-if */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
-// import '../style.scss';
-import validator from 'validator';
 import { connect } from 'react-redux';
 import {
   withRouter,
-//   NavLink,
 } from 'react-router-dom';
+import validator from 'validator';
 import { getUserProfile, updateUserProfile } from '../actions/index';
-// import '../styles/profile-page.scss';
+import { uploadImage } from '../s3';
 import '../styles/settings.scss';
-
 // Profile page commponent that displays username, email, and provides routed
 // options to create, print, edit resume, as well as settings and logout
-
 class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {},
-      editingName: false,
+      editing: false,
+      preview: '',
+      file: null,
     };
   }
-
-  //   constructor(props) {
-  //     super(props);
-  //     this.state = {
-  //       user: {
-  //         email: '',
-  //         password: '',
-  //       },
-  //     };
-  //   }
-
-  //   handlePassword = (event) => {
-  //     this.setState(((prevState) => ({
-  //       user: {
-  //         ...prevState.user,
-  //         password: event.target.value,
-  //       },
-  //     })));
-  //   }
 
   // fetching user profile information
   componentDidMount = (props) => {
@@ -87,81 +67,109 @@ class Settings extends Component {
     })));
   }
 
-  changeName = () => {
-    this.setState(((prevState) => ({
-      ...prevState,
-      user: {
-        ...this.props.profile,
-      },
-      editingName: true,
-    })));
-  }
-
-  save = (props) => {
-    if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '' && validator.isEmail(this.state.user.email.toString())) {
+  onImageUpload = (event) => {
+    console.log(event.target.files[0]);
+    const file = event.target.files[0];
+    if (file) {
       this.setState(((prevState) => ({
         ...prevState,
-        user: {
-          ...prevState.user,
-        },
-        editingName: false,
+        preview: window.URL.createObjectURL(file),
+        file,
       })));
-      this.props.updateUserProfile(this.state.user);
-      this.props.history.push('/settings');
     }
   }
 
-  // Email error handling
-
-  displayEmailUsed = (props) => {
-    console.log('ERROR HERE,', this.props.autherr);
-    if (this.props.autherr === 'Error: Email is in use' && this.state.user.email !== this.props.profile.email) {
+  displayProfileImage = (props) => {
+    if (this.state.preview === '') {
       return (
-        <div>Email is already in use!</div>
+        <img id="preview"
+          alt="preview"
+          src={(this.props.profile.profileUrl === '') ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.props.profile.profileUrl}
+        />
       );
     } else {
-      // this.props.history.push('/settings');
-      return null;
+      return (
+        <img id="preview"
+          alt="preview"
+          src={this.state.preview}
+        />
+      );
     }
   }
 
-  displayMissingEmail = () => {
-    if (this.state.user.email === '') {
+  displayS3 = () => {
+    if (this.state.editing) {
       return (
         <div>
-          Email must be filled!
+          {this.displayProfileImage()}
+          <input type="file"
+            name="coverImage"
+            onChange={this.onImageUpload}
+          />
         </div>
       );
     } else {
-      return null;
+      return (
+        <div>
+          {this.displayProfileImage()}
+        </div>
+      );
     }
   }
 
   displayInvalidEmail = () => {
-    if (this.state.user.email !== '') {
+    if (this.state.email !== null) {
       if (validator.isEmail(this.state.user.email)) {
-        // console.log('email valid');
         return (
-          // <div className="errormsg">Email Valid</div>
-          null
+          <div>Email Valid</div>
         );
       } else {
-        // console.log('email invalid');
-        if (this.state.user.email !== '') {
-          return (
-            <div className="errormsg">Email Invalid</div>
-          );
-        } else {
-          return (null);
-        }
+        return (
+          <div>Email Invalid</div>
+        );
       }
     } else {
       return null;
     }
   }
 
-  displayEditableName = () => {
-    if (this.state.editingName) {
+  changeName = () => {
+    this.setState(((prevState) => ({
+      ...prevState,
+      user: {
+        ...this.props.profile,
+      },
+      editing: true,
+    })));
+  }
+
+  save = (props) => {
+    if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '' && validator.isEmail(this.state.user.email)) {
+      if (this.state.file) {
+        uploadImage(this.state.file).then((url) => {
+          const profileUrl = url;
+          const user = { ...this.state.user, profileUrl };
+          this.props.updateUserProfile(user);
+        }).catch((error) => {
+          console.log('error uploading image to S3:', error.toString());
+        });
+      }
+      this.setState({ editing: false });
+    }
+  }
+
+  displayEmailExistsError = () => {
+    if (this.props.autherr === 'Error: Error: Email is in use') {
+      return (
+        <div>Email already in use! Try another.</div>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  displayEditable = () => {
+    if (this.state.editing || this.props.autherr === 'Error: Error: Email is in use') {
       return (
         <div className="editing">
           {this.displayMissingName()}
@@ -178,12 +186,12 @@ class Settings extends Component {
           </div>
           <br />
           {this.displayMissingEmail()}
-          {this.displayEmailUsed()}
           {this.displayInvalidEmail()}
           <div className="col">
             <input className="textbox emailbox" type="text" placeholder="Email" value={this.state.user.email} onChange={this.handleEmail} />
             <span className="focus-bg" />
           </div>
+          {this.displayEmailExistsError()}
           {/* <input className="profile-info-name-editing" placeholder="First Name" value={this.state.user.firstName} onChange={this.handleFirstName} />
           <input className="profile-info-name-editing" placeholder="Last Name" value={this.state.user.lastName} onChange={this.handleLastName} /> */}
           <button className="save-button" type="button" onClick={this.save}>Save Profile</button>
@@ -216,27 +224,36 @@ class Settings extends Component {
     }
   }
 
+  displayMissingEmail = () => {
+    if (this.state.user.email === '') {
+      return (
+        <div>
+          Email must be filled!
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <div className="profile-page">
         <div className="profile-user-info">
           <div className="profile-img">
-            {/* extra feature: implementing image upload */}
-            <img src="https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg" alt="none" />
+            {this.displayS3()}
           </div>
-          <div className="profile-info">
-            {this.displayEditableName()}
-          </div>
+        </div>
+        <div className="profile-info">
+          {this.displayEditable()}
         </div>
       </div>
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   profile: state.user.profile,
   autherr: state.auth.authError,
 });
-
 // export default Profile;
 export default withRouter(connect(mapStateToProps, { getUserProfile, updateUserProfile })(Settings));

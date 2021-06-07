@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://localhost:9090/api';
+export const ROOT_URL = 'http://localhost:9090/api';
 // const ROOT_URL = 'https://cs52access.herokuapp.com/api';
 
 // keys for actiontypes
@@ -176,11 +176,14 @@ export function updateUserProfile(userFields) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/profile`, userFields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
+        console.log('userFields updatUserprofile', userFields);
         dispatch({ type: ActionTypes.UPDATE_PROFILE, payload: response.data });
+        dispatch(authError('""'));
       })
       .catch((error) => {
         console.log('update user profile error');
         console.log('errormessage', error.response.data);
+        console.log(error.response.data.error.toString());
         dispatch(authError(`${error.response.data.error.toString()}`));
       });
   };
