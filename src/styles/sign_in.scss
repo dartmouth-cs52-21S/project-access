@@ -83,8 +83,8 @@
     // border: 3px solid rgb(1, 187, 1) !important;
     background: linear-gradient(273deg, #009620,  #b1ffc2, #009620);
     background-size: 600% 600%;
-    -webkit-animation: BackgroundAnim 4s ease infinite;
-    -moz-animation: BackgroundAnim 4s ease infinite;
+    -webkit-animation: BackgroundAnim 4s ease infinite, shake 1s infinite;
+    -moz-animation: BackgroundAnim 4s ease infinite, shake 1s infinite;
     animation: BackgroundAnim 4s ease infinite, shake 1s infinite;
 }
 
