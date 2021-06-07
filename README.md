@@ -4,7 +4,8 @@
 
 [*how?*](https://help.github.com/articles/about-readmes/#relative-links-and-image-paths-in-readme-files)
 
-[Api Link](https://resumov.netlify.app/)
+[Client Link](https://resumov.netlify.app/)
+[API Link](https://cs52access.herokuapp.com/)
 
 TODO: short project description, some sample screenshots or mockups
 
