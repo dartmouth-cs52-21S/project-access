@@ -101,8 +101,8 @@ function customize(props) {
               <p>padding: {portfolio.header?.userName.padding} </p>
             </div>
             <div className="mainbody-preview">
-              <div className="preview-section" component style={{ backgroundColor: userNameBgColor }}>
-                <p className="apply-font" component style={{ fontSize: userNameFontSize, color: userNameColor, font: userNameFont }}>~Font preview~</p>
+              <div className="preview-section" style={{ backgroundColor: userNameBgColor }}>
+                <div><p className="apply-font" style={{ fontSize: userNameFontSize, color: userNameColor, font: userNameFont }}>~Font preview~</p></div>
               </div>
             </div>
           </div>
@@ -124,8 +124,8 @@ function customize(props) {
               <p>padding: {portfolio.header?.role.padding} </p>
             </div>
             <div className="mainbody-preview">
-              <div className="preview-section" component style={{ backgroundColor: roleBgColor }}>
-                <p className="apply-font" component style={{ fontSize: roleFontSize, color: roleColor, font: roleFont }}>~Font preview~</p>
+              <div className="preview-section" style={{ backgroundColor: roleBgColor }}>
+                <p className="apply-font" style={{ fontSize: roleFontSize, color: roleColor, font: roleFont }}>~Font preview~</p>
               </div>
             </div>
           </div>
@@ -147,8 +147,8 @@ function customize(props) {
               <p>padding: {portfolio.aboutMe?.padding} </p>
             </div>
             <div className="mainbody-preview">
-              <div className="preview-section" component style={{ backgroundColor: aboutmeBgColor }}>
-                <p className="apply-font" component style={{ fontSize: aboutmeFontSize, color: aboutmeColor, font: aboutmeFont }}>~Font preview~</p>
+              <div className="preview-section" style={{ backgroundColor: aboutmeBgColor }}>
+                <p className="apply-font" style={{ fontSize: aboutmeFontSize, color: aboutmeColor, font: aboutmeFont }}>~Font preview~</p>
               </div>
             </div>
           </div>
@@ -170,8 +170,8 @@ function customize(props) {
               <p>padding: {portfolio.projects?.padding} </p>
             </div>
             <div className="mainbody-preview">
-              <div className="preview-section" component style={{ backgroundColor: projectsBgColor }}>
-                <p className="apply-font" component style={{ fontSize: projectsFontSize, color: projectsColor, font: projectsFont }}>~Font preview~</p>
+              <div className="preview-section" style={{ backgroundColor: projectsBgColor }}>
+                <p className="apply-font" style={{ fontSize: projectsFontSize, color: projectsColor, font: projectsFont }}>~Font preview~</p>
 
               </div>
             </div>
@@ -194,8 +194,8 @@ function customize(props) {
               <p>padding: {portfolio.contactMe?.padding} </p>
             </div>
             <div className="mainbody-preview">
-              <div className="preview-section" component style={{ backgroundColor: contactmeBgColor }}>
-                <p className="apply-font" component style={{ fontSize: contactmeFontSize, color: contactmeColor, font: contactmeFont }}>~Font preview~</p>
+              <div className="preview-section" style={{ backgroundColor: contactmeBgColor }}>
+                <p className="apply-font" style={{ fontSize: contactmeFontSize, color: contactmeColor, font: contactmeFont }}>~Font preview~</p>
               </div>
             </div>
           </div>
@@ -246,11 +246,11 @@ function customize(props) {
               </p>
             </div>
           </div>
-          <div className="preview-section" component style={{ backgroundColor: userNameBgColor }}>
-            <p className="apply-font" component style={{ fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p>
+          <div className="preview-section" style={{ backgroundColor: userNameBgColor }}>
+            <p className="apply-font" style={{ fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
-            {/* <input onChange={onChangeHandler(setUserNameDir)} value={userNameDir} /> */}
+            <input onChange={onChangeHandler(setUserNameDir)} value={userNameDir} />
           </p>
           <ToggleButtonGroup
             value={userNameDir}
@@ -308,8 +308,8 @@ function customize(props) {
               </p>
             </div>
           </div>
-          <div className="preview-section" component style={{ backgroundColor: roleBgColor }}>
-            <p className="apply-font" component style={{ fontSize: roleFontSize, color: roleColor }}>~Font preview~</p>
+          <div className="preview-section" style={{ backgroundColor: roleBgColor }}>
+            <p className="apply-font" style={{ fontSize: roleFontSize, color: roleColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
             <input onChange={onChangeHandler(setRoleDir)} value={roleDir} />
@@ -357,8 +357,8 @@ function customize(props) {
               </p>
             </div>
           </div>
-          <div className="preview-section" component style={{ backgroundColor: aboutmeBgColor }}>
-            <p className="apply-font" component style={{ fontSize: aboutmeFontSize, color: aboutmeColor }}>~Font preview~</p>
+          <div className="preview-section" style={{ backgroundColor: aboutmeBgColor }}>
+            <p className="apply-font" style={{ fontSize: aboutmeFontSize, color: aboutmeColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
             <input onChange={onChangeHandler(setAboutmeDir)} value={aboutmeDir} />
@@ -406,8 +406,8 @@ function customize(props) {
               </p>
             </div>
           </div>
-          <div className="preview-section" component style={{ backgroundColor: projectsBgColor }}>
-            <p className="apply-font" component style={{ fontSize: projectsFontSize, color: projectsColor }}>~Font preview~</p>
+          <div className="preview-section" style={{ backgroundColor: projectsBgColor }}>
+            <p className="apply-font" style={{ fontSize: projectsFontSize, color: projectsColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
             <input onChange={onChangeHandler(setProjectsDir)} value={projectsDir} />
@@ -455,8 +455,8 @@ function customize(props) {
               </p>
             </div>
           </div>
-          <div className="preview-section" component style={{ backgroundColor: contactmeBgColor }}>
-            <p className="apply-font" component style={{ fontSize: contactmeFontSize, color: contactmeColor }}>~Font preview~</p>
+          <div className="preview-section" style={{ backgroundColor: contactmeBgColor }}>
+            <p className="apply-font" style={{ fontSize: contactmeFontSize, color: contactmeColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
             <input onChange={onChangeHandler(setContactmeDir)} value={contactmeDir} />
