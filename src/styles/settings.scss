@@ -143,3 +143,30 @@
      margin:0.4em auto;
 }
 }
+
+.profile-img {
+    margin-bottom: 20px;
+}
+
+.imageuploadbundle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    input[type=file] {
+        display: flex;
+        flex-direction: column;
+        margin-top:20px;
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        margin-left:50px;
+    }
+}
+
+.profile-page {
+    margin-top:100px;
+}
