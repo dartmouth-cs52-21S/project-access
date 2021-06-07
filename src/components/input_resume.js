@@ -602,8 +602,8 @@ function InputResume(props) {
             return (
               <li key={index}>
                 <input placeholder="Research Lab" id="resumeinput" name="researchlab" className="researchlab" value={research[index].researchlab} onChange={(event) => { updateResearch(index, 'researchlab', event.target.value); }} />
-                <input placeholder="Start Date" type="date" id="resumeinput" className="text-input" value={research[index].startdate} onChange={(event) => { updateResearch(index, 'startdate', event.target.value); }} />
-                <input placeholder="End Date" type="date" id="resumeinput" className="text-input" value={research[index].enddate} onChange={(event) => { updateResearch(index, 'enddate', event.target.value); }} />
+                <input placeholder="Start Date" id="resumeinput" className="text-input" value={research[index].startdate} onChange={(event) => { updateResearch(index, 'startdate', event.target.value); }} />
+                <input placeholder="End Date" id="resumeinput" className="text-input" value={research[index].enddate} onChange={(event) => { updateResearch(index, 'enddate', event.target.value); }} />
                 <input placeholder="Position" id="resumeinput" className="text-input" value={research[index].position} onChange={(event) => { updateResearch(index, 'position', event.target.value); }} />
                 <textarea placeholder="Description" row="6" id="bigtext" className="text-input" value={research[index].description} onChange={(event) => { updateResearch(index, 'description', event.target.value); }} />
                 <i className="material-icons" onClick={() => { setResearch([...research.slice(0, index), ...research.slice(index + 1)]); }}>clear</i>
@@ -630,8 +630,8 @@ function InputResume(props) {
             return (
               <li key={index}>
                 <input placeholder="Company Name" id="resumeinput" name="company" className="company" value={work[index].company} onChange={(event) => { updateWork(index, 'company', event.target.value); }} />
-                <input placeholder="Start Date" type="date" id="resumeinput" className="text-input" value={work[index].startdate} onChange={(event) => { updateWork(index, 'startdate', event.target.value); }} />
-                <input placeholder="End Date" type="date" id="resumeinput" className="text-input" value={work[index].enddate} onChange={(event) => { updateWork(index, 'enddate', event.target.value); }} />
+                <input placeholder="Start Date" id="resumeinput" className="text-input" value={work[index].startdate} onChange={(event) => { updateWork(index, 'startdate', event.target.value); }} />
+                <input placeholder="End Date" id="resumeinput" className="text-input" value={work[index].enddate} onChange={(event) => { updateWork(index, 'enddate', event.target.value); }} />
                 <input placeholder="Position" id="resumeinput" className="text-input" value={work[index].position} onChange={(event) => { updateWork(index, 'position', event.target.value); }} />
                 <textarea placeholder="Description" row="6" id="bigtext" className="text-input" value={work[index].description} onChange={(event) => { updateWork(index, 'description', event.target.value); }} />
                 <i className="material-icons" onClick={() => { setWork([...work.slice(0, index), ...work.slice(index + 1)]); }}>clear</i>
@@ -658,8 +658,8 @@ function InputResume(props) {
             return (
               <li key={index}>
                 <input placeholder="Project" id="resumeinput" name="project" className="projects" value={projects[index].project} onChange={(event) => { updateProjects(index, 'project', event.target.value); }} />
-                <input placeholder="Start Date" type="date" id="resumeinput" className="text-input" value={projects[index].startdate} onChange={(event) => { updateProjects(index, 'startdate', event.target.value); }} />
-                <input placeholder="End Date" type="date" id="resumeinput" className="text-input" value={projects[index].enddate} onChange={(event) => { updateProjects(index, 'enddate', event.target.value); }} />
+                <input placeholder="Start Date" id="resumeinput" className="text-input" value={projects[index].startdate} onChange={(event) => { updateProjects(index, 'startdate', event.target.value); }} />
+                <input placeholder="End Date" id="resumeinput" className="text-input" value={projects[index].enddate} onChange={(event) => { updateProjects(index, 'enddate', event.target.value); }} />
                 <textarea placeholder="Description" row="6" id="bigtext" className="text-input" value={projects[index].description} onChange={(event) => { updateProjects(index, 'description', event.target.value); }} />
                 <i className="material-icons" onClick={() => { setProjects([...projects.slice(0, index), ...projects.slice(index + 1)]); }}>clear</i>
               </li>

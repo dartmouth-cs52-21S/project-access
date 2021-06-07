@@ -53,7 +53,7 @@ function customize(props) {
   const onChangeHandlerColorPicker = (setter, color) => setter(color);
 
   const forwardSlide = () => {
-    if (currentSlide < 4) {
+    if (currentSlide < 5) {
       setSlide(currentSlide + 1);
     } else {
       setSlide(1);
