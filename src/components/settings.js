@@ -5,17 +5,13 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
-// import '../style.scss';
 import { connect } from 'react-redux';
 import {
   withRouter,
-//   NavLink,
 } from 'react-router-dom';
 import validator from 'validator';
-// import Dropzone from 'react-dropzone';
 import { getUserProfile, updateUserProfile } from '../actions/index';
 import { uploadImage } from '../s3';
-// import '../styles/profile-page.scss';
 import '../styles/settings.scss';
 
 // Profile page commponent that displays username, email, and provides routed
@@ -24,9 +20,6 @@ import '../styles/settings.scss';
 class Settings extends Component {
   constructor(props) {
     super(props);
-    // this.onDrop = (files) => {
-    //   this.setState({ files });
-    // };
     this.state = {
       user: {},
       editing: false,
@@ -34,15 +27,6 @@ class Settings extends Component {
       file: null,
     };
   }
-
-  //   handlePassword = (event) => {
-  //     this.setState(((prevState) => ({
-  //       user: {
-  //         ...prevState.user,
-  //         password: event.target.value,
-  //       },
-  //     })));
-  //   }
 
   // fetching user profile information
   componentDidMount = (props) => {
@@ -88,17 +72,13 @@ class Settings extends Component {
   onImageUpload = (event) => {
     console.log(event.target.files[0]);
     const file = event.target.files[0];
-    // Handle null file
-    // Get url of the file and set it to the src of preview
     if (file) {
-      // console.log('running onImageUpload');
       this.setState(((prevState) => ({
         ...prevState,
         preview: window.URL.createObjectURL(file),
         file,
       })));
     }
-    // console.log('state onImageUpload', this.state);
   }
 
   displayProfileImage = (props) => {
@@ -169,33 +149,14 @@ class Settings extends Component {
     if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '' && validator.isEmail(this.state.user.email)) {
       if (this.state.file) {
         uploadImage(this.state.file).then((url) => {
-          // use url for content_url and
-          // either run your createPost actionCreator
-          // or your updatePost actionCreator
-          // console.log('uploadImage called', url);
-          // console.log('fawefe', profileUrl);
-
-          // this.setState(((prevState) => ({
-          //   ...prevState,
-          //   user: {
-          //     ...prevState.user,
-          //     profileUrl: url,
-          //   },
-          // })));
           const profileUrl = url;
           const user = { ...this.state.user, profileUrl };
-          console.log('user uploadImage', user);
-          // console.log('user save', user);
           this.props.updateUserProfile(user);
         }).catch((error) => {
           console.log('error uploading image to S3:', error.toString());
         });
       }
-      // user = { ...this.state.user, profileUrl };
-      // console.log('user save', user);
-      // this.props.updateUserProfile(user);
       this.setState({ editing: false });
-      // this.props.history.push('/profile');
     }
   }
 
@@ -277,47 +238,11 @@ class Settings extends Component {
     }
   }
 
-  // displayDropZone = () => {
-  //   const dropzoneRef = createRef();
-  //   const openDialog = () => {
-  //     // Note that the ref is set async,
-  //     // so it might be null at some point
-  //     if (dropzoneRef.current) {
-  //       dropzoneRef.current.open();
-  //     }
-  //   };
-  //   return (
-  //     // Disable click and keydown behavior on the <Dropzone>
-  //     <Dropzone ref={dropzoneRef} noClick noDrag noKeyboard>
-  //       {({ getRootProps, getInputProps, acceptedFiles }) => {
-  //         return (
-  //           <div className="container">
-  //             <div {...getRootProps({ className: 'dropzone' })}>
-  //               <input {...getInputProps()} />
-  //               <img src={(this.state.files.length === 0) ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.state.files[0]} alt="none" onClick={openDialog} />
-  //             </div>
-  //             <aside>
-  //               <ul>
-  //                 {acceptedFiles.map((file) => (
-  //                   this.setState({ files: [file] })
-  //                 ))}
-  //               </ul>
-  //             </aside>
-  //           </div>
-  //         );
-  //       }}
-  //     </Dropzone>
-  //   );
-  // }
-
   render() {
     return (
       <div className="profile-page">
-
         <div className="profile-user-info">
           <div className="profile-img">
-            {/* extra feature: implementing image upload */}
-            {/* {this.displayDropZone()} */}
             {this.displayS3()}
           </div>
         </div>
