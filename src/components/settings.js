@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -28,7 +29,7 @@ class Settings extends Component {
     // };
     this.state = {
       user: {},
-      editingName: false,
+      editing: false,
       preview: '',
       file: null,
     };
@@ -46,7 +47,6 @@ class Settings extends Component {
   // fetching user profile information
   componentDidMount = (props) => {
     this.props.getUserProfile();
-    console.log('componentDidMount');
     this.setState(((prevState) => ({
       ...prevState,
       user: {
@@ -91,24 +91,39 @@ class Settings extends Component {
     // Handle null file
     // Get url of the file and set it to the src of preview
     if (file) {
-      console.log('running onImageUpload');
+      // console.log('running onImageUpload');
       this.setState(((prevState) => ({
         ...prevState,
         preview: window.URL.createObjectURL(file),
         file,
       })));
     }
-    console.log('state onImageUpload', this.state);
+    // console.log('state onImageUpload', this.state);
+  }
+
+  displayProfileImage = (props) => {
+    if (this.state.preview === '') {
+      return (
+        <img id="preview"
+          alt="preview"
+          src={(this.props.profile.profileUrl === '') ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.props.profile.profileUrl}
+        />
+      );
+    } else {
+      return (
+        <img id="preview"
+          alt="preview"
+          src={this.state.preview}
+        />
+      );
+    }
   }
 
   displayS3 = () => {
-    if (this.state.editingName) {
+    if (this.state.editing) {
       return (
         <div>
-          <img id="preview"
-            alt="preview"
-            src={(this.state.preview === '') ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.state.preview}
-          />
+          {this.displayProfileImage()}
           <input type="file"
             name="coverImage"
             onChange={this.onImageUpload}
@@ -118,10 +133,7 @@ class Settings extends Component {
     } else {
       return (
         <div>
-          <img id="preview"
-            alt="preview"
-            src={(this.state.preview === '') ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.state.preview}
-          />
+          {this.displayProfileImage()}
         </div>
       );
     }
@@ -130,12 +142,10 @@ class Settings extends Component {
   displayInvalidEmail = () => {
     if (this.state.email !== null) {
       if (validator.isEmail(this.state.user.email)) {
-        // console.log('email valid');
         return (
           <div>Email Valid</div>
         );
       } else {
-        // console.log('email invalid');
         return (
           <div>Email Invalid</div>
         );
@@ -151,24 +161,19 @@ class Settings extends Component {
       user: {
         ...this.props.profile,
       },
-      editingName: true,
+      editing: true,
     })));
   }
 
   save = (props) => {
     if (this.state.user.firstName !== '' && this.state.user.lastName !== '' && this.state.user.email !== '' && validator.isEmail(this.state.user.email)) {
-      let { profileUrl } = this.props.profile;
-      let user = {};
-      console.log('user', this.props.profile);
       if (this.state.file) {
         uploadImage(this.state.file).then((url) => {
           // use url for content_url and
           // either run your createPost actionCreator
           // or your updatePost actionCreator
-          console.log('uploadImage called', url);
-          profileUrl = url;
-          console.log('fawefe', profileUrl);
-          user = { ...this.state.user, profileUrl };
+          // console.log('uploadImage called', url);
+          // console.log('fawefe', profileUrl);
 
           // this.setState(((prevState) => ({
           //   ...prevState,
@@ -177,14 +182,19 @@ class Settings extends Component {
           //     profileUrl: url,
           //   },
           // })));
+          const profileUrl = url;
+          const user = { ...this.state.user, profileUrl };
+          console.log('user uploadImage', user);
+          // console.log('user save', user);
+          this.props.updateUserProfile(user);
         }).catch((error) => {
           console.log('error uploading image to S3:', error.toString());
         });
       }
-      console.log('profliefia', profileUrl);
+      // user = { ...this.state.user, profileUrl };
       // console.log('user save', user);
-      this.props.updateUserProfile(user);
-      this.setState({ editingName: false });
+      // this.props.updateUserProfile(user);
+      this.setState({ editing: false });
       // this.props.history.push('/profile');
     }
   }
@@ -199,8 +209,8 @@ class Settings extends Component {
     }
   }
 
-  displayEditableName = () => {
-    if (this.state.editingName || this.props.autherr === 'Error: Error: Email is in use') {
+  displayEditable = () => {
+    if (this.state.editing || this.props.autherr === 'Error: Error: Email is in use') {
       return (
         <div className="editing">
           {this.displayMissingName()}
@@ -312,7 +322,7 @@ class Settings extends Component {
           </div>
         </div>
         <div className="profile-info">
-          {this.displayEditableName()}
+          {this.displayEditable()}
         </div>
       </div>
     );

@@ -39,15 +39,29 @@ class Profile extends Component {
     }
   }
 
+  displayProfileImage = (props) => {
+    if (this.props.profile.profileUrl === '') {
+      return (
+        <NavLink exact to="/settings">
+          <img src="https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg" alt="none" />
+        </NavLink>
+      );
+    } else {
+      return (
+        <NavLink exact to="/settings">
+          <img src={this.props.profile.profileUrl} alt="none" />
+        </NavLink>
+      );
+    }
+  }
+
   render() {
     return (
       <div className="profile-page">
         <div className="profile-user-info">
           <div className="profile-img">
             {/* extra feature: implementing image upload */}
-            <NavLink exact to="/settings">
-              <img src="https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg" alt="none" />
-            </NavLink>
+            {this.displayProfileImage()}
           </div>
           <div className="profile-info">
             {console.log(this.props.profile)}
