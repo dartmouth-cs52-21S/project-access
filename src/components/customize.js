@@ -36,7 +36,7 @@ function customize(props) {
   const [userNameBgColor, setUserNameBgColor] = useState('');
   const [userNameFont, setUserNameFont] = useState('');
   const [userNameFontSize, setUserNameFontSize] = useState('');
-  const [userNameDir, setUserNameDir] = useState('rows');
+  const [userNameDir, setUserNameDir] = useState('row');
 
   const [roleColor, setRoleColor] = useState('');
   const [roleBgColor, setRoleBgColor] = useState('');
@@ -66,7 +66,7 @@ function customize(props) {
   const onChangeHandlerColor = (setter) => (e) => (validateColor(e.target.value) ? setter(e.target.value) : setter('white'));
   const onChangeHandlerFont = (setter, font) => setter(font);
   const onChangeHandlerColorPicker = (setter, color) => setter(color);
-  const onChangeHandlerDir = (setter) => (e) => setter(e.target.value);
+  const onChangeHandlerDir = (setter) => (e, dir) => setter(dir);
 
   const forwardSlide = () => {
     if (currentSlide < 5) {
@@ -250,21 +250,23 @@ function customize(props) {
             <p className="apply-font" component style={{ fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
-            {/* <input onChange={onChangeHandler(setUserNameDir)} value={userNameDir} /> */}
+            <input onChange={onChangeHandler(setUserNameDir)} value={userNameDir} />
           </p>
-          <ToggleButtonGroup
-            value={userNameDir}
-            exclusive
-            onChange={onChangeHandlerDir(setUserNameDir)}
-            aria-label="text alignment"
-          >
-            <ToggleButton value="row" aria-label="row">
-              <Icon icon={sharpTableRows} />
-            </ToggleButton>
-            <ToggleButton value="column" aria-label="column">
-              <Icon icon={inColumns} />
-            </ToggleButton>
-          </ToggleButtonGroup>
+          <div>
+            <ToggleButtonGroup
+              value={userNameDir}
+              exclusive
+              onChange={onChangeHandlerDir(setUserNameDir)}
+              aria-label="text alignment"
+            >
+              <ToggleButton value="row" aria-label="row">
+                <Icon icon={sharpTableRows} />
+              </ToggleButton>
+              <ToggleButton value="column" aria-label="column">
+                <Icon icon={inColumns} />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
         </div>
       );
     }
