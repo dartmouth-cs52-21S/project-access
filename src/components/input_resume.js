@@ -7,8 +7,10 @@ import { connect } from 'react-redux';
 import '../styles/input_resume_style.scss';
 import { fetchPortfolio, updatePortfolio, fetchPortfolios } from '../actions';
 import 'regenerator-runtime/runtime';
+// import portfolio from './portfolio';
 
 function InputResume(props) {
+  const [selectedp, setSelectedp] = useState({ selectedp: 'None' });
   const [name, setName] = useState({ name: '' });
   const [phone, setPhone] = useState({ phone: '' });
   const [email, setEmail] = useState({ email: '' });
@@ -234,12 +236,16 @@ function InputResume(props) {
     props.fetchPortfolio(id);
   };
 
+  const selected = (pname) => {
+    setSelectedp({ selectedp: pname });
+  };
+
   const folioOptions = () => {
     let folios = 'No Portfolios Available';
     if (Object.keys(props.all).length !== 0) {
       const fs = props.all.map((pfolio, index) => {
         return (
-          <button key={index} type="button" className="dropdown-item" onClick={() => { getFolio(pfolio._id); }}>
+          <button key={index} type="button" className="dropdown-item" onClick={() => { getFolio(pfolio._id); selected(pfolio.name); }}>
             {pfolio.name}
           </button>
         );
@@ -549,14 +555,19 @@ function InputResume(props) {
     }
   };
 
+  const leaveform = () => {
+    props.history.push('/profile');
+  };
+
   return (
     <div>
       <form>
-        <h1 className="title">Resume Information</h1><br />
+        <h1 className="title">Resume Information</h1><br /><br /><br />
         <div>
           <h2 id="inputheader">Select an Existing Portfolio</h2>
           {folioOptions()}
-        </div><br />
+          <p id="selectedp">Selected: {selectedp.selectedp}</p>
+        </div><br /><br />
 
         <div>
           <h2 id="inputheader">General Information</h2>
@@ -571,7 +582,7 @@ function InputResume(props) {
           <textarea placeholder="Please describe yourself" row="6" id="bigtext" className="about" value={about.about} onChange={(event) => { updateAbout(event.target.value); }} />
           {abouterror()}
           <input placeholder="LinkedIn" id="resumeinput" className="linkedIn" value={linkedIn.linkedIn} onChange={(event) => { updateLinkedIn(event.target.value); }} />
-        </div><br />
+        </div><br /><br /><br />
 
         <div className="Education">
           <h2 id="inputheader">Education</h2>
@@ -583,7 +594,7 @@ function InputResume(props) {
             {degreeerror()}
             <input placeholder="Relevant Coursework" id="resumeinput" className="relevantCoursework" value={education.relevantCoursework} onChange={(event) => { updateEduc('relevantCoursework', event.target.value); }} />
           </div>
-        </div><br />
+        </div><br /><br /><br />
 
         <div className="Research">
           <div className="section-title">
@@ -611,7 +622,7 @@ function InputResume(props) {
             );
           })}
         </div>
-        {researcherror()}<br />
+        {researcherror()}<br /><br /><br />
 
         <div className="Work">
           <div className="section-title">
@@ -639,7 +650,7 @@ function InputResume(props) {
             );
           })}
         </div>
-        {workerror()}<br />
+        {workerror()}<br /><br /><br />
 
         <div className="Projects">
           <div className="section-title">
@@ -666,7 +677,7 @@ function InputResume(props) {
             );
           })}
         </div>
-        {projecterror()}<br />
+        {projecterror()}<br /><br /><br />
 
         <div className="technical">
           <div className="section-title">
@@ -690,7 +701,7 @@ function InputResume(props) {
             );
           })}
         </div>
-        {technicalerror()}<br />
+        {technicalerror()}<br /><br /><br />
 
         <div className="language">
           <div className="section-title">
@@ -714,9 +725,10 @@ function InputResume(props) {
             );
           })}
         </div>
-        {languageerror()}<br />
+        {languageerror()}<br /><br /><br />
 
-        <button type="button" id="inputsubmit" onClick={() => { submitform(); }}>Submit</button>
+        <button type="button" id="leave" onClick={() => { leaveform(); }}>Cancel</button><br />
+        <button type="button" id="sub" onClick={() => { submitform(); }}>Submit</button>
       </form>
     </div>
   );
