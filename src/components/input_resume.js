@@ -559,12 +559,28 @@ function InputResume(props) {
     props.history.push('/profile');
   };
 
+  // const onImageUpload = (event) => {
+  //   console.log(event.target.files[0]);
+  //   const file = event.target.files[0];
+  //   // Handle null file
+  //   // Get url of the file and set it to the src of preview
+  //   if (file) {
+  //     // console.log('running onImageUpload');
+  //     this.setState(((prevState) => ({
+  //       ...prevState,
+  //       preview: window.URL.createObjectURL(file),
+  //       file,
+  //     })));
+  //   }
+  //   // console.log('state onImageUpload', this.state);
+  // }
+
   return (
     <div>
       <form>
         <h1 className="title">Resume Information</h1><br /><br /><br />
         <div>
-          <h2 id="inputheader">Select an Existing Portfolio</h2>
+          <h2 id="inputheader">Autofill with Existing Portfolio</h2>
           {folioOptions()}
           <p id="selectedp">Selected: {selectedp.selectedp}</p>
         </div><br /><br />
@@ -599,136 +615,137 @@ function InputResume(props) {
         <div className="Research">
           <div className="section-title">
             <h2 id="inputheader">Research</h2>
-            <i className="material-icons"
-              onClick={() => {
-                setResearch([...research, {
-                  researchlab: '', startdate: '', enddate: '', position: '', description: '',
-                }]);
-              }}
-              id="inputbutton"
-            >add_circle
-            </i>
           </div>
           {research.map((object, index) => {
             return (
               <li key={index}>
+                <i className="material-icons" onClick={() => { setResearch([...research.slice(0, index), ...research.slice(index + 1)]); }}>clear</i>
                 <input placeholder="Research Lab" id="resumeinput" name="researchlab" className="researchlab" value={research[index].researchlab} onChange={(event) => { updateResearch(index, 'researchlab', event.target.value); }} />
                 <input placeholder="Start Date" id="resumeinput" className="text-input" value={research[index].startdate} onChange={(event) => { updateResearch(index, 'startdate', event.target.value); }} />
                 <input placeholder="End Date" id="resumeinput" className="text-input" value={research[index].enddate} onChange={(event) => { updateResearch(index, 'enddate', event.target.value); }} />
                 <input placeholder="Position" id="resumeinput" className="text-input" value={research[index].position} onChange={(event) => { updateResearch(index, 'position', event.target.value); }} />
                 <textarea placeholder="Description" row="6" id="bigtext" className="text-input" value={research[index].description} onChange={(event) => { updateResearch(index, 'description', event.target.value); }} />
-                <i className="material-icons" onClick={() => { setResearch([...research.slice(0, index), ...research.slice(index + 1)]); }}>clear</i>
               </li>
             );
           })}
+          <i className="material-icons"
+            onClick={() => {
+              setResearch([...research, {
+                researchlab: '', startdate: '', enddate: '', position: '', description: '',
+              }]);
+            }}
+            id="inputbutton"
+          >add_circle
+          </i>
         </div>
         {researcherror()}<br /><br /><br />
 
         <div className="Work">
           <div className="section-title">
             <h2 id="inputheader">Work Experience</h2>
-            <i className="material-icons"
-              onClick={() => {
-                setWork([...work, {
-                  company: '', startdate: '', enddate: '', position: '', description: '',
-                }]);
-              }}
-              id="inputbutton"
-            >add_circle
-            </i>
           </div>
           {work.map((object, index) => {
             return (
               <li key={index}>
+                <i className="material-icons" onClick={() => { setWork([...work.slice(0, index), ...work.slice(index + 1)]); }}>clear</i>
                 <input placeholder="Company Name" id="resumeinput" name="company" className="company" value={work[index].company} onChange={(event) => { updateWork(index, 'company', event.target.value); }} />
                 <input placeholder="Start Date" id="resumeinput" className="text-input" value={work[index].startdate} onChange={(event) => { updateWork(index, 'startdate', event.target.value); }} />
                 <input placeholder="End Date" id="resumeinput" className="text-input" value={work[index].enddate} onChange={(event) => { updateWork(index, 'enddate', event.target.value); }} />
                 <input placeholder="Position" id="resumeinput" className="text-input" value={work[index].position} onChange={(event) => { updateWork(index, 'position', event.target.value); }} />
                 <textarea placeholder="Description" row="6" id="bigtext" className="text-input" value={work[index].description} onChange={(event) => { updateWork(index, 'description', event.target.value); }} />
-                <i className="material-icons" onClick={() => { setWork([...work.slice(0, index), ...work.slice(index + 1)]); }}>clear</i>
               </li>
             );
           })}
+          <i className="material-icons"
+            onClick={() => {
+              setWork([...work, {
+                company: '', startdate: '', enddate: '', position: '', description: '',
+              }]);
+            }}
+            id="inputbutton"
+          >add_circle
+          </i>
         </div>
         {workerror()}<br /><br /><br />
 
         <div className="Projects">
           <div className="section-title">
             <h2 id="inputheader">Projects</h2>
-            <i className="material-icons"
-              onClick={() => {
-                setProjects([...projects, {
-                  project: '', startdate: '', enddate: '', description: '',
-                }]);
-              }}
-              id="inputbutton"
-            >add_circle
-            </i>
           </div>
           {projects.map((object, index) => {
             return (
               <li key={index}>
+                <i className="material-icons" onClick={() => { setProjects([...projects.slice(0, index), ...projects.slice(index + 1)]); }}>clear</i>
                 <input placeholder="Project" id="resumeinput" name="project" className="projects" value={projects[index].project} onChange={(event) => { updateProjects(index, 'project', event.target.value); }} />
                 <input placeholder="Start Date" id="resumeinput" className="text-input" value={projects[index].startdate} onChange={(event) => { updateProjects(index, 'startdate', event.target.value); }} />
                 <input placeholder="End Date" id="resumeinput" className="text-input" value={projects[index].enddate} onChange={(event) => { updateProjects(index, 'enddate', event.target.value); }} />
                 <textarea placeholder="Description" row="6" id="bigtext" className="text-input" value={projects[index].description} onChange={(event) => { updateProjects(index, 'description', event.target.value); }} />
-                <i className="material-icons" onClick={() => { setProjects([...projects.slice(0, index), ...projects.slice(index + 1)]); }}>clear</i>
+                {/* <input type="file" name="coverImage" title="Choose a video please" onChange={onImageUpload} /> */}
               </li>
             );
           })}
+          <i className="material-icons"
+            onClick={() => {
+              setProjects([...projects, {
+                project: '', startdate: '', enddate: '', description: '',
+              }]);
+            }}
+            id="inputbutton"
+          >add_circle
+          </i>
         </div>
         {projecterror()}<br /><br /><br />
 
         <div className="technical">
           <div className="section-title">
             <h2 id="inputheader">Technical Skills</h2>
-            <i className="material-icons"
-              onClick={() => {
-                setTechnical([...technical, {
-                  technical: '',
-                }]);
-              }}
-              id="inputbutton"
-            >add_circle
-            </i>
           </div>
           {technical.map((object, index) => {
             return (
               <li key={index}>
-                <input placeholder="Technical Skill" id="resumeinput" name="technical" className="technical" value={technical[index].technical} onChange={(event) => { updateTechnical(index, event.target.value); }} />
                 <i className="material-icons" onClick={() => { setTechnical([...technical.slice(0, index), ...technical.slice(index + 1)]); }}>clear</i>
+                <input placeholder="Technical Skill" id="resumeinput" name="technical" className="technical" value={technical[index].technical} onChange={(event) => { updateTechnical(index, event.target.value); }} />
               </li>
             );
           })}
+          <i className="material-icons"
+            onClick={() => {
+              setTechnical([...technical, {
+                technical: '',
+              }]);
+            }}
+            id="inputbutton"
+          >add_circle
+          </i>
         </div>
         {technicalerror()}<br /><br /><br />
 
         <div className="language">
           <div className="section-title">
             <h2 id="inputheader">Languages</h2>
-            <i className="material-icons"
-              onClick={() => {
-                setLanguage([...language, {
-                  language: '',
-                }]);
-              }}
-              id="inputbutton"
-            >add_circle
-            </i>
           </div>
           {language.map((object, index) => {
             return (
               <li key={index}>
-                <input placeholder="Language" id="resumeinput" name="language" className="language" value={language[index].language} onChange={(event) => { updateLanguage(index, event.target.value); }} />
                 <i className="material-icons" onClick={() => { setLanguage([...language.slice(0, index), ...language.slice(index + 1)]); }}>clear</i>
+                <input placeholder="Language" id="resumeinput" name="language" className="language" value={language[index].language} onChange={(event) => { updateLanguage(index, event.target.value); }} />
               </li>
             );
           })}
+          <i className="material-icons"
+            onClick={() => {
+              setLanguage([...language, {
+                language: '',
+              }]);
+            }}
+            id="inputbutton"
+          >add_circle
+          </i>
         </div>
         {languageerror()}<br /><br /><br />
 
+        <button type="button" id="sub" onClick={() => { submitform(); }}>Submit</button><br />
         <button type="button" id="leave" onClick={() => { leaveform(); }}>Cancel</button><br />
-        <button type="button" id="sub" onClick={() => { submitform(); }}>Submit</button>
       </form>
     </div>
   );
