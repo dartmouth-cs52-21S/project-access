@@ -482,20 +482,31 @@ function customize(props) {
 
   function onDoneEdit() {
     setIsEditing(!isEditing);
-    if (userNameFontSize.substring(userNameFontSize.indexOf('e'), userNameFontSize.length - 1) === 'emem') {
-      setUserNameFontSize(userNameFontSize.substring(0, userNameFontSize.length - 3));
+    let tempUsernameFontSize = userNameFontSize;
+    let tempRoleFontSize = roleFontSize;
+    let tempAboutmeFontSize = aboutmeFontSize;
+    let tempProjectsFontSize = projectsFontSize;
+    let tempContactmeFontSize = contactmeFontSize;
+
+    if (userNameFontSize.lastIndexOf('e') >= 1) {
+      setUserNameFontSize(userNameFontSize.substring(0, userNameFontSize.indexOf('e')));
+      tempUsernameFontSize = userNameFontSize.substring(0, userNameFontSize.indexOf('e'));
     }
-    if (roleFontSize.substring(roleFontSize.indexOf('e'), roleFontSize.length - 1) === 'emem') {
-      setRoleFontSize(roleFontSize.substring(0, roleFontSize.length - 3));
+    if (roleFontSize.lastIndexOf('e') >= 1) {
+      setRoleFontSize(roleFontSize.substring(0, roleFontSize.indexOf('e')));
+      tempRoleFontSize = roleFontSize.substring(0, roleFontSize.indexOf('e'));
     }
-    if (aboutmeFontSize.substring(aboutmeFontSize.indexOf('e'), aboutmeFontSize.length - 1) === 'emem') {
-      setAboutmeFontSize(aboutmeFontSize.substring(0, aboutmeFontSize.length - 3));
+    if (aboutmeFontSize.lastIndexOf('e') >= 1) {
+      setAboutmeFontSize(aboutmeFontSize.substring(0, aboutmeFontSize.indexOf('e')));
+      tempAboutmeFontSize = aboutmeFontSize.substring(0, aboutmeFontSize.indexOf('e'));
     }
-    if (projectsFontSize.substring(projectsFontSize.indexOf('e'), projectsFontSize.length - 1) === 'emem') {
-      setProjectsFontSize(projectsFontSize.substring(0, projectsFontSize.length - 3));
+    if (projectsFontSize.lastIndexOf('e') >= 1) {
+      setProjectsFontSize(projectsFontSize.substring(0, aboutmeFontSize.indexOf('e')));
+      tempProjectsFontSize = projectsFontSize.substring(0, projectsFontSize.indexOf('e'));
     }
-    if (contactmeFontSize.substring(contactmeFontSize.indexOf('e'), contactmeFontSize.length - 1) === 'emem') {
-      setContactmeFontSize(contactmeFontSize.substring(0, contactmeFontSize.length - 3));
+    if (contactmeFontSize.lastIndexOf('e') >= 1) {
+      setContactmeFontSize(contactmeFontSize.substring(0, aboutmeFontSize.indexOf('e')));
+      tempContactmeFontSize = contactmeFontSize.substring(0, contactmeFontSize.indexOf('e'));
     }
 
     props.updatePortfolio(props.match.params.id, {
@@ -507,14 +518,14 @@ function customize(props) {
           color: userNameColor,
           backgroundColor: userNameBgColor,
           font: userNameFont,
-          fontSize: `${userNameFontSize}em`,
+          fontSize: `${tempUsernameFontSize}em`,
         },
         role: {
           ...portfolio.header.role,
           color: roleColor,
           backgroundColor: roleBgColor,
           font: roleFont,
-          fontSize: `${roleFontSize}em`,
+          fontSize: `${tempRoleFontSize}em`,
         },
       },
       aboutMe: {
@@ -522,14 +533,14 @@ function customize(props) {
         color: aboutmeColor,
         backgroundColor: aboutmeBgColor,
         font: aboutmeFont,
-        fontSize: `${aboutmeFontSize}em`,
+        fontSize: `${tempAboutmeFontSize}em`,
       },
       projects: {
         ...portfolio.projects,
         color: projectsColor,
         backgroundColor: projectsBgColor,
         font: projectsFont,
-        fontSize: `${projectsFontSize}em`,
+        fontSize: `${tempProjectsFontSize}em`,
         flexDirection: projectsDir,
       },
       contactMe: {
@@ -537,7 +548,7 @@ function customize(props) {
         color: contactmeColor,
         backgroundColor: contactmeBgColor,
         font: contactmeFont,
-        fontSize: `${contactmeFontSize}em`,
+        fontSize: `${tempContactmeFontSize}em`,
       },
     });
   }
