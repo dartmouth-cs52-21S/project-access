@@ -48,6 +48,7 @@ function InputResume(props) {
   }, [props.match.params.id]);
 
   useEffect(() => {
+    setSelectedp({ selectedp: props.curr?.name });
     setName({ name: props.curr?.resume?.event?.name?.name });
     setPhone({ phone: props.curr?.resume?.event?.phone?.phone });
     setEmail({ email: props.curr?.resume?.event?.email?.email });

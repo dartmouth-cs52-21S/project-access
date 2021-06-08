@@ -243,6 +243,7 @@ class Portfolio extends Component {
           <div className="aboutme" style={aboutmestyle}>
             <div style={aboutstyle}>
               <img src={this.props.user.profileUrl} style={aboutimagestyle} alt="aboutimage" />
+              {console.log(this.props.user.profileUrl)}
               <div>
                 <p style={bolder}>About Me</p><br />
                 <p>{this.props.curr.resume?.event?.about.about}</p>
