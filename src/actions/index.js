@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// export const ROOT_URL = 'http://localhost:9090/api';
-export const ROOT_URL = 'https://cs52access.herokuapp.com/api';
+export const ROOT_URL = 'http://localhost:9090/api';
+// export const ROOT_URL = 'https://cs52access.herokuapp.com/api';
 
 // keys for actiontypes
 export const ActionTypes = {
@@ -121,6 +121,8 @@ export function deletePortfolio(portfolioId, history) {
       .then((response) => {
         dispatch({ type: ActionTypes.DELETE_PORTFOLIO, payload: response.data });
         history.push('/profile');
+
+        history.push('/portfolios');
       })
       .catch((error) => {
         console.log('delete portfolio error found');
