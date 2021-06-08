@@ -99,7 +99,7 @@ class Portfolio extends Component {
       flexDirection: 'row',
     };
     const aboutimagestyle = {
-      width: '400px',
+      width: '500px',
       height: 'auto',
     };
 
