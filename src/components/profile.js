@@ -32,7 +32,7 @@ class Profile extends Component {
       return (
         <div className="view-portfolios">
           <NavLink exact to="/portfolios">
-            <button className="button" type="button"><span>View Existing Portfolios</span></button>
+            <button className="button profilebuttons" type="button"><span>View Existing Portfolios</span></button>
           </NavLink>
         </div>
       );
@@ -77,12 +77,12 @@ class Profile extends Component {
         </div> */}
         <div className="create-portfolio">
           <NavLink exact to="/templates">
-            <button className="button" type="button"><span>Create New Portfolio</span></button>
+            <button className="button profilebuttons" type="button"><span>Create New Portfolio</span></button>
           </NavLink>
         </div>
         <div className="settings">
           <NavLink exact to="/settings">
-            <button className="button" type="button"><span>Settings</span></button>
+            <button className="button profilebuttons" type="button"><span>Settings</span></button>
           </NavLink>
         </div>
       </div>
