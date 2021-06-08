@@ -5,7 +5,7 @@ import { ROOT_URL } from './actions';
 
 // adapted from https://cs52.me/assignments/sa/s3-upload/
 function getSignedRequest(file) {
-  return axios.post(`${ROOT_URL}/images`, { headers: { authorization: localStorage.getItem('token') } }).then((response) => {
+  return axios.post(`${ROOT_URL}/images`).then((response) => {
     console.log('getSignedRequest post', response.data);
     const fileName = encodeURIComponent(response.data.id);
     return axios.get(`${ROOT_URL}/sign-s3?file-name=${fileName}&file-type=${file.type}`);
@@ -33,7 +33,7 @@ function uploadFileToS3(signedRequest, file, url) {
 
 function updateImageUrl(id, url) {
   console.log('updateImageUrl', url);
-  return axios.put(`${ROOT_URL}/images`, { id, url }, { headers: { authorization: localStorage.getItem('token') } });
+  return axios.put(`${ROOT_URL}/images`, { id, url });
 }
 
 export function uploadImage(file) {
