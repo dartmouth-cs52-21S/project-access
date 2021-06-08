@@ -85,7 +85,6 @@ function customize(props) {
   };
 
   const renderSlide = () => {
-    console.log(currentSlide);
     if (currentSlide == 1) {
       return (
         <div className="custom_section">

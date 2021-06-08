@@ -11,7 +11,6 @@ class ChooseTemplate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // isCreating: false,
       portfolioName: '',
       templateSelected: '',
       templateSelectedImg: '',
@@ -25,7 +24,6 @@ class ChooseTemplate extends Component {
   }
 
   clickTemplate = (template, id) => {
-    console.log('current template id selected', id);
     const dict = {
       0: 'Classic',
       1: 'Bleu',
@@ -34,7 +32,6 @@ class ChooseTemplate extends Component {
       4: 'Corvey',
       5: 'Fancy',
     };
-    // this.setState({ isCreating: true });
     this.setState({ templateSelected: id, templateSelectedImg: template, templateSelectedName: dict[id % 5] });
     this.handleOpenModal();
   }
@@ -44,7 +41,6 @@ class ChooseTemplate extends Component {
   }
 
   onCreateTemplate = () => {
-    // console.log('template id', this.state.templateSelected);
     if (this.state.portfolioName !== '') {
       this.props.createPortfolio(this.state.templateSelected, this.state.portfolioName, this.props.history);
     }
@@ -85,30 +81,15 @@ class ChooseTemplate extends Component {
       4: 'Corvey',
       5: 'Fancy',
     };
-
     const selectedname = dict[moddedId];
-
-    // this.setState({ templateSelectedName: selectedname });
     return (
       selectedname
     );
   }
 
   displayAll = (props) => {
-    // console.log('templates', this.props.templates);
     if (this.props.templates.length === 0) {
-      // console.log('empty!');
       return (<div>No Templates</div>);
-    // } else if (this.state.isCreating) {
-    //   return (
-    //     <div>
-    //       {this.displayCreatingTemplates()}
-    //       <div>
-    //         <input onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="insert portfolio name" />
-    //         <button type="button" onClick={this.onCreateTemplate}>Create Portfolio</button>
-    //       </div>
-    //     </div>
-    //   );
     } else {
       return (
         this.props.templates.map((template, id) => {
@@ -135,7 +116,6 @@ class ChooseTemplate extends Component {
 
   render() {
     return (
-    // desigining the template page
       <div className="choose-template-page">
         {this.displayAll()}
         <ReactModal
