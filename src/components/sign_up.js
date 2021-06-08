@@ -7,7 +7,6 @@
 import { connect } from 'react-redux';
 import { withRouter, NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
-// import TextareaAutosize from 'react-textarea-autosize';
 import validator from 'validator';
 import { signupUser } from '../actions';
 import '../style.scss';
@@ -54,9 +53,7 @@ class signUp extends Component {
     if (this.state.confirmpassword !== this.state.password || this.state.email == null || this.state.firstName == null || this.state.lastName == null || this.state.password == null || this.state.password.length < 8 || !validator.isEmail(this.state.email.toString())) {
       console.log('unable to signup user. missing, invalid, fields or mismatch password');
     } else {
-      // console.log('submitting info');
       this.props.signupUser(this.state, this.props.history);
-      // console.log(this.state);
     }
   }
 
@@ -145,7 +142,6 @@ class signUp extends Component {
   }
 
   displayEmailUsed = (props) => {
-    console.log(this.props.autherr);
     if (this.props.autherr === 'Error: Email is in use') {
       return (
         <div className="errormsg">Email is already in use!</div>
@@ -156,16 +152,12 @@ class signUp extends Component {
   }
 
   displayInvalidEmail = () => {
-    console.log('INVALID EMAIL', this.state.email);
     if (this.state.email !== null) {
       if (validator.isEmail(this.state.email)) {
-        // console.log('email valid');
         return (
-          // <div className="errormsg">Email Valid</div>
           null
         );
       } else {
-        // console.log('email invalid');
         if (this.state.email !== '') {
           return (
             <div className="errormsg">Email Invalid</div>
@@ -181,7 +173,6 @@ class signUp extends Component {
 
   render() {
     return (
-
       <div className="form">
         <div className="centeringform">
           <div className="title">Welcome</div>
@@ -224,43 +215,6 @@ class signUp extends Component {
           <p>Already have an account? Sign in <NavLink className="signinup" exact to="/signin">Here</NavLink></p>
         </div>
       </div>
-    // <div className="signin_up">
-    //   <div>
-    //     <h1 id="signin_up_title">Create Your New Account!</h1>
-    //     <div className="signupinfo">
-    //       <h2>First Name</h2>
-    //       <input type="text" id="utextinput" onChange={this.OnInputChangeFirstname} placeholder="First Name" />
-    //     </div>
-    //     {this.displayMissingFirstName()}
-    //     <div className="signupinfo">
-    //       <h2>Last Name</h2>
-    //       <input type="text" id="utextinput" onChange={this.OnInputChangeLastname} placeholder="Last Name" />
-    //     </div>
-    //     {this.displayMissingLastName()}
-    //     <div className="signupinfo">
-    //       <h2>Email</h2>
-    //       <input type="text" id="utextinput" onChange={this.OnInputChangeEmail} placeholder="Email" />
-    //     </div>
-    //     {this.displayMissingEmail()}
-    //     {this.displayInvalidEmail()}
-    //     {this.displayEmailUsed()}
-    //     <div className="signupinfo">
-    //       <h2>Password</h2>
-    //       <input type="password" id="utextinput" onChange={this.OnInputChangePassword} placeholder="Password" />
-    //     </div>
-    //     {this.displayMissingPassword()}
-    //     {this.displayPasswordMismatch()}
-    //     <div className="signupinfo">
-    //       <h2>Confirm Password</h2>
-    //       <input type="password" id="utextinput" onChange={this.OnInputChangeConfirm} placeholder="Confirm Password" />
-    //     </div>
-    //     {this.displayMissingConfirm()}
-    //   </div>
-    //   <div>
-    //     <div className="sign-button" onClick={this.submitinfo}>Sign Up</div>
-    //   </div>
-    //   {/* {ERROR} */}
-    // </div>
     );
   }
 }

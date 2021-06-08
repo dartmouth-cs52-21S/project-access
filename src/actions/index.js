@@ -33,12 +33,10 @@ export function createPortfolio(templateId, portfolioName, history) {
   return (dispatch) => {
     axios.post(`${ROOT_URL}/portfolios/create/${templateId}`, { portfolioName }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        console.log('createPortfolio', response.data);
         dispatch({ type: ActionTypes.CREATE_PORTFOLIO, payload: response.data });
         history.push(`/portfolios/edit/resume/${response.data.id}`);
       })
       .catch((error) => {
-        console.log('create portfolio error found');
         console.log(error);
       });
   };
@@ -52,7 +50,6 @@ export function fetchPortfolio(portfolioId) {
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
       })
       .catch((error) => {
-        console.log('fetch one portfolio error found');
         console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, payload: error });
       });
@@ -67,7 +64,6 @@ export function fetchPortfolios() {
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
       })
       .catch((error) => {
-        console.log('fetch portfolios error found');
         console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, payload: error });
       });
@@ -79,10 +75,8 @@ export function fetchTemplates() {
     axios.get(`${ROOT_URL}/templates`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_TEMPLATES, payload: response.data });
-        console.log('fetchtemplates', response.data);
       })
       .catch((error) => {
-        console.log('fetch templates error found');
         console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, payload: error });
       });
@@ -97,7 +91,6 @@ export function updatePortfolio(portfolioId, portfolioFields) {
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
       })
       .catch((error) => {
-        console.log('update portfolio error found');
         console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, payload: error });
       });
@@ -114,8 +107,7 @@ export function deletePortfolio(portfolioId, history) {
         history.push('/portfolios');
       })
       .catch((error) => {
-        console.log('delete portfolio error found');
-        console.log(error);
+        console.log('delete portfolio error', error);
       });
   };
 }
@@ -125,10 +117,8 @@ export function getUserProfile() {
     axios.get(`${ROOT_URL}/profile`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PROFILE, payload: response.data });
-        // history.push('/');
       })
       .catch((error) => {
-        console.log('get profile error found');
         console.log(error);
       });
   };
@@ -173,7 +163,6 @@ export function signupUser({
       localStorage.setItem('token', response.data.token);
       history.push('/profile');
     }).catch((error) => {
-      console.log('errormessage', error.response.data);
       dispatch(authError(`${error.response.data.error.toString()}`));
     });
   };
@@ -182,7 +171,6 @@ export function signupUser({
 // deletes token from localstorage
 // and deauths
 export function signoutUser(history) {
-  console.log('sign out');
   return (dispatch) => {
     localStorage.removeItem('token');
     dispatch({ type: ActionTypes.DEAUTH_USER });

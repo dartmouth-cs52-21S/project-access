@@ -24,7 +24,6 @@ class ChooseTemplate extends Component {
   }
 
   clickTemplate = (template, id) => {
-    console.log('current template id selected', id);
     const dict = {
       0: 'Classic',
       1: 'Bleu',
@@ -33,7 +32,6 @@ class ChooseTemplate extends Component {
       4: 'Corvey',
       5: 'Fancy',
     };
-    // this.setState({ isCreating: true });
     this.setState({ templateSelected: id, templateSelectedImg: template, templateSelectedName: dict[id % 5] });
     this.handleOpenModal();
   }
@@ -118,7 +116,6 @@ class ChooseTemplate extends Component {
 
   render() {
     return (
-    // desigining the template page
       <div className="choose-template-page">
         {this.displayAll()}
         <ReactModal
