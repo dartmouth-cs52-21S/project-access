@@ -195,7 +195,7 @@ function customize(props) {
     if (currentSlide == 1) {
       return (
         <div className="custom_section">
-          <h3>Username</h3>
+          <h3>Username Section</h3>
           <div className="colorpickers">
             <div className="colorsections">
               <p>Background color:</p>
@@ -486,16 +486,16 @@ function customize(props) {
       setUserNameFontSize(userNameFontSize.substring(0, userNameFontSize.length - 3));
     }
     if (roleFontSize.substring(roleFontSize.indexOf('e'), roleFontSize.length - 1) === 'emem') {
-      setUserNameFontSize(roleFontSize.substring(0, roleFontSize.length - 3));
+      setRoleFontSize(roleFontSize.substring(0, roleFontSize.length - 3));
     }
     if (aboutmeFontSize.substring(aboutmeFontSize.indexOf('e'), aboutmeFontSize.length - 1) === 'emem') {
-      setUserNameFontSize(aboutmeFontSize.substring(0, aboutmeFontSize.length - 3));
+      setAboutmeFontSize(aboutmeFontSize.substring(0, aboutmeFontSize.length - 3));
     }
     if (projectsFontSize.substring(projectsFontSize.indexOf('e'), projectsFontSize.length - 1) === 'emem') {
-      setUserNameFontSize(projectsFontSize.substring(0, projectsFontSize.length - 3));
+      setProjectsFontSize(projectsFontSize.substring(0, projectsFontSize.length - 3));
     }
     if (contactmeFontSize.substring(contactmeFontSize.indexOf('e'), contactmeFontSize.length - 1) === 'emem') {
-      setUserNameFontSize(contactmeFontSize.substring(0, contactmeFontSize.length - 3));
+      setContactmeFontSize(contactmeFontSize.substring(0, contactmeFontSize.length - 3));
     }
 
     props.updatePortfolio(props.match.params.id, {
