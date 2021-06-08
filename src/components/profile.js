@@ -11,16 +11,13 @@ import '../styles/profile-page.scss';
 
 // Profile page commponent that displays username, email, and provides routed
 // options to create, print, edit resume, as well as settings and logout
-
 class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // user: '',
     };
   }
 
-  // fetching user profile information
   componentDidMount = (props) => {
     this.props.getUserProfile();
   }
@@ -32,7 +29,7 @@ class Profile extends Component {
       return (
         <div className="view-portfolios">
           <NavLink exact to="/portfolios">
-            <button className="button" type="button"><span>View Existing Portfolios</span></button>
+            <button className="button profilebuttons" type="button"><span>View Existing Portfolios</span></button>
           </NavLink>
         </div>
       );
@@ -60,29 +57,22 @@ class Profile extends Component {
       <div className="profile-page">
         <div className="profile-user-info">
           <div className="profile-img">
-            {/* extra feature: implementing image upload */}
             {this.displayProfileImage()}
           </div>
           <div className="profile-info">
-            {console.log(this.props.profile)}
             <div className="profile-info-name">{this.props.profile.firstName} {this.props.profile.lastName}</div>
             <div className="profile-info-email">{this.props.profile.email}</div>
           </div>
         </div>
         {this.displayViewExistingButton()}
-        {/* <div className="view-portfolios">
-          <NavLink exact to="/portfolios">
-            <button className="button" type="button"><span>View Existing Portfolios</span></button>
-          </NavLink>
-        </div> */}
         <div className="create-portfolio">
           <NavLink exact to="/templates">
-            <button className="button" type="button"><span>Create New Portfolio</span></button>
+            <button className="button profilebuttons" type="button"><span>Create New Portfolio</span></button>
           </NavLink>
         </div>
         <div className="settings">
           <NavLink exact to="/settings">
-            <button className="button" type="button"><span>Settings</span></button>
+            <button className="button profilebuttons" type="button"><span>Settings</span></button>
           </NavLink>
         </div>
       </div>

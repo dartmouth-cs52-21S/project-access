@@ -10,7 +10,6 @@ export const ActionTypes = {
   FETCH_PORTFOLIO: 'FETCH_PORTFOLIO',
   UPDATE_PORTFOLIO: 'UPDATE_PORTFOLIO',
   DELETE_PORTFOLIO: 'DELETE_PORTFOLIO',
-  // ERROR_FETCH_POST: 'ERROR_FETCH_POST',
   FETCH_PROFILE: 'FETCH_PROFILE',
   UPDATE_PROFILE: 'UPDATE_PROFILE',
   ERROR_SET: 'ERROR_SET',
@@ -21,8 +20,6 @@ export const ActionTypes = {
   FETCH_TEMPLATES: 'FETCH_TEMPLATES',
   FETCH_RESUME: 'FETCH_RESUME',
   UPDATE_RESUME: 'UPDATE_RESUME',
-  // FETCH_USERS: 'FETCH_USERS',
-  // FETCH_USER: 'FETCH_USER',
 };
 
 export function authError(error) {
@@ -32,24 +29,14 @@ export function authError(error) {
   };
 }
 
-// const field = {
-//   firstName, lastName, email, password, portfolioIds, resume,
-// };
-
-// export function createPortfolio(templateId, {
-//   firstName, lastName, email, password, portfolioIds, resume, portfolioName,
-// }, history) {
 export function createPortfolio(templateId, portfolioName, history) {
   return (dispatch) => {
-    // axios.post(`${ROOT_URL}/portfolio/${templateId}${firstName}${lastName}`, {
     axios.post(`${ROOT_URL}/portfolios/create/${templateId}`, { portfolioName }, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        console.log('createPortfolio', response.data);
         dispatch({ type: ActionTypes.CREATE_PORTFOLIO, payload: response.data });
         history.push(`/portfolios/edit/resume/${response.data.id}`);
       })
       .catch((error) => {
-        console.log('create portfolio error found');
         console.log(error);
       });
   };
@@ -63,7 +50,6 @@ export function fetchPortfolio(portfolioId) {
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
       })
       .catch((error) => {
-        console.log('fetch one portfolio error found');
         console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, payload: error });
       });
@@ -78,7 +64,6 @@ export function fetchPortfolios() {
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
       })
       .catch((error) => {
-        console.log('fetch portfolios error found');
         console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, payload: error });
       });
@@ -90,10 +75,8 @@ export function fetchTemplates() {
     axios.get(`${ROOT_URL}/templates`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_TEMPLATES, payload: response.data });
-        console.log('fetchtemplates', response.data);
       })
       .catch((error) => {
-        console.log('fetch templates error found');
         console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, payload: error });
       });
@@ -108,7 +91,6 @@ export function updatePortfolio(portfolioId, portfolioFields) {
         dispatch({ type: ActionTypes.ERROR_CLEAR, payload: '' });
       })
       .catch((error) => {
-        console.log('update portfolio error found');
         console.log(error);
         dispatch({ type: ActionTypes.ERROR_SET, payload: error });
       });
@@ -125,37 +107,7 @@ export function deletePortfolio(portfolioId, history) {
         history.push('/portfolios');
       })
       .catch((error) => {
-        console.log('delete portfolio error found');
-        console.log(error);
-      });
-  };
-}
-
-export function getUserResume() {
-  return (dispatch) => {
-    axios.get(`${ROOT_URL}/resume`, { headers: { authorization: localStorage.getItem('token') } })
-      .then((response) => {
-        dispatch({ type: ActionTypes.FETCH_RESUME, payload: response.data });
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log('get user resume error found');
-        console.log(error);
-      });
-  };
-}
-
-export function updateUserResume(resumeFields) {
-  return (dispatch) => {
-    axios.put(`${ROOT_URL}/resume`, { ...resumeFields }, { headers: { authorization: localStorage.getItem('token') } })
-      .then((response) => {
-        console.log('before resumeFields', { ...resumeFields });
-        dispatch({ type: ActionTypes.UPDATE_RESUME, payload: response.data });
-        console.log('resumeFields', { ...resumeFields });
-      })
-      .catch((error) => {
-        console.log('put user resume error found');
-        console.log(error);
+        console.log('delete portfolio error', error);
       });
   };
 }
@@ -165,10 +117,8 @@ export function getUserProfile() {
     axios.get(`${ROOT_URL}/profile`, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
         dispatch({ type: ActionTypes.FETCH_PROFILE, payload: response.data });
-        // history.push('/');
       })
       .catch((error) => {
-        console.log('get profile error found');
         console.log(error);
       });
   };
@@ -178,14 +128,10 @@ export function updateUserProfile(userFields) {
   return (dispatch) => {
     axios.put(`${ROOT_URL}/profile`, userFields, { headers: { authorization: localStorage.getItem('token') } })
       .then((response) => {
-        // console.log('userFields updateUserprofile', userFields);
         dispatch({ type: ActionTypes.UPDATE_PROFILE, payload: response.data });
         dispatch(authError('""'));
       })
       .catch((error) => {
-        console.log('update user profile error');
-        console.log('errormessage', error.response.data);
-        console.log(error.response.data.error.toString());
         dispatch(authError(`${error.response.data.error.toString()}`));
       });
   };
@@ -217,7 +163,6 @@ export function signupUser({
       localStorage.setItem('token', response.data.token);
       history.push('/profile');
     }).catch((error) => {
-      console.log('errormessage', error.response.data);
       dispatch(authError(`${error.response.data.error.toString()}`));
     });
   };
@@ -226,7 +171,6 @@ export function signupUser({
 // deletes token from localstorage
 // and deauths
 export function signoutUser(history) {
-  console.log('sign out');
   return (dispatch) => {
     localStorage.removeItem('token');
     dispatch({ type: ActionTypes.DEAUTH_USER });

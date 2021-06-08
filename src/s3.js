@@ -6,7 +6,6 @@ import { ROOT_URL } from './actions';
 // adapted from https://cs52.me/assignments/sa/s3-upload/
 function getSignedRequest(file) {
   return axios.post(`${ROOT_URL}/images`).then((response) => {
-    console.log('getSignedRequest post', response.data);
     const fileName = encodeURIComponent(response.data.id);
     return axios.get(`${ROOT_URL}/sign-s3?file-name=${fileName}&file-type=${file.type}`);
     // hit our own server to get a signed s3 url
@@ -22,17 +21,14 @@ function uploadFileToS3(signedRequest, file, url) {
   url += `?${(new Date()).getTime()}`;
   return new Promise((fulfill, reject) => {
     axios.put(signedRequest, file, { headers: { 'Content-Type': file.type } }).then((response) => {
-      console.log('uploadFiletoS3', response.data);
       fulfill(url);
     }).catch((error) => {
-      console.log('uploadFiletoS3 error', error.toString());
       reject(error);
     });
   });
 }
 
 function updateImageUrl(id, url) {
-  console.log('updateImageUrl', url);
   return axios.put(`${ROOT_URL}/images`, { id, url });
 }
 
@@ -40,7 +36,6 @@ export function uploadImage(file) {
   // returns a promise so you can handle error and completion in your component
   return getSignedRequest(file).then((response) => {
     updateImageUrl(response.data.fileName, response.data.url);
-    // console.log('uploadImage file', response.data);
     return uploadFileToS3(response.data.signedRequest, file, response.data.url);
   });
 }
