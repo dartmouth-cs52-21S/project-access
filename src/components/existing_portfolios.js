@@ -37,11 +37,13 @@ class ExistingPortfolios extends Component {
   displayPortfolios = () => {
     if (this.props.portfolios.length === 0) {
       return (
-        <div>
-          You currently have no portfolios!
-          <Link to="/templates">
-            Edit Resume
-          </Link>
+        <div className="noportfolios">
+          <h2>You currently have no portfolios!</h2>
+          <button type="button">
+            <Link to="/templates">
+              Create one now!
+            </Link>
+          </button>
         </div>
       );
     }

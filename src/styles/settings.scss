@@ -173,7 +173,29 @@
 }
 
 .profile-user-info {
+    margin-top: -30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.profile-info {
+    margin-left:0;
+}
+
+.view-portfolios {
+    margin-top: 0;
+}
+
+.profile-info-name {
+    margin-right: 0 !important;
+}
+
+.profile-info-email {
+    margin-right: 0 !important;
+}
+
+
+.profile-name-email {
+    margin: 0 !important;
 }
