@@ -36,31 +36,31 @@ function customize(props) {
   const [userNameBgColor, setUserNameBgColor] = useState('');
   const [userNameFont, setUserNameFont] = useState('');
   const [userNameFontSize, setUserNameFontSize] = useState('');
-  const [userNameDir, setUserNameDir] = useState('row');
+  // const [userNameDir, setUserNameDir] = useState('row');
 
   const [roleColor, setRoleColor] = useState('');
   const [roleBgColor, setRoleBgColor] = useState('');
   const [roleFont, setRoleFont] = useState('');
   const [roleFontSize, setRoleFontSize] = useState('');
-  const [roleDir, setRoleDir] = useState('');
+  // const [roleDir, setRoleDir] = useState('');
 
   const [aboutmeColor, setAboutmeColor] = useState('');
   const [aboutmeBgColor, setAboutmeBgColor] = useState('');
   const [aboutmeFont, setAboutmeFont] = useState('');
   const [aboutmeFontSize, setAboutmeFontSize] = useState('');
-  const [aboutmeDir, setAboutmeDir] = useState('');
+  // const [aboutmeDir, setAboutmeDir] = useState('');
 
   const [projectsColor, setProjectsColor] = useState('');
   const [projectsBgColor, setProjectsBgColor] = useState('');
   const [projectsFont, setProjectsFont] = useState('');
   const [projectsFontSize, setProjectsFontSize] = useState('');
-  const [projectsDir, setProjectsDir] = useState('');
+  const [projectsDir, setProjectsDir] = useState('row');
 
   const [contactmeColor, setContactmeColor] = useState('');
   const [contactmeBgColor, setContactmeBgColor] = useState('');
   const [contactmeFont, setContactmeFont] = useState('');
   const [contactmeFontSize, setContactmeFontSize] = useState('');
-  const [contactmeDir, setContactmeDir] = useState('');
+  // const [contactmeDir, setContactmeDir] = useState('');
 
   const onChangeHandler = (setter) => (e) => setter(e.target.value);
   const onChangeHandlerColor = (setter) => (e) => (validateColor(e.target.value) ? setter(e.target.value) : setter('white'));
@@ -89,16 +89,15 @@ function customize(props) {
     if (currentSlide == 1) {
       return (
         <div className="custom_section">
-          <h3>Name Section</h3>
+          <h3>Username</h3>
           <div className="mainbody-overall">
             <div className="mainbody">
               <p>Background color: {portfolio.header?.userName.backgroundColor} </p>
-              <p>Color: {portfolio.header?.userName.color} </p>
-              <p>flexDirection: {portfolio.header?.userName.flexDirection} </p>
-              <p>font: {portfolio.header?.userName.font} </p>
-              <p>fontSize: {portfolio.header?.userName.fontSize} </p>
-              <p>justifyContent: {portfolio.header?.userName.justifyContent} </p>
-              <p>padding: {portfolio.header?.userName.padding} </p>
+              <p>Font Color: {portfolio.header?.userName.color} </p>
+              <p>Font: {portfolio.header?.userName.font} </p>
+              <p>Font Size: {portfolio.header?.userName.fontSize} </p>
+              <p>Justify Content: {portfolio.header?.userName.justifyContent} </p>
+              {/* <p>Orientation: {portfolio.header?.userName.flexDirection} </p> */}
             </div>
             <div className="mainbody-preview">
               <div className="preview-section" style={{ backgroundColor: userNameBgColor }}>
@@ -116,12 +115,11 @@ function customize(props) {
           <div className="mainbody-overall">
             <div className="mainbody">
               <p>Background color: {portfolio.header?.role.backgroundColor} </p>
-              <p>Color: {portfolio.header?.role.color} </p>
-              <p>flexDirection: {portfolio.header?.role.flexDirection} </p>
-              <p>font: {portfolio.header?.role.font} </p>
-              <p>fontSize: {portfolio.header?.role.fontSize} </p>
-              <p>justifyContent: {portfolio.header?.role.justifyContent} </p>
-              <p>padding: {portfolio.header?.role.padding} </p>
+              <p>Font Color: {portfolio.header?.role.color} </p>
+              <p>Font: {portfolio.header?.role.font} </p>
+              <p>Font Size: {portfolio.header?.role.fontSize} </p>
+              <p>Justify Content: {portfolio.header?.role.justifyContent} </p>
+              {/* <p>Orientation: {portfolio.header?.role.flexDirection} </p> */}
             </div>
             <div className="mainbody-preview">
               <div className="preview-section" style={{ backgroundColor: roleBgColor }}>
@@ -139,12 +137,11 @@ function customize(props) {
           <div className="mainbody-overall">
             <div className="mainbody">
               <p>Background color: {portfolio.aboutMe?.backgroundColor} </p>
-              <p>Color: {portfolio.aboutMe?.color} </p>
-              <p>flexDirection: {portfolio.aboutMe?.flexDirection} </p>
-              <p>font: {portfolio.aboutMe?.font} </p>
-              <p>fontSize: {portfolio.aboutMe?.fontSize} </p>
-              <p>justifyContent: {portfolio.aboutMe?.justifyContent} </p>
-              <p>padding: {portfolio.aboutMe?.padding} </p>
+              <p>Font Color: {portfolio.aboutMe?.color} </p>
+              <p>Font: {portfolio.aboutMe?.font} </p>
+              <p>Font Size: {portfolio.aboutMe?.fontSize} </p>
+              <p>Justify Content: {portfolio.aboutMe?.justifyContent} </p>
+              {/* <p>Orientation: {portfolio.aboutMe?.flexDirection} </p> */}
             </div>
             <div className="mainbody-preview">
               <div className="preview-section" style={{ backgroundColor: aboutmeBgColor }}>
@@ -162,12 +159,11 @@ function customize(props) {
           <div className="mainbody-overall">
             <div className="mainbody">
               <p>Background color: {portfolio.projects?.backgroundColor} </p>
-              <p>Color: {portfolio.projects?.color} </p>
-              <p>flexDirection: {portfolio.projects?.flexDirection}</p>
-              <p>font: {portfolio.projects?.font} </p>
-              <p>fontSize: {portfolio.projects?.fontSize} </p>
-              <p>justifyContent: {portfolio.projects?.justifyContent} </p>
-              <p>padding: {portfolio.projects?.padding} </p>
+              <p>Font Color: {portfolio.projects?.color} </p>
+              <p>Font: {portfolio.projects?.font} </p>
+              <p>Font Size: {portfolio.projects?.fontSize} </p>
+              <p>Justify Content: {portfolio.projects?.justifyContent} </p>
+              <p>Orientation: {portfolio.projects?.flexDirection}</p>
             </div>
             <div className="mainbody-preview">
               <div className="preview-section" style={{ backgroundColor: projectsBgColor }}>
@@ -186,12 +182,11 @@ function customize(props) {
           <div className="mainbody-overall">
             <div className="mainbody">
               <p>Background color: {portfolio.contactMe?.backgroundColor} </p>
-              <p>Color: {portfolio.contactMe?.color} </p>
-              <p>flexDirection: {portfolio.contactMe?.flexDirection} </p>
-              <p>font: {portfolio.contactMe?.font} </p>
-              <p>fontSize: {portfolio.contactMe?.fontSize} </p>
-              <p>justifyContent: {portfolio.contactMe?.justifyContent} </p>
-              <p>padding: {portfolio.contactMe?.padding} </p>
+              <p>Font Color: {portfolio.contactMe?.color} </p>
+              <p>Font: {portfolio.contactMe?.font} </p>
+              <p>Font Size: {portfolio.contactMe?.fontSize} </p>
+              <p>Justify Content: {portfolio.contactMe?.justifyContent} </p>
+              {/* <p>Orientation: {portfolio.contactMe?.flexDirection} </p> */}
             </div>
             <div className="mainbody-preview">
               <div className="preview-section" style={{ backgroundColor: contactmeBgColor }}>
@@ -209,7 +204,7 @@ function customize(props) {
     if (currentSlide == 1) {
       return (
         <div className="custom_section">
-          <h3>Name Section</h3>
+          <h3>Username</h3>
           <div className="colorpickers">
             <div className="colorsections">
               <p>Background color:</p>
@@ -248,24 +243,6 @@ function customize(props) {
           </div>
           <div className="preview-section" style={{ backgroundColor: userNameBgColor }}>
             <p className="apply-font" style={{ fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p>
-          </div>
-          <p>Row or Column:
-            <input onChange={onChangeHandler(setUserNameDir)} value={userNameDir} />
-          </p>
-          <div>
-            <ToggleButtonGroup
-              value={userNameDir}
-              exclusive
-              onChange={onChangeHandlerDir(setUserNameDir)}
-              aria-label="text alignment"
-            >
-              <ToggleButton value="row" aria-label="row">
-                <Icon icon={sharpTableRows} />
-              </ToggleButton>
-              <ToggleButton value="column" aria-label="column">
-                <Icon icon={inColumns} />
-              </ToggleButton>
-            </ToggleButtonGroup>
           </div>
         </div>
       );
@@ -313,9 +290,9 @@ function customize(props) {
           <div className="preview-section" style={{ backgroundColor: roleBgColor }}>
             <p className="apply-font" style={{ fontSize: roleFontSize, color: roleColor }}>~Font preview~</p>
           </div>
-          <p>Row or Column:
+          {/* <p>Row or Column:
             <input onChange={onChangeHandler(setRoleDir)} value={roleDir} />
-          </p>
+          </p> */}
         </div>
       );
     }
@@ -362,9 +339,9 @@ function customize(props) {
           <div className="preview-section" style={{ backgroundColor: aboutmeBgColor }}>
             <p className="apply-font" style={{ fontSize: aboutmeFontSize, color: aboutmeColor }}>~Font preview~</p>
           </div>
-          <p>Row or Column:
+          {/* <p>Row or Column:
             <input onChange={onChangeHandler(setAboutmeDir)} value={aboutmeDir} />
-          </p>
+          </p> */}
         </div>
       );
     }
@@ -414,6 +391,21 @@ function customize(props) {
           <p>Row or Column:
             <input onChange={onChangeHandler(setProjectsDir)} value={projectsDir} />
           </p>
+          <div>
+            <ToggleButtonGroup
+              value={projectsDir}
+              exclusive
+              onChange={onChangeHandlerDir(setProjectsDir)}
+              aria-label="text alignment"
+            >
+              <ToggleButton value="row" aria-label="row">
+                <Icon icon={sharpTableRows} />
+              </ToggleButton>
+              <ToggleButton value="column" aria-label="column">
+                <Icon icon={inColumns} />
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
         </div>
       );
     }
@@ -460,9 +452,9 @@ function customize(props) {
           <div className="preview-section" style={{ backgroundColor: contactmeBgColor }}>
             <p className="apply-font" style={{ fontSize: contactmeFontSize, color: contactmeColor }}>~Font preview~</p>
           </div>
-          <p>Row or Column:
+          {/* <p>Row or Column:
             <input onChange={onChangeHandler(setContactmeDir)} value={contactmeDir} />
-          </p>
+          </p> */}
         </div>
       );
     }
@@ -482,19 +474,19 @@ function customize(props) {
       setUserNameBgColor(portfolio.header.userName.backgroundColor);
       setUserNameFont(portfolio.header.userName.font);
       setUserNameFontSize(portfolio.header.userName.fontSize);
-      setUserNameDir(portfolio.header.userName.flexDirection);
+      // setUserNameDir(portfolio.header.userName.flexDirection);
 
       setRoleColor(portfolio.header.role.color);
       setRoleBgColor(portfolio.header.role.backgroundColor);
       setRoleFont(portfolio.header.role.font);
       setRoleFontSize(portfolio.header.role.fontSize);
-      setRoleDir(portfolio.header.role.flexDirection);
+      // setRoleDir(portfolio.header.role.flexDirection);
 
       setAboutmeColor(portfolio.aboutMe.color);
       setAboutmeBgColor(portfolio.aboutMe.backgroundColor);
       setAboutmeFont(portfolio.aboutMe.font);
       setAboutmeFontSize(portfolio.aboutMe.fontSize);
-      setAboutmeDir(portfolio.aboutMe.flexDirection);
+      // setAboutmeDir(portfolio.aboutMe.flexDirection);
 
       setProjectsColor(portfolio.projects.color);
       setProjectsBgColor(portfolio.projects.backgroundColor);
@@ -506,7 +498,7 @@ function customize(props) {
       setContactmeBgColor(portfolio.contactMe.backgroundColor);
       setContactmeFont(portfolio.contactMe.font);
       setContactmeFontSize(portfolio.contactMe.fontSize);
-      setContactmeDir(portfolio.contactMe.flexDirection);
+      // setContactmeDir(portfolio.contactMe.flexDirection);
     }
   }, [portfolio]);
 
@@ -522,7 +514,7 @@ function customize(props) {
           backgroundColor: userNameBgColor,
           font: userNameFont,
           fontSize: userNameFontSize,
-          flexDirection: userNameDir,
+          // flexDirection: userNameDir,
         },
         role: {
           ...portfolio.header.role,
@@ -530,7 +522,7 @@ function customize(props) {
           backgroundColor: roleBgColor,
           font: roleFont,
           fontSize: roleFontSize,
-          flexDirection: roleDir,
+          // flexDirection: roleDir,
         },
       },
       aboutMe: {
@@ -539,7 +531,7 @@ function customize(props) {
         backgroundColor: aboutmeBgColor,
         font: aboutmeFont,
         fontSize: aboutmeFontSize,
-        flexDirection: aboutmeDir,
+        // flexDirection: aboutmeDir,
       },
       projects: {
         ...portfolio.projects,
@@ -555,7 +547,7 @@ function customize(props) {
         backgroundColor: contactmeBgColor,
         font: contactmeFont,
         fontSize: contactmeFontSize,
-        flexDirection: contactmeDir,
+        // flexDirection: contactmeDir,
       },
     });
   }
