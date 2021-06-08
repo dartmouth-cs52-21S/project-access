@@ -576,6 +576,7 @@ function customize(props) {
             </div>
             <div className="buttons_div">
               <form action="/portfolios">
+                <button className="editicon-addspin renderbutton" onClick={() => setIsEditing(!isEditing)} type="submit">Edit</button>
                 <button className="editicon-addspin renderbutton" type="submit">Render</button>
               </form>
             </div>
