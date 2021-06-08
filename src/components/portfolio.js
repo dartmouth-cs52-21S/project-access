@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import '../style.scss';
@@ -95,12 +96,12 @@ class Portfolio extends Component {
 
     const aboutstyle = {
       display: 'flex',
-      justifyContent: 'space-around',
-      flexDirection: 'row',
+      flexDirection: 'column',
     };
     const aboutimagestyle = {
-      width: '500px',
+      width: '400px',
       height: 'auto',
+      borderRadius: '10px',
     };
 
     if (Object.keys(this.props.curr).length === 0) {
@@ -242,8 +243,7 @@ class Portfolio extends Component {
           </div>
           <div className="aboutme" style={aboutmestyle}>
             <div style={aboutstyle}>
-              <img src={this.props.user.profileUrl} style={aboutimagestyle} alt="aboutimage" />
-              {console.log(this.props.user.profileUrl)}
+              <img src={(this.props.user.profileUrl === '') ? 'https://codersera.com/blog/wp-content/uploads/2019/07/BLOG-23-L-3.jpg' : this.props.user.profileUrl} style={aboutimagestyle} alt="aboutimage" /><br />
               <div>
                 <p style={bolder}>About Me</p><br />
                 <p>{this.props.curr.resume?.event?.about.about}</p>

@@ -557,7 +557,7 @@ function InputResume(props) {
   };
 
   const leaveform = () => {
-    props.history.push('/profile');
+    props.history.push('/portfolios');
   };
 
   // const onImageUpload = (event) => {
