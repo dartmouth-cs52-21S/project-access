@@ -35,6 +35,18 @@ class ExistingPortfolios extends Component {
   }
 
   displayPortfolios = () => {
+    if (this.props.portfolios.length === 0) {
+      return (
+        <div className="noportfolios">
+          <h2>You currently have no portfolios!</h2>
+          <button type="button">
+            <Link to="/templates">
+              Create one now!
+            </Link>
+          </button>
+        </div>
+      );
+    }
     return (
       this.props.portfolios.map((portfolio) => {
         console.log('THE PORTFOLIO', portfolio);

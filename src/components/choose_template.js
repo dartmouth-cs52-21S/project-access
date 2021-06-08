@@ -136,8 +136,8 @@ class ChooseTemplate extends Component {
               <input type="text" className="portfolio-name-enter" onChange={this.onPortfolioNameChange} value={this.state.portfolioName} placeholder="Enter your portfolio name" />
               {this.displayInvalidPortfolioName()}
               <div className="bottom-options">
+                <button type="button" className="modalbuttons" onClick={this.onCreateTemplate}>Create</button>
                 <button type="button" className="modalbuttons" onClick={this.handleCloseModal}>Back</button>
-                <button type="button" className="modalbuttons" onClick={this.onCreateTemplate}>Create Portfolio</button>
               </div>
             </div>
           </div>

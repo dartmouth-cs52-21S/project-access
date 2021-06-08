@@ -221,3 +221,102 @@
     transition: all 0.3s ease-in-out ;
 
 }
+
+
+.noportfolios {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+    h2 {
+        margin-top: 50px;
+        margin-bottom: 65px;
+    }
+
+    button {
+        color: white;
+        background-color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        border: none;
+        padding: 10px;
+        font-size: 3vh;
+        width: 50%;
+        text-decoration: none !important;
+        background: linear-gradient(273deg, #bbbbbb, #ffffff, #bbbbbb);
+        background-size: 600% 600%;
+        animation: BackgroundAnim 5s ease infinite, shakery 3s infinite;
+    }
+
+    button:hover {
+        background: white; 
+        animation: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;    }
+
+    a:hover {
+        color: black;
+    }
+}
+
+
+
+@keyframes BackgroundAnim {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+@keyframes shakery {
+    0% {
+        transform: translateX(0px) rotate(0deg);
+    }
+
+    2% {
+        transform: translateX(-4px) rotate(-4deg);
+    }
+
+    4% {
+        transform: translateX(-2px) rotate(-2deg);
+    }
+
+    6% {
+        transform: translateX(4px) rotate(4deg);
+    }
+
+    8% {
+        transform: translateX(2px) rotate(2deg);
+    }
+
+    10% {
+        transform: translateX(0px) rotate(0deg);
+    }
+    12% {
+        transform: translateX(-4px) rotate(-4deg);
+    }
+
+    14% {
+        transform: translateX(-2px) rotate(-2deg);
+    }
+
+    16% {
+        transform: translateX(4px) rotate(4deg);
+    }
+
+    18% {
+        transform: translateX(2px) rotate(2deg);
+    }
+
+    20% {
+        transform: translateX(0px) rotate(0deg);
+    }
+    100% {
+        transform: translateX(0px) rotate(0deg);
+    }
+
+}
