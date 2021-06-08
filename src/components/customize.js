@@ -84,7 +84,7 @@ function customize(props) {
     if (currentSlide == 1) {
       return (
         <div className="custom_section">
-          <h3>Username</h3>
+          <h3>Username Section</h3>
           <div className="mainbody-overall">
             <div className="mainbody">
               <p>Background color: {portfolio.header?.userName.backgroundColor} </p>
@@ -263,7 +263,7 @@ function customize(props) {
           <div className="fontpickers">
             <div className="fontsections">
               <p>Font Size:
-                <input onChange={onChangeHandler(setRoleFontSize)} value={roleFontSize} />
+                <input type="number" onChange={onChangeHandler(setRoleFontSize)} value={roleFontSize} />
               </p>
             </div>
             <div className="fontsections">
@@ -279,7 +279,7 @@ function customize(props) {
             </div>
           </div>
           <div className="preview-section" style={{ backgroundColor: roleBgColor }}>
-            <p className="apply-font" style={{ fontSize: roleFontSize, color: roleColor }}>~Font preview~</p>
+            <p className="apply-font" style={{ fontSize: `${roleFontSize}em`, color: roleColor }}>~Font preview~</p>
           </div>
         </div>
       );
@@ -309,7 +309,7 @@ function customize(props) {
           <div className="fontpickers">
             <div className="fontsections">
               <p>Font Size:
-                <input onChange={onChangeHandler(setAboutmeFontSize)} value={aboutmeFontSize} />
+                <input type="number" onChange={onChangeHandler(setAboutmeFontSize)} value={aboutmeFontSize} />
               </p>
             </div>
             <div className="fontsections">
@@ -325,7 +325,7 @@ function customize(props) {
             </div>
           </div>
           <div className="preview-section" style={{ backgroundColor: aboutmeBgColor }}>
-            <p className="apply-font" style={{ fontSize: aboutmeFontSize, color: aboutmeColor }}>~Font preview~</p>
+            <p className="apply-font" style={{ fontSize: `${aboutmeFontSize}em`, color: aboutmeColor }}>~Font preview~</p>
           </div>
         </div>
       );
@@ -355,7 +355,7 @@ function customize(props) {
           <div className="fontpickers">
             <div className="fontsections">
               <p>Font Size:
-                <input onChange={onChangeHandler(setProjectsFontSize)} value={projectsFontSize} />
+                <input type="number" onChange={onChangeHandler(setProjectsFontSize)} value={projectsFontSize} />
               </p>
             </div>
             <div className="fontsections">
@@ -371,7 +371,7 @@ function customize(props) {
             </div>
           </div>
           <div className="preview-section" style={{ backgroundColor: projectsBgColor }}>
-            <p className="apply-font" style={{ fontSize: projectsFontSize, color: projectsColor }}>~Font preview~</p>
+            <p className="apply-font" style={{ fontSize: `${projectsFontSize}em`, color: projectsColor }}>~Font preview~</p>
           </div>
           <p>Row or Column:
             <input onChange={onChangeHandler(setProjectsDir)} value={projectsDir} />
@@ -419,7 +419,7 @@ function customize(props) {
           <div className="fontpickers">
             <div className="fontsections">
               <p>Font Size:
-                <input onChange={onChangeHandler(setContactmeFontSize)} value={contactmeFontSize} />
+                <input type="number" onChange={onChangeHandler(setContactmeFontSize)} value={contactmeFontSize} />
               </p>
             </div>
             <div className="fontsections">
@@ -435,7 +435,7 @@ function customize(props) {
             </div>
           </div>
           <div className="preview-section" style={{ backgroundColor: contactmeBgColor }}>
-            <p className="apply-font" style={{ fontSize: contactmeFontSize, color: contactmeColor }}>~Font preview~</p>
+            <p className="apply-font" style={{ fontSize: `${contactmeFontSize}em`, color: contactmeColor }}>~Font preview~</p>
           </div>
         </div>
       );
@@ -482,6 +482,22 @@ function customize(props) {
 
   function onDoneEdit() {
     setIsEditing(!isEditing);
+    if (userNameFontSize.substring(userNameFontSize.indexOf('e'), userNameFontSize.length - 1) === 'emem') {
+      setUserNameFontSize(userNameFontSize.substring(0, userNameFontSize.length - 3));
+    }
+    if (roleFontSize.substring(roleFontSize.indexOf('e'), roleFontSize.length - 1) === 'emem') {
+      setUserNameFontSize(roleFontSize.substring(0, roleFontSize.length - 3));
+    }
+    if (aboutmeFontSize.substring(aboutmeFontSize.indexOf('e'), aboutmeFontSize.length - 1) === 'emem') {
+      setUserNameFontSize(aboutmeFontSize.substring(0, aboutmeFontSize.length - 3));
+    }
+    if (projectsFontSize.substring(projectsFontSize.indexOf('e'), projectsFontSize.length - 1) === 'emem') {
+      setUserNameFontSize(projectsFontSize.substring(0, projectsFontSize.length - 3));
+    }
+    if (contactmeFontSize.substring(contactmeFontSize.indexOf('e'), contactmeFontSize.length - 1) === 'emem') {
+      setUserNameFontSize(contactmeFontSize.substring(0, contactmeFontSize.length - 3));
+    }
+
     props.updatePortfolio(props.match.params.id, {
       name,
       header: {
@@ -498,7 +514,7 @@ function customize(props) {
           color: roleColor,
           backgroundColor: roleBgColor,
           font: roleFont,
-          fontSize: roleFontSize,
+          fontSize: `${roleFontSize}em`,
         },
       },
       aboutMe: {
@@ -506,14 +522,14 @@ function customize(props) {
         color: aboutmeColor,
         backgroundColor: aboutmeBgColor,
         font: aboutmeFont,
-        fontSize: aboutmeFontSize,
+        fontSize: `${aboutmeFontSize}em`,
       },
       projects: {
         ...portfolio.projects,
         color: projectsColor,
         backgroundColor: projectsBgColor,
         font: projectsFont,
-        fontSize: projectsFontSize,
+        fontSize: `${projectsFontSize}em`,
         flexDirection: projectsDir,
       },
       contactMe: {
@@ -521,7 +537,7 @@ function customize(props) {
         color: contactmeColor,
         backgroundColor: contactmeBgColor,
         font: contactmeFont,
-        fontSize: contactmeFontSize,
+        fontSize: `${contactmeFontSize}em`,
       },
     });
   }
@@ -563,7 +579,7 @@ function customize(props) {
           </div>
           <div className="buttons_div">
             <button className="editicon-addspin renderbutton cancel" id="icon" type="button" onClick={onDoneEdit}>Done</button>
-            <Link to="/">
+            <Link to="/portfolios">
               {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
               <button className="editicon-addspin renderbutton cancel" id="icon" type="button">Cancel</button>
             </Link>
