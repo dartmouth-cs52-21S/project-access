@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/control-has-associated-label */
@@ -107,9 +108,13 @@ class Settings extends Component {
           {this.displayProfileImage()}
           <input type="file"
             name="coverImage"
-            title="Choose a video please"
+            title="Choose a picture please"
             onChange={this.onImageUpload}
+            id="actual-btn"
+            hidden
           />
+          <label htmlFor="actual-btn" id="actual-btn">Upload Profile Image</label>
+
         </div>
       );
     } else {
@@ -219,6 +224,7 @@ class Settings extends Component {
               <button className="sign-button" type="button" onClick={this.changeName}><FontAwesomeIcon icon={faUserEdit} /></button>
             </div>
             <div className="profile-info-email">{this.props.profile.email}</div>
+            <button className="save-button" type="button" onClick={() => { this.props.history.push('/profile'); }}>Back</button>
           </div>
         </div>
       );

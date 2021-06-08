@@ -88,7 +88,7 @@ function customize(props) {
     if (currentSlide == 1) {
       return (
         <div className="custom_section">
-          <h3>Username</h3>
+          <h3>Username Section</h3>
           <div className="mainbody-overall">
             <div className="mainbody">
               <p>Background color: {portfolio.header?.userName.backgroundColor} </p>
