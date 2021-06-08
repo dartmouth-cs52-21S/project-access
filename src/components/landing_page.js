@@ -6,6 +6,8 @@ import {
   withRouter,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 class LandingPage extends Component {
   constructor(props) {
@@ -34,13 +36,13 @@ class LandingPage extends Component {
     if (this.props.auth) {
       return (
         <NavLink exact to="/profile">
-          <button className="button" type="button"><span>Start Now  </span></button>
+          <button className="button startbutton" type="button"><span>Start Now  </span></button>
         </NavLink>
       );
     } else {
       return (
         <NavLink exact to="/signup">
-          <button className="button" type="button"><span>Start Now  </span></button>
+          <button className="button startbutton" type="button"><span>Start Now  </span></button>
         </NavLink>
       );
     }
@@ -50,21 +52,24 @@ class LandingPage extends Component {
     return (
       <div className="landing-page">
         <div className="header-container">
-          <p>Build your personal portfolio with</p>
-          <p>a click of a button!</p>
+          <p>Build your personal portfolio </p>
+          <p>website in just a few clicks!</p>
+          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+          <a href="#centerpart" className="downwardarrow"><FontAwesomeIcon icon={faChevronDown} /></a>
           {this.getStarted()}
         </div>
-        <div className="center-container">
+        <div className="center-container" id="centerpart">
           {/* converted image into a link using postimg.cc */}
-          <div className="image"><img src="https://i.postimg.cc/25cvxWcg/you-got-this.png" alt="" /></div>
-          <div>
-            <p>You’re destined for big things, let's get you there!</p>
-            <p>Make a beautiful site to showcase all your amazing experiences.</p>
+          <div className="image"><img src="https://miro.medium.com/max/1600/0*yiSSYT812xOs77TZ.gif" alt="" /></div>
+          <div className="textpart">
+            <p>You’re destined for big things, let's get you there! <br />Make a beautiful site to showcase all your amazing experiences.</p>
           </div>
         </div>
         <div className="bottom-container">
-          <p>Boost your applications <br /> and get your dream job now!</p>
-          <div className="image"><img src="https://i.postimg.cc/L4Zfznz0/chat.png" alt="" /></div>
+          <div className="textpart">
+            <p>Boost your applications <br /> and get your dream job now!</p>
+          </div>
+          <div className="image"><img src="https://i.postimg.cc/Xv8XcLHQ/giphy-1.gif" alt="" /></div>
         </div>
         {this.startNow()}
       </div>
