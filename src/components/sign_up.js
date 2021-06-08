@@ -5,7 +5,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import React, { Component } from 'react';
 // import TextareaAutosize from 'react-textarea-autosize';
 import validator from 'validator';
@@ -221,6 +221,7 @@ class signUp extends Component {
             {this.displayPasswordMismatch()}
           </div>
           <div className="signup-button" onClick={this.submitinfo}>Sign Up</div>
+          <p>Already have an account? Sign in <NavLink className="signinup" exact to="/signin">Here</NavLink></p>
         </div>
       </div>
     // <div className="signin_up">
