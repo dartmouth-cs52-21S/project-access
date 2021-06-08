@@ -121,6 +121,8 @@ export function deletePortfolio(portfolioId, history) {
       .then((response) => {
         dispatch({ type: ActionTypes.DELETE_PORTFOLIO, payload: response.data });
         history.push('/profile');
+
+        history.push('/portfolios');
       })
       .catch((error) => {
         console.log('delete portfolio error found');

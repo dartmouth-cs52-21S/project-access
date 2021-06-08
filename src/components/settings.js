@@ -173,7 +173,7 @@ class Settings extends Component {
           // or your updatePost actionCreator
           // console.log('uploadImage called', url);
           // console.log('fawefe', profileUrl);
-
+          console.log('new url', url);
           this.setState(((prevState) => ({
             ...prevState,
             user: {

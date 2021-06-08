@@ -129,10 +129,10 @@
 
 .done:hover {
     background: rgb(0, 119, 0);
-    animation: effect 1s infinite;
+    animation: shake 1s infinite;
 }
 
-@keyframes effect {
+@keyframes shake {
     0% {
         transform: translateX(0px) rotate(0deg);
     }
