@@ -36,19 +36,16 @@ function customize(props) {
   const [userNameBgColor, setUserNameBgColor] = useState('');
   const [userNameFont, setUserNameFont] = useState('');
   const [userNameFontSize, setUserNameFontSize] = useState('');
-  // const [userNameDir, setUserNameDir] = useState('row');
 
   const [roleColor, setRoleColor] = useState('');
   const [roleBgColor, setRoleBgColor] = useState('');
   const [roleFont, setRoleFont] = useState('');
   const [roleFontSize, setRoleFontSize] = useState('');
-  // const [roleDir, setRoleDir] = useState('');
 
   const [aboutmeColor, setAboutmeColor] = useState('');
   const [aboutmeBgColor, setAboutmeBgColor] = useState('');
   const [aboutmeFont, setAboutmeFont] = useState('');
   const [aboutmeFontSize, setAboutmeFontSize] = useState('');
-  // const [aboutmeDir, setAboutmeDir] = useState('');
 
   const [projectsColor, setProjectsColor] = useState('');
   const [projectsBgColor, setProjectsBgColor] = useState('');
@@ -60,7 +57,6 @@ function customize(props) {
   const [contactmeBgColor, setContactmeBgColor] = useState('');
   const [contactmeFont, setContactmeFont] = useState('');
   const [contactmeFontSize, setContactmeFontSize] = useState('');
-  // const [contactmeDir, setContactmeDir] = useState('');
 
   const onChangeHandler = (setter) => (e) => setter(e.target.value);
   const onChangeHandlerColor = (setter) => (e) => (validateColor(e.target.value) ? setter(e.target.value) : setter('white'));
@@ -96,7 +92,6 @@ function customize(props) {
               <p>Font: {portfolio.header?.userName.font} </p>
               <p>Font Size: {portfolio.header?.userName.fontSize} </p>
               <p>Justify Content: {portfolio.header?.userName.justifyContent} </p>
-              {/* <p>Orientation: {portfolio.header?.userName.flexDirection} </p> */}
             </div>
             <div className="mainbody-preview">
               <div className="preview-section" style={{ backgroundColor: userNameBgColor }}>
@@ -118,7 +113,6 @@ function customize(props) {
               <p>Font: {portfolio.header?.role.font} </p>
               <p>Font Size: {portfolio.header?.role.fontSize} </p>
               <p>Justify Content: {portfolio.header?.role.justifyContent} </p>
-              {/* <p>Orientation: {portfolio.header?.role.flexDirection} </p> */}
             </div>
             <div className="mainbody-preview">
               <div className="preview-section" style={{ backgroundColor: roleBgColor }}>
@@ -140,7 +134,6 @@ function customize(props) {
               <p>Font: {portfolio.aboutMe?.font} </p>
               <p>Font Size: {portfolio.aboutMe?.fontSize} </p>
               <p>Justify Content: {portfolio.aboutMe?.justifyContent} </p>
-              {/* <p>Orientation: {portfolio.aboutMe?.flexDirection} </p> */}
             </div>
             <div className="mainbody-preview">
               <div className="preview-section" style={{ backgroundColor: aboutmeBgColor }}>
@@ -185,7 +178,6 @@ function customize(props) {
               <p>Font: {portfolio.contactMe?.font} </p>
               <p>Font Size: {portfolio.contactMe?.fontSize} </p>
               <p>Justify Content: {portfolio.contactMe?.justifyContent} </p>
-              {/* <p>Orientation: {portfolio.contactMe?.flexDirection} </p> */}
             </div>
             <div className="mainbody-preview">
               <div className="preview-section" style={{ backgroundColor: contactmeBgColor }}>
@@ -224,7 +216,7 @@ function customize(props) {
           </div>
           <div className="fontpickers">
             <div className="fontsections">
-              <p>Font Size: <input onChange={onChangeHandler(setUserNameFontSize)} value={userNameFontSize} />
+              <p>Font Size: <input type="number" onChange={onChangeHandler(setUserNameFontSize)} value={userNameFontSize} />
               </p>
             </div>
             <div className="fontsections">
@@ -241,7 +233,7 @@ function customize(props) {
             </div>
           </div>
           <div className="preview-section" style={{ backgroundColor: userNameBgColor }}>
-            <p className="apply-font" style={{ fontSize: userNameFontSize, color: userNameColor }}>~Font preview~</p>
+            <p className="apply-font" style={{ fontSize: `${userNameFontSize}em`, color: userNameColor }}>~Font preview~</p>
           </div>
         </div>
       );
@@ -289,9 +281,6 @@ function customize(props) {
           <div className="preview-section" style={{ backgroundColor: roleBgColor }}>
             <p className="apply-font" style={{ fontSize: roleFontSize, color: roleColor }}>~Font preview~</p>
           </div>
-          {/* <p>Row or Column:
-            <input onChange={onChangeHandler(setRoleDir)} value={roleDir} />
-          </p> */}
         </div>
       );
     }
@@ -338,9 +327,6 @@ function customize(props) {
           <div className="preview-section" style={{ backgroundColor: aboutmeBgColor }}>
             <p className="apply-font" style={{ fontSize: aboutmeFontSize, color: aboutmeColor }}>~Font preview~</p>
           </div>
-          {/* <p>Row or Column:
-            <input onChange={onChangeHandler(setAboutmeDir)} value={aboutmeDir} />
-          </p> */}
         </div>
       );
     }
@@ -451,9 +437,6 @@ function customize(props) {
           <div className="preview-section" style={{ backgroundColor: contactmeBgColor }}>
             <p className="apply-font" style={{ fontSize: contactmeFontSize, color: contactmeColor }}>~Font preview~</p>
           </div>
-          {/* <p>Row or Column:
-            <input onChange={onChangeHandler(setContactmeDir)} value={contactmeDir} />
-          </p> */}
         </div>
       );
     }
@@ -473,19 +456,16 @@ function customize(props) {
       setUserNameBgColor(portfolio.header.userName.backgroundColor);
       setUserNameFont(portfolio.header.userName.font);
       setUserNameFontSize(portfolio.header.userName.fontSize);
-      // setUserNameDir(portfolio.header.userName.flexDirection);
 
       setRoleColor(portfolio.header.role.color);
       setRoleBgColor(portfolio.header.role.backgroundColor);
       setRoleFont(portfolio.header.role.font);
       setRoleFontSize(portfolio.header.role.fontSize);
-      // setRoleDir(portfolio.header.role.flexDirection);
 
       setAboutmeColor(portfolio.aboutMe.color);
       setAboutmeBgColor(portfolio.aboutMe.backgroundColor);
       setAboutmeFont(portfolio.aboutMe.font);
       setAboutmeFontSize(portfolio.aboutMe.fontSize);
-      // setAboutmeDir(portfolio.aboutMe.flexDirection);
 
       setProjectsColor(portfolio.projects.color);
       setProjectsBgColor(portfolio.projects.backgroundColor);
@@ -497,7 +477,6 @@ function customize(props) {
       setContactmeBgColor(portfolio.contactMe.backgroundColor);
       setContactmeFont(portfolio.contactMe.font);
       setContactmeFontSize(portfolio.contactMe.fontSize);
-      // setContactmeDir(portfolio.contactMe.flexDirection);
     }
   }, [portfolio]);
 
@@ -512,8 +491,7 @@ function customize(props) {
           color: userNameColor,
           backgroundColor: userNameBgColor,
           font: userNameFont,
-          fontSize: userNameFontSize,
-          // flexDirection: userNameDir,
+          fontSize: `${userNameFontSize}em`,
         },
         role: {
           ...portfolio.header.role,
@@ -521,7 +499,6 @@ function customize(props) {
           backgroundColor: roleBgColor,
           font: roleFont,
           fontSize: roleFontSize,
-          // flexDirection: roleDir,
         },
       },
       aboutMe: {
@@ -530,7 +507,6 @@ function customize(props) {
         backgroundColor: aboutmeBgColor,
         font: aboutmeFont,
         fontSize: aboutmeFontSize,
-        // flexDirection: aboutmeDir,
       },
       projects: {
         ...portfolio.projects,
@@ -546,7 +522,6 @@ function customize(props) {
         backgroundColor: contactmeBgColor,
         font: contactmeFont,
         fontSize: contactmeFontSize,
-        // flexDirection: contactmeDir,
       },
     });
   }

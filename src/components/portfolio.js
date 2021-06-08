@@ -5,6 +5,7 @@ import '../style.scss';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { fetchPortfolio, getUserProfile } from '../actions';
+import '../styles/portfolio.scss';
 
 class Portfolio extends Component {
   constructor(props) {
@@ -99,9 +100,11 @@ class Portfolio extends Component {
       flexDirection: 'column',
     };
     const aboutimagestyle = {
-      width: '400px',
+      width: '20vw',
+      minWidth: '300px',
       height: 'auto',
       borderRadius: '10px',
+      margin: 'auto',
     };
 
     if (Object.keys(this.props.curr).length === 0) {
@@ -236,7 +239,7 @@ class Portfolio extends Component {
       }
 
       return (
-        <div style={bodycolor}>
+        <div className="portfoliorender" style={bodycolor}>
           <div className="header" style={headerpadding}>
             <h1 style={headerusernamestyle}>{this.props.curr.resume?.event?.name.name}</h1>
             <h2 style={headerrolestyle}>{this.props.curr.resume?.event?.role.role}</h2>

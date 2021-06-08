@@ -270,7 +270,7 @@ function InputResume(props) {
   const nameerror = () => {
     if (name.name === undefined || name.name === '') {
       return (
-        <div className="emessage">Please include your name</div>
+        <div className="emessage">* Required Field: Please include your name</div>
       );
     } else {
       return (
@@ -282,7 +282,7 @@ function InputResume(props) {
   const phoneerror = () => {
     if (phone.phone === undefined || phone.phone === '') {
       return (
-        <div className="emessage">Please include your phone number</div>
+        <div className="emessage">* Required Field: Please include your phone number</div>
       );
     } else {
       return (
@@ -294,7 +294,7 @@ function InputResume(props) {
   const emailerror = () => {
     if (email.email === undefined || email.email === '') {
       return (
-        <div className="emessage">Please include your email</div>
+        <div className="emessage">* Required Field: Please include your email</div>
       );
     } else {
       return (
@@ -306,7 +306,7 @@ function InputResume(props) {
   const roleerror = () => {
     if (role.role === undefined || role.role === '') {
       return (
-        <div className="emessage">Please include your current role</div>
+        <div className="emessage">* Required Field: Please include your current role</div>
       );
     } else {
       return (
@@ -318,7 +318,7 @@ function InputResume(props) {
   const abouterror = () => {
     if (about.about === undefined || about.about === '') {
       return (
-        <div className="emessage">Please tell us about yourself</div>
+        <div className="emessage">* Required Field: Please tell us about yourself</div>
       );
     } else {
       return (
@@ -330,7 +330,7 @@ function InputResume(props) {
   const collegeerror = () => {
     if (education.college === undefined || education.college === '') {
       return (
-        <div className="emessage">This field is required</div>
+        <div className="emessage">* Required Field: Please include your college</div>
       );
     } else {
       return (
@@ -342,7 +342,7 @@ function InputResume(props) {
   const degreeerror = () => {
     if (education.degree === undefined || education.degree === '') {
       return (
-        <div className="emessage">This field is required</div>
+        <div className="emessage">* Required Field: Please include your degree</div>
       );
     } else {
       return (
@@ -559,22 +559,6 @@ function InputResume(props) {
   const leaveform = () => {
     props.history.push('/portfolios');
   };
-
-  // const onImageUpload = (event) => {
-  //   console.log(event.target.files[0]);
-  //   const file = event.target.files[0];
-  //   // Handle null file
-  //   // Get url of the file and set it to the src of preview
-  //   if (file) {
-  //     // console.log('running onImageUpload');
-  //     this.setState(((prevState) => ({
-  //       ...prevState,
-  //       preview: window.URL.createObjectURL(file),
-  //       file,
-  //     })));
-  //   }
-  //   // console.log('state onImageUpload', this.state);
-  // }
 
   return (
     <div>
